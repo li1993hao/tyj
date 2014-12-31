@@ -114,9 +114,9 @@
         //回车搜索
         $("#search").keyup(function(e) {
             if (e.keyCode === 13) {
-                var url =  '{:U(CONTROLLER_NAME.'/'.ACTION_NAME)}';
+                var url =  "{:U(CONTROLLER_NAME.'/'.ACTION_NAME.'?nickname=PLACEHODLE')}";
                 var query = $('#search').val();
-                url+=('?nickname='+query);
+                url = url.replace('PLACEHODLE',query);
                 window.location.href = url;
                 return false;
             }

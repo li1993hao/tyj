@@ -42,7 +42,7 @@
             <button class="btn btn-sm btn-primary ajax-post" url="{:U('changeStatus',array('method'=>'resume'))}" target-form="ids">启 用</button>
             <button class="btn btn-sm btn-primary ajax-post" url="{:U('changeStatus',array('method'=>'forbid'))}" target-form="ids">禁 用</button>
             <button class="btn btn-sm btn-primary ajax-post confirm" url="{:U('del')}" target-form="ids" data-tip="确定要删除所选链接么?">删 除</button>
-            <button class="btn list_sort btn-sm btn-primary" url="{:U('sort')}">排序</button>
+            <button class="btn list_sort btn-sm btn-primary" >排序</button>
         </div>
         <!-- 高级搜索 -->
         <div class="pull-right">
@@ -124,7 +124,7 @@
         $(function() {
             //点击排序
             $('.list_sort').click(function(){
-                var url = $(this).attr('url');
+                var url ="{:U('sort?id=PLACEHODLE')}";
                 var ids = $('.ids:checked');
                 var param = '';
                 if(ids.length == 0){
@@ -143,7 +143,8 @@
                 }
 
                 if(url != undefined && url != ''){
-                    window.location.href = url + '?ids=' + param;
+
+                    window.location.href = url.repalce('PLACEHODLE',param);
                 }
             });
         });

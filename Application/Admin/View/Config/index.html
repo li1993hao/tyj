@@ -103,9 +103,9 @@
             //回车搜索
             $("#search").keyup(function (e) {
                 if (e.keyCode === 13) {
-                    var url = '{:U(CONTROLLER_NAME.' / '.ACTION_NAME)}';
+                    var url =  "{:U(CONTROLLER_NAME.'/'.ACTION_NAME.'?name=PLACEHODLE')}";
                     var query = $('#search').val();
-                    url += ('?name=' + query);
+                    url = url.replace('PLACEHODLE',query);
                     window.location.href = url;
                     return false;
                 }

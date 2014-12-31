@@ -78,9 +78,9 @@
             //回车搜索
             $("#search").keyup(function(e) {
                 if (e.keyCode === 13) {
-                    var url = "{:U('news','category_id='.$category_id,false)}";
-                    var qurey  = $('#search').val();
-                    url+= ('?title='+qurey);
+                    var url = "{:U('news?category_id='.$category_id.'&title=PLACEHODLE')}";
+                    var query  = $('#search').val();
+                    url = url.replace('PLACEHODLE',query);
                     window.location.href = url;
                 }
             });

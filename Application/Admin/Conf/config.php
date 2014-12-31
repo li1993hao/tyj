@@ -8,6 +8,6 @@ return array(
         '__JS__'     => __ROOT__ . '/Public/static/js',
         '__UPLOADS__' => __ROOT__ . '/Uploads',
     ),
-    'URL_MODEL'=>'2',
+    'URL_MODEL'=>'3',
     'LIST_ROWS'=>2
 );
