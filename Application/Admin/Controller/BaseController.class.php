@@ -46,7 +46,8 @@ class BaseController extends Controller {
         }elseif( $access === null ){
             $type = session('user_auth')['type'];
             if($type >0){//非管理员
-                $result = M(C('BASE_INFO_NAME')[$type])->where(array('uid'=>UID))->find();
+                $cf = C('BASE_INFO_NAME');
+                $result = M($cf[$type])->where(array('uid'=>UID))->find();
                 if(!$result){//没有信息
                     if(strtolower(CONTROLLER_NAME) != 'myspace'){
                         $this->error('您的信息还不完善,请先完善个人信息!',U('MySpace/baseInfo'));

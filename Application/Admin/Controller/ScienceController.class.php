@@ -247,7 +247,8 @@ class ScienceController extends ThinkController {
         }
         $this->assign('types', array(0=>'日总结',1=>'周总结',2=>'月总结',3=>'年度总结'));
 
-        $user_type = session('user_auth')['type'];
+        $cf =  session('user_auth');
+        $user_type =$cf['type'];
         if($user_type==2){//动态判断教练员权限
             $person = M('Coach')->where(array('uid'=>UID))->field('team')->find();
             //得到所有运动员用户id

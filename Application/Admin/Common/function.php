@@ -208,7 +208,8 @@ function get_user_group($type){
 
 function CC($config,$index){
     if(isset($index)){
-        return C($config)[$index];
+        $result = C($config);
+        return $result[$index];
     }else{
         return C($config);
     }
