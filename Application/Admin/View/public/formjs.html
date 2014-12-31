@@ -1,0 +1,22 @@
+<link href="__PUBLIC__/vendor/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__PUBLIC__/vendor/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/vendor/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript" src="__PUBLIC__/vendor/ueditor/ueditor.config.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/vendor/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/vendor/jquery.cxselect.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.date').datetimepicker({
+            format: 'yyyy-mm-dd',
+            language:"zh-CN",
+            minView:2,
+            autoclose:true
+        });
+        $('.time').datetimepicker({
+            format: 'yyyy-mm-dd hh:ii',
+            language:"zh-CN",
+            minView:2,
+            autoclose:true
+        });
+    });
+</script>

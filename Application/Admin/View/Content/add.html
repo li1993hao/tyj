@@ -1,0 +1,15 @@
+<extend name="Public/base"/>
+<block name="title">
+    {$meta_title}
+</block>
+<block name="content">
+    <script type="text/javascript" src="__PUBLIC__/vendor/uploadify/jquery.uploadify.min.js"></script>
+    <!-- 标签页导航 -->
+    <form action="{:U('add')}" method="post" class="form-horizontal normal-form">
+        <input name="category_id" type="hidden" value="{$category_id}"/>
+        <include file="public/addform"/>
+    </form>
+</block>
+<block name="js">
+    <include file="public/formjs"/>
+</block>

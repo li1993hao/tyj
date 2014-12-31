@@ -1,0 +1,172 @@
+﻿<extend name="public/base"/>
+<block name="content">
+<!--=== Content Part ===-->
+<div class="container">
+<div class="row magazine-page" style="margin-top: 10px">
+    <!--Magazine Slider-->
+    <div class="col-md-7 carousel-wapper">
+        <div class="carousel  slide carousel-v1 margin-bottom-20" id="myCarousel-1">
+            <div class="carousel-inner">
+                <volist name=":position(3)" id="vo">
+                    <div class="item <eq name='i' value='1'>active</eq>">
+                        <present name="vo.cover_path">
+                            <a href="{$vo.url}"><img style="height: 215px;width:100%" alt="{$vo.title}" src="{$vo.cover_path}"></a>
+                            <else/>
+                            <a href="{$vo.url}"> <img style="height: 215px;width:100%" alt="{$vo.title}" src="__DEFAULT__"/></a>
+                        </present>
+                        <div class="carousel-caption">
+                            <p><a href="{$vo.url}" style="color: #ffffff">{$vo.title}</a></p>
+                        </div>
+                    </div>
+                </volist>
+            </div>
+            <div class="carousel-arrow">
+                <a data-slide="prev" href="#myCarousel-1" class="left carousel-control">
+                    <i class="icon-angle-left"></i>
+                </a>
+                <a data-slide="next" href="#myCarousel-1" class="right carousel-control">
+                    <i class="icon-angle-right"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-5">
+        <div class="tab-v1">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#home" data-toggle="tab">中心要闻</a></li>
+                <li><a href="#profile" data-toggle="tab">赛事快讯</a></li>
+                <li><a href="#messages" data-toggle="tab">热点关注</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="home">
+                    <div class="row">
+
+                    </div>
+                </div>
+                <div class="tab-pane" id="profile">
+
+                </div>
+                <div class="tab-pane" id="messages">
+
+                </div>
+                <div class="tab-pane" id="settings">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row magazine-page">
+<div class="col-md-3">
+ <include file="block/index_left"/>
+</div>
+<!-- Begin Content -->
+<div class="col-md-6">
+    <div class="margin-bottom-10"></div>
+    <div class="tab-v2 tab-v2-red">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#p1" data-toggle="tab">训练动态</a></li>
+            <li><a href="#p2" data-toggle="tab">竞赛信息</a></li>
+            <li><a href="#p2" data-toggle="tab">运动项目</a></li>
+            <li><a href="#p2" data-toggle="tab">赛事安排</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="p1">
+                <div class="row">
+
+                </div>
+            </div>
+            <div class="tab-pane" id="p2">
+
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="tab-v2 tab-v2-orange">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#p4" data-toggle="tab">中心要闻</a></li>
+            <li><a href="#p5" data-toggle="tab">赛事快讯</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="p4">
+                <div class="row">
+
+                </div>
+            </div>
+            <div class="tab-pane" id="p5">
+
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="tab-v2 tab-v2-yellow">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#p7" data-toggle="tab">规章制度</a></li>
+            <li><a href="#p8" data-toggle="tab">机构职能</a></li>
+            <li><a href="#p8" data-toggle="tab">职能评估</a></li>
+            <li><a href="#p8" data-toggle="tab">网上办事</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="p7">
+                <div class="row">
+
+                </div>
+            </div>
+            <div class="tab-pane" id="p8">
+
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="tab-v2 tab-v2-blue">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#p11" data-toggle="tab">党的建设</a></li>
+            <li><a href="#p12" data-toggle="tab">廉政建设</a></li>
+            <li><a href="#p12" data-toggle="tab">群团建设</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="p11">
+                <div class="row">
+
+                </div>
+            </div>
+            <div class="tab-pane" id="p12">
+
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="tab-v2 tab-v2-sea">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#p11" data-toggle="tab">党务工作</a></li>
+            <li><a href="#p12" data-toggle="tab">行政制度</a></li>
+            <li><a href="#p12" data-toggle="tab">训练制度</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="p13">
+                <div class="row">
+
+                </div>
+            </div>
+            <div class="tab-pane" id="p14">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Content -->
+
+<!-- Begin Sidebar -->
+<div class="col-md-3">
+    <include file="block/index_right"/>
+</div>
+<!-- End Sidebar -->
+</div>
+</div><!--/container-->
+<!-- End Content Part -->
+</block>
+
+

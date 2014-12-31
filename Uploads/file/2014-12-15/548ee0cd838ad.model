@@ -1,0 +1,10 @@
+article
+id int(11) primary key auto_increment,
+title varchar(255),
+title_style varchar(15),
+content text,
+publisher int(11),
+key_word  varchar(255),
+click_num int(11),
+create_time int(11),
+update_time int(11)

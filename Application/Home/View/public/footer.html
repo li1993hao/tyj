@@ -1,0 +1,63 @@
+
+<!--=== Copyright ===-->
+<div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="copyright-space">
+                    2014 &copy; 天津时代科技. ALL Rights Reserved.
+                </p>
+            </div>
+        </div><!--/row-->
+    </div><!--/container-->
+</div><!--/copyright-->
+<!--=== End Copyright ===-->
+
+
+<!-- JS Global Compulsory -->
+<script type="text/javascript" src="__UNIFY__/plugins/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="__UNIFY__/plugins/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="__UNIFY__/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="__UNIFY__/plugins/hover-dropdown.min.js"></script>
+<script type="text/javascript" src="__UNIFY__/plugins/back-to-top.js"></script>
+<!-- JS Implementing Plugins -->
+<script type="text/javascript" src="__UNIFY__/plugins/flexslider/jquery.flexslider-min.js"></script>
+<script type="text/javascript" src="__UNIFY__/plugins/parallax-slider/js/modernizr.js"></script>
+<script type="text/javascript" src="__UNIFY__/plugins/parallax-slider/js/jquery.cslider.js"></script>
+<!-- JS Page Level -->
+<script type="text/javascript" src="__UNIFY__/js/app.js"></script>
+<script type="text/javascript" src="__UNIFY__/js/pages/index.js"></script>
+<script type="text/javascript" src="__JS__/common.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        App.init();
+        App.initSliders();
+        Index.initParallaxSlider();
+    });
+
+    $('.carousel').carousel({
+        interval: 4000 // in milliseconds
+    });
+
+    $("#search_text").keyup(function(e) {
+        if (e.keyCode === 13) {
+            $('#search_btn').click();
+        }
+    });
+
+    $('#search_btn').click(function(){
+        var text = $("#search_text").val();
+        text = text.trim();
+        if(!text){
+            shake($('#search_text').parent());
+            $('#search_text').prop('placeholder','写点什么吧..');
+        }else{
+            var url = "{:U('Index/search')}";
+            location.href= url+"?search="+text;
+        }
+    });
+</script>
+
+<!--[if lt IE 9]>
+<script src="__UNIFY__/plugins/respond.js"></script>
+<![endif]-->

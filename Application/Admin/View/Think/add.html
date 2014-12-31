@@ -1,0 +1,16 @@
+<extend name="Public/base"/>
+<block name="title">
+    {$meta_title}
+</block>
+<block name="content">
+<script type="text/javascript" src="__PUBLIC__/vendor/uploadify/jquery.uploadify.min.js"></script>
+    <!-- 标签页导航 -->
+<form class="form-horizontal normal-form" action="{:U(ACTION_NAME.'?model='.$model['id'])}" method="post">
+<include file="public/addform"/>
+</form>
+</block>
+<block name="js">
+    <include file="public/formjs"/>
+</block>
+
+

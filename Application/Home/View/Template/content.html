@@ -1,0 +1,49 @@
+<extend name="public/base"/>
+<block name="content">
+    <div class="breadcrumbs">
+        <div class="container">
+            <ul class="breadcrumb">
+                <volist name="nav" id="av">
+                    <if condition="$i eq count($nav)">
+                        <li class="active">{$av.name}</li>
+                        <else/>
+                        <li><a href="{$av.url}">{$av.name}</a></li>
+                    </if>
+                </volist>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <!-- Begin Content -->
+            <div class="col-md-9">
+                <div class="blog margin-bottom-40">
+                    <if condition="info.title_color eq '#555' ">
+                        <h2 class="text-center">{$info.title}</h2>
+                    <else/>
+                        <h2 class="text-center" style="color:{$info.title_color}">{$info.title}</h2>
+                    </if>
+                    <div class="blog-post-tags">
+                        <ul class="list-unstyled list-inline">
+                            <li><i class="icon-calendar"></i>{$info.create_time|date='Y-m-d H:i',###}</li>
+                            <li><i class="icon-pencil"></i>{:get_nickname($info['uid'])}</li>
+                            <li><i class="icon-eye-open"></i> <a href="#">{$info.view}</a></li>
+                        </ul>
+                    </div>
+                    <hr/>
+                    <section>{$info.content}</section>
+                </div>
+            </div>
+            <!-- End Content -->
+
+
+            <div class="col-md-3">
+                <include file="block/content_right"/>
+            </div>
+        </div>
+    </div>
+    <!--/container-->
+    <!-- End Content Part -->
+</block>
+
+

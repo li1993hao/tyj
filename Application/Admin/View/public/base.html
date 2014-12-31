@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <include file="Public/head"/>
+    <style>
+        .main_nav li{
+            float: left;
+        }
+        ul li{
+            list-style: none;
+        }
+        .main_nav a{
+            color: #ffffff;
+            display: block;
+            padding: 10px 10px 0 10px;
+            min-height: 45px;
+            font-size: 16px;
+        }
+        .main_nav a:hover{
+            text-decoration: none;
+        }
+
+        .main_nav a.active{
+            background-color:#93cbf9;
+        }
+        textarea{
+            min-height: 150px;
+            min-width: 300px;
+        }
+        .table thead>tr>th, .table tbody>tr>th, .table tfoot>tr>th, .table thead>tr>td, .table tbody>tr>td, .table tfoot>tr>td{
+            line-height: 2;
+        }
+    </style>
+    <block name="style">
+
+    </block>
+</head>
+<body class="navbar-fixed">
+<!-- 头部 -->
+<include file="Public/header"/>
+<!-- /头部 -->
+
+<!-- 主体 -->
+<include file="Public/body"/>
+<!-- /主体 -->
+
+<!-- 底部 -->
+<include file="Public/foot"/>
+<block name="js">
+</block>
+</body>
+</html>

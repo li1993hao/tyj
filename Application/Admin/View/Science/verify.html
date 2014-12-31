@@ -1,0 +1,27 @@
+<extend name="Public/base"/>
+<block name="title">
+    {$meta_title}
+</block>
+<block name="content">
+    <div id="timeline-1" class="">
+        <div class="row">
+            <div class="col-xs-12 col-sm-10">
+                <include file="public/info"/>
+            </div>
+        </div>
+        <div class="row">
+            <form action="{:U()}" method="post" style="margin-left: 44px" class="form-horizontal normal-form">
+                <div class="form-group">
+                    <label>审核内容:<span class="check-tips"></span></label>
+                    <div>
+                        <textarea name="content">{$info.content}</textarea>
+                    </div>
+                </div>
+                <input type="hidden" name="model_id" value="{$model.id}"/>
+                <input type="hidden" name="id" value="{$data.id}"/>
+                <button class="btn btn-sm btn-primary ajax-post"  type="submit" target-form="form-horizontal">提交</button>
+            </form>
+        </div>
+    </div>
+</block>
+

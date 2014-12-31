@@ -1,0 +1,75 @@
+<script type="text/javascript">
+    var lock = false;
+    $('#print').click(function(){
+        var url = "{:U('printData',array('id'=>'PLACEHODLE'))}";
+        var ids = $('.ids:checked');
+        var param = '';
+        if(ids.length > 0){
+            var str = new Array();
+            ids.each(function(){
+                str.push($(this).val());
+            });
+            param = str.join(',');
+            window.open(url.replace('PLACEHODLE',param));
+        }else{
+            errorAlert('请选择要操作的数据');
+        }
+    });
+
+    $("#print_single").click(function(){
+        if(lock){
+            errorAlert('数据正在加载请稍后');
+        }else{
+            var url = "{:U('printData',array('type'=>$type,'id'=>'PLACEHODLE'))}";
+            window.open(url.replace('PLACEHODLE',$(this).data('id')));
+        }
+    });
+
+    $('#adv_show').click(function(){
+        var ele = $(this).find('i');
+        if($(ele).hasClass('icon-chevron-up')){
+            $("#adv_search").slideDown('fast');
+            $(ele).removeClass('icon-chevron-up').addClass('icon-chevron-down');
+        }else{
+            $("#adv_search").slideUp('fast');
+            $(ele).removeClass('icon-chevron-down').addClass('icon-chevron-up');
+        }
+    });
+    $('.info').click(function(){
+        lock = true;
+        $("#user_info .modal-title").empty().html($(this).data('name')+"的详细信息");
+        $('#user_info').modal('show');
+        var uid = $(this).data('id')
+        var url = "{:U('info')}";
+        var wait ='<div style="text-align: center"><i class="icon-spinner icon-spin orange bigger-300"></i></div>'
+        $("#user_info .modal-body").empty().html(wait);
+        $("#print_single").data('id',uid);
+        $.post(url,{'id':uid},function(data){
+            lock = false;
+            $("#user_info .modal-body").empty().html(data);
+        });
+    });
+
+    $(function() {
+        //回车搜索
+        $("#search").keyup(function(e) {
+            if (e.keyCode === 13) {
+                var url =  '{:U(CONTROLLER_NAME.'/'.ACTION_NAME)}';
+                var query = $('#search').val();
+                url+=('?query_name='+query);
+                window.location.href = url;
+                return false;
+            }
+        });
+    });
+    <if condition='$where'>
+            !function(){
+                $("#adv_search").show();
+                var ele = $("#adv_show").find('i');
+                $(ele).removeClass('icon-chevron-up').addClass('icon-chevron-down');
+                <volist name='where' id='vo'>
+                        Think.setValue('{$key}','{$vo}');
+                </volist>
+            }();
+    </if>
+</script>

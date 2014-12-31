@@ -1,0 +1,70 @@
+.check-tips{
+    color: #aaa;
+    margin-left: 10px;
+}
+.normal-form{
+    margin-left: 10px;
+}
+.page a, .page span{
+    display: inline-block;
+    padding: 4px 12px;
+    color: #000000;
+    border: 1px solid #ccc;
+    margin-left: -1px;
+}
+.page .current{
+    color: #fff;
+    background-color: #438eb9;
+}
+
+.overlay-tip{
+    position: absolute;
+    top: 55%;
+    text-align: center;
+    width: 100%;
+}
+
+.progress-overlay{
+    width: 29%;
+    margin: 0 auto;
+    margin-top: 31%;
+}
+
+.progress-bg{
+    color: #ffffff;
+    z-index: 99999;
+    top: -55px;
+    background: rgba(0,0,0, 0.7);
+}
+/*排序*/
+.sort_option,.sort-op{
+    float: left;
+}
+.sort_option select{
+    width: 200px;
+    height: 250px;
+}
+.sort-op button{
+    display: block;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.error{
+    color: red;
+}
+
+.uploadify{
+    background-color: #428bca;
+    color: #ffffff;
+    text-align: center;
+    min-width: 40px;
+    margin-top: 10px;
+}
+.uploadify:hover{
+    background-color: #1b6aaa;
+}
+
+.form_field_sort{
+    min-height: 200px;
+}
