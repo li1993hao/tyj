@@ -44,7 +44,8 @@ class BaseController extends Controller {
         if ( $access === false ) {
             $this->error('403:禁止访问');
         }elseif( $access === null ){
-            $type = session('user_auth')['type'];
+            $sy = session('user_auth');
+            $type = $sy['type'];
             if($type >0){//非管理员
                 $cf = C('BASE_INFO_NAME');
                 $result = M($cf[$type])->where(array('uid'=>UID))->find();
