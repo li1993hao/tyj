@@ -1,0 +1,81 @@
+<extend name="Public/base"/>
+<block name="title">
+    {$meta_title}
+</block>
+<block name="content">
+    <form action="{:U()}" method="post" class="form-horizontal normal-form">
+        <div class="form-group">
+            <label  class="item-label">赛事:</label>
+            <select id="com_id" name="com_id">
+                <volist name="com" id="vo">
+                    <if  condition="$info['com_id'] eq $vo['id']">
+                        <option selected value="{$vo.id}" >{$vo.name}</option>
+                        <else/>
+                        <option  value="{$vo.id}">{$vo.name}</option>
+                    </if>
+                </volist>
+            </select>
+        </div>
+        <div class="form-group ">
+            <label  class="item-label">参赛项目:</label>
+            <div style="display: inline-block" class="add_sport">
+                <present name="info">
+                    <input type="hidden" name="sports" value="{$info.sports}"/><label>{$info.sports|get_sports='cp_name'}</label>
+                </present>
+            </div>
+            <a class="btn btn-sm btn-primary" onclick="addSports();" href="javascript:;">选择</a>
+        </div>
+        <div class="form-group ">
+            <label class="item-label">时间:</label>
+                <input type="text" class="date_3" <present name="info">value="{$info.time|date='Y-d',###}"</present>  name="time"/>
+        </div>
+        <div class="form-group">
+            <label class="item-label">地点:</label>
+            <input name="place" type="text" value="{$info.place}" maxlength="100"/>
+        </div>
+        <div class="form-group">
+            <label class="item-label">名次:</label>
+            <select name="ranking">
+                <volist name="Think.config.COM_MINGCI" id="value">
+                    <option <eq name="info.ranking" value="$key">selected</eq> value="{$key}">{$value}</option>
+                </volist>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="item-label">奖牌:</label>
+            <select name="medal">
+                <volist name="Think.config.COM_jiangpai" id="value">
+                    <option <eq name="info.medal" value="$key">selected</eq>  value="{$key}">{$value}</option>
+                </volist>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="item-label">备注:</label>
+            <textarea name="remark" maxlength="255">{$info.remark}</textarea>
+        </div>
+        <div class="form-group">
+            <notempty name="info">
+                <input type="hidden" name="id" value="{$info.id}"/>
+            </notempty>
+            <button type="submit" class="btn btn-sm btn-primary ajax-post" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-sm" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form>
+</block>
+<block name="js">
+    <link href="__PUBLIC__/vendor/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="__PUBLIC__/vendor/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/vendor/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+        function addSports(){
+            winopen("{:U('tool/selectSports?method=uid')}",500,600);
+        }
+        $('.date_3').datetimepicker({
+            format: 'yyyy-mm',
+            language:"zh-CN",
+            minView:3,
+            startView:3,
+            autoclose:true
+        });
+    </script>
+</block>

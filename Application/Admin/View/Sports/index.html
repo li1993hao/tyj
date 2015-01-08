@@ -29,6 +29,7 @@
                         <span class="lbl"></span>
                     </label>
                 </th>
+                <th>代码</th>
                 <th>排序</th>
                 <th>名称</th>
                 <th>上级</th>
@@ -46,6 +47,7 @@
                                 <span class="lbl"></span>
                             </label>
                         </td>
+                        <td>{$sport.code}</td>
                         <td>{$sport.sort}</td>
                         <td>
                             <a href="{:U('index?pid='.$sport['id'])}">{$sport.name}</a>
@@ -64,7 +66,7 @@
                     </tr>
                 </volist>
                 <else/>
-                <td colspan="6" class="text-center"> aOh! 暂时还没有内容! </td>
+                <td colspan="7" class="text-center"> aOh! 暂时还没有内容! </td>
             </notempty>
             </tbody>
         </table>

@@ -35,24 +35,38 @@
     <div class="col-md-5">
         <div class="tab-v1">
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#home" data-toggle="tab">中心要闻</a></li>
-                <li><a href="#profile" data-toggle="tab">赛事快讯</a></li>
+                <li class="active"><a href="#home" data-toggle="tab">{:cat_field(50,'name')}</a></li>
+                <li><a href="#profile" data-toggle="tab">{:cat_field(54,'name')}</a></li>
                 <li><a href="#messages" data-toggle="tab">热点关注</a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="home">
-                    <div class="row">
-
-                    </div>
+                        <ul class="list-unstyled">
+                            <volist name=":lists(50,'0,10')" id="info">
+                               <li><a href="{$info['url']}" data-color="{$info.list_color}">{$info['title']|msubstr=0,20}</a>
+                                   <div class="pull-right">{$info.create_time|date='Y-m-d',###}</div>
+                               </li>
+                            </volist>
+                        </ul>
                 </div>
                 <div class="tab-pane" id="profile">
-
+                    <ul class="list-unstyled">
+                    <volist name=":lists(54,'0,10')" id="info">
+                        <li><a href="{$info['url']}" data-color="{$info.list_color}">{$info['title']|msubstr=0,20}
+                        </a>
+                            <div class="pull-right">{$info.create_time|date='Y-m-d',###}</div>
+                        </li>
+                    </volist>
+                     </ul>
                 </div>
                 <div class="tab-pane" id="messages">
-
-                </div>
-                <div class="tab-pane" id="settings">
-
+                    <ul class="list-unstyled">
+                    <volist name=":api('Document/hot_list')" id="info">
+                        <li><a href="{$info['url']}" data-color="{$info.list_color}"> {$info['title']|msubstr=0,20}</a>
+                            <div class="pull-right">{$info.create_time|date='Y-m-d',###}</div>
+                        </li>
+                    </volist>
+                     </ul>
                 </div>
             </div>
         </div>
@@ -68,91 +82,184 @@
     <div class="margin-bottom-10"></div>
     <div class="tab-v2 tab-v2-red">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#p1" data-toggle="tab">训练动态</a></li>
-            <li><a href="#p2" data-toggle="tab">竞赛信息</a></li>
-            <li><a href="#p2" data-toggle="tab">运动项目</a></li>
-            <li><a href="#p2" data-toggle="tab">赛事安排</a></li>
+            <!--赛事安排-->
+            <li  class="active"><a href="#p2" data-toggle="tab">{:cat_field(52,'name')}</a></li>
+            <!--训练动态-->
+            <li><a href="#p1" data-toggle="tab">{:cat_field(53,'name')}</a></li>
+            <!--运动项目-->
+            <li><a href="#p3" data-toggle="tab">{:cat_field(55,'name')}</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane active" id="p1">
-                <div class="row">
-
-                </div>
+            <div class="tab-pane active" id="p2">
+                <ul class="list-unstyled">
+                    <volist name=":lists(52,'0,10')" id="info">
+                        <li><a href="{$info['url']}" data-color="{$info.list_color}">{$info['title']|msubstr=0,30}
+                        </a>
+                            <div class="pull-right">{$info.create_time|date='Y-m-d',###}</div>
+                        </li>
+                    </volist>
+                </ul>
             </div>
-            <div class="tab-pane" id="p2">
-
+            <div class="tab-pane " id="p1">
+                <ul class="list-unstyled">
+                    <volist name=":lists(53,'0,10')" id="info">
+                        <li><a href="{$info['url']}" data-color="{$info.list_color}">{$info['title']|msubstr=0,30}
+                        </a>
+                            <div class="pull-right">{$info.create_time|date='Y-m-d',###}</div>
+                        </li>
+                    </volist>
+                </ul>
             </div>
-        </div>
-    </div>
-    <hr/>
-    <div class="tab-v2 tab-v2-orange">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#p4" data-toggle="tab">中心要闻</a></li>
-            <li><a href="#p5" data-toggle="tab">赛事快讯</a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="p4">
-                <div class="row">
-
-                </div>
-            </div>
-            <div class="tab-pane" id="p5">
-
+            <div class="tab-pane" id="p3">
+                <ul class="list-unstyled">
+                    <volist name=":lists(55,'0,10')" id="info">
+                        <li><a href="{$info['url']}" data-color="{$info.list_color}">{$info['title']|msubstr=0,30}
+                        </a>
+                            <div class="pull-right">{$info.create_time|date='Y-m-d',###}</div>
+                        </li>
+                    </volist>
+                </ul>
             </div>
         </div>
     </div>
     <hr/>
     <div class="tab-v2 tab-v2-yellow">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#p7" data-toggle="tab">规章制度</a></li>
-            <li><a href="#p8" data-toggle="tab">机构职能</a></li>
-            <li><a href="#p8" data-toggle="tab">职能评估</a></li>
-            <li><a href="#p8" data-toggle="tab">网上办事</a></li>
+            <!--机构职能-->
+            <li class="active"><a href="#p8" data-toggle="tab">{:cat_field(58,'name')}</a></li>
+            <!--职能评估-->
+            <li><a href="#p9" data-toggle="tab">{:cat_field(60,'name')}</a></li>
+            <!--网上办事-->
+            <li><a href="#p10" data-toggle="tab">{:cat_field(61,'name')}</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane active" id="p7">
-                <div class="row">
-
-                </div>
+            <div class="tab-pane active" id="p8">
+                <ul class="list-unstyled">
+                    <volist name=":lists(58,'0,10')" id="info">
+                        <li><a href="{$info['url']}" data-color="{$info.list_color}">{$info['title']|msubstr=0,20}
+                        </a>
+                            <div class="pull-right">{$info.create_time|date='Y-m-d',###}</div>
+                        </li>
+                    </volist>
+                </ul>
             </div>
-            <div class="tab-pane" id="p8">
-
+            <div class="tab-pane" id="p9">
+                <ul class="list-unstyled">
+                    <volist name=":lists(60,'0,10')" id="info">
+                        <li><a href="{$info['url']}" data-color="{$info.list_color}">{$info['title']|msubstr=0,20}
+                        </a>
+                            <div class="pull-right">{$info.create_time|date='Y-m-d',###}</div>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+            <div class="tab-pane" id="p10">
+                <ul class="list-unstyled">
+                    <volist name=":lists(61,'0,10')" id="info">
+                        <li><a href="{$info['url']}" data-color="{$info.list_color}">{$info['title']|msubstr=0,20}
+                        </a>
+                            <div class="pull-right">{$info.create_time|date='Y-m-d',###}</div>
+                        </li>
+                    </volist>
+                </ul>
             </div>
         </div>
     </div>
     <hr/>
     <div class="tab-v2 tab-v2-blue">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#p11" data-toggle="tab">党的建设</a></li>
-            <li><a href="#p12" data-toggle="tab">廉政建设</a></li>
-            <li><a href="#p12" data-toggle="tab">群团建设</a></li>
+            <!--党的建设-->
+            <li class="active"><a href="#p11" data-toggle="tab">{:cat_field(83,'name')}</a></li>
+            <!--廉政建设-->
+            <li><a href="#p12" data-toggle="tab">{:cat_field(84,'name')}</a></li>
+            <!--党员活动-->
+            <li><a href="#p13" data-toggle="tab">{:cat_field(69,'name')}</a></li>
+            <!--学习园地-->
+            <li><a href="#p14" data-toggle="tab">{:cat_field(71,'name')}</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="p11">
-                <div class="row">
-
-                </div>
+                <ul class="list-unstyled">
+                    <volist name=":lists(83,'0,10')" id="info">
+                        <li><a href="{$info['url']}" data-color="{$info.list_color}">{$info['title']|msubstr=0,20}
+                        </a>
+                            <div class="pull-right">{$info.create_time|date='Y-m-d',###}</div>
+                        </li>
+                    </volist>
+                </ul>
             </div>
             <div class="tab-pane" id="p12">
-
+                <ul class="list-unstyled">
+                    <volist name=":lists(84,'0,10')" id="info">
+                        <li><a href="{$info['url']}" data-color="{$info.list_color}">{$info['title']|msubstr=0,20}
+                        </a>
+                            <div class="pull-right">{$info.create_time|date='Y-m-d',###}</div>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+            <div class="tab-pane" id="p13">
+                <ul class="list-unstyled">
+                    <volist name=":lists(69,'0,10')" id="info">
+                        <li><a href="{$info['url']}" data-color="{$info.list_color}">{$info['title']|msubstr=0,20}
+                        </a>
+                            <div class="pull-right">{$info.create_time|date='Y-m-d',###}</div>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+            <div class="tab-pane" id="p14">
+                <ul class="list-unstyled">
+                    <volist name=":lists(71,'0,10')" id="info">
+                        <li><a href="{$info['url']}" data-color="{$info.list_color}">{$info['title']|msubstr=0,20}
+                        </a>
+                            <div class="pull-right">{$info.create_time|date='Y-m-d',###}</div>
+                        </li>
+                    </volist>
+                </ul>
             </div>
         </div>
     </div>
     <hr/>
     <div class="tab-v2 tab-v2-sea">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#p11" data-toggle="tab">党务工作</a></li>
-            <li><a href="#p12" data-toggle="tab">行政制度</a></li>
-            <li><a href="#p12" data-toggle="tab">训练制度</a></li>
+            <!--党务工作-->
+            <li class="active"><a href="#p15" data-toggle="tab">{:cat_field(63,'name')}</a></li>
+            <!--行政制度-->
+            <li><a href="#p16" data-toggle="tab">{:cat_field(64,'name')}</a></li>
+            <!--训练制度-->
+            <li><a href="#p17" data-toggle="tab">{:cat_field(65,'name')}</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane active" id="p13">
-                <div class="row">
-
-                </div>
+            <div class="tab-pane active" id="p15">
+                <ul class="list-unstyled">
+                    <volist name=":lists(63,'0,10')" id="info">
+                        <li><a href="{$info['url']}" data-color="{$info.list_color}">{$info['title']|msubstr=0,25}
+                        </a>
+                            <div class="pull-right">{$info.create_time|date='Y-m-d',###}</div>
+                        </li>
+                    </volist>
+                </ul>
             </div>
-            <div class="tab-pane" id="p14">
-
+            <div class="tab-pane" id="p16">
+                <ul class="list-unstyled">
+                    <volist name=":lists(64,'0,10')" id="info">
+                        <li><a href="{$info['url']}" data-color="{$info.list_color}">{$info['title']|msubstr=0,25}
+                        </a>
+                            <div class="pull-right">{$info.create_time|date='Y-m-d',###}</div>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+            <div class="tab-pane" id="p17">
+                <ul class="list-unstyled">
+                    <volist name=":lists(65,'0,10')" id="info">
+                        <li><a href="{$info['url']}" data-color="{$info.list_color}">{$info['title']|msubstr=0,25}
+                        </a>
+                            <div class="pull-right">{$info.create_time|date='Y-m-d',###}</div>
+                        </li>
+                    </volist>
+                </ul>
             </div>
         </div>
     </div>
@@ -167,6 +274,56 @@
 </div>
 </div><!--/container-->
 <!-- End Content Part -->
+</block>
+<block name="js">
+    <script  type="text/javascript">
+        var captcha_url = "{:U('verify')}";
+        $("#captcha-img").attr("src", captcha_url);
+        //更换验证码
+        $("#captcha-img").click(function () {
+            $(this).attr("src", captcha_url);
+        });
+        $("#login_btn").click(function(){
+            if(checkForm($("input[name='username']"),'用户名') &&
+                    checkForm($("input[name='password']"),'密码')&&
+                    checkForm($("input[name='verify']"),'验证码')){
+                $.post("{:U('login')}", $("#login_form").serialize(),function(data){
+                    if(data.status){
+                        location.href="{:U('index')}";
+                    }else{
+                        $(".error_tip").empty().text(data.msg);
+                        $("#captcha-img").click();
+                        shake('.error_tip');
+                    }
+                },'json');
+            }
+        });
+
+        function  checkForm(ele,text){
+            if($(ele).val() === ''){
+                shake($(ele).parent());
+                $(".error_tip").empty().text(text+'不能为空!');
+                $(ele).focus();
+                return false;
+            }else{
+                return true;
+            }
+        }
+
+        $("input[name=verify]").keyup(function(e) {
+            if (e.keyCode === 13) {
+                $("#login_btn").click();
+                return false;
+            }
+        });
+
+        !function(){
+            var $window = $(window);
+            $window.resize(function(){
+                $("#main").css("min-height", $window.height() - 210);
+            }).resize();
+        }();
+    </script>
 </block>
 
 

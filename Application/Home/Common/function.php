@@ -37,6 +37,11 @@ function cat($cid='',$children=false,$root_nav=0){
     }
 }
 
+function cat_field($cid,$field){
+    $result = api('Category/get_category',array('id'=>$cid));
+    return isset($field)?$result[$field]:$result;
+}
+
 /**获得某栏目下的新闻
  * @param $cid 栏目id
  * @param string $limit 如果输入0,10类似则返回指定区间内的数据,如果是数字则返回指定页面,页面大小
@@ -64,6 +69,17 @@ function position($pos,$limit='0,5',$category=null){
         return $result;
     }else{
         return false;
+    }
+}
+
+
+
+function get_link($group,$start,$length){
+    $result = api('Link/get_link',array('group'=>$group));
+    if(isset($start)){
+       return array_slice($result,$start,$length);
+    }else{
+        return $result;
     }
 }
 

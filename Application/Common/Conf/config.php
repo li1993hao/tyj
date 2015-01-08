@@ -86,6 +86,8 @@ return array(
     'SUM_MODEL'  =>29,
     'BASE_INFO_MODEL'=>array(1=>25,2=>26,3=>28),//运动员,教练员,裁判员的基本信息表
     'BASE_INFO_NAME' =>array(1=>'Athlete',2=>'Coach',3=>'Referee'),
-    'SPORTS_TEAM' =>27
+    'SPORTS_TEAM' =>27,
+    'COMPETITION_MODEL'=>30,
+    'COM_PUBLISH_CATE' =>52
 
 );

@@ -247,7 +247,7 @@
                         </td>
                     <td><?php echo ($node["id"]); ?></td>
                     <td>
-                        <?php $__FOR_START_1798915837__=0;$__FOR_END_1798915837__=$node["level"];for($i=$__FOR_START_1798915837__;$i < $__FOR_END_1798915837__;$i+=1){ if($i == $node['level']-1): if($node['last']): ?>|__
+                        <?php $__FOR_START_1890853539__=0;$__FOR_END_1890853539__=$node["level"];for($i=$__FOR_START_1890853539__;$i < $__FOR_END_1890853539__;$i+=1){ if($i == $node['level']-1): if($node['last']): ?>|__
                                     <?php else: ?>
                                     |--<?php endif; ?>
                                 <?php else: ?>
@@ -389,7 +389,7 @@
     (function(){
         var ThinkPHP = window.Think = {
             "ROOT"   : "/tyj", //当前网站地址
-            "APP"    : "/tyj", //当前项目地址
+            "APP"    : "/tyj/index.php?s=", //当前项目地址
             "PUBLIC" : "/tyj/Public", //项目公共目录地址
             "DEEP"   : "<?php echo C('URL_PATHINFO_DEPR');?>", //PATHINFO分割符
             "MODEL"  : ["<?php echo C('URL_MODEL');?>", "<?php echo C('URL_CASE_INSENSITIVE');?>", "<?php echo C('URL_HTML_SUFFIX');?>"],

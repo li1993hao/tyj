@@ -85,6 +85,8 @@
                 }
                 if(ob.level>currentLevel){
                     $($(ob.tr).find("input[type='checkbox']")).prop('checked',status);
+                }else{
+                    break;
                 }
                 ob = getNextLevel(ob.tr); //指针替换
             }

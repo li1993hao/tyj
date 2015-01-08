@@ -57,10 +57,11 @@ class SportsController extends BaseController
             $sports = D('Sports');
             $data = $sports->create();
             if($data){
+                $sp  = M('Sports')->field('cp_name')->find($_POST['pid']);
+                $_POST['cp_name'] = $sp['cp_name'].'/'.$_POST['name'];
+
                 $id = $sports->add();
                 if($id){
-                    //记录行为
-                    action_log('update_sport', 'Sports', $id, UID);
                     $this->success('新增成功', LK());
                 } else {
                     $this->error('新增失败');
@@ -88,6 +89,8 @@ class SportsController extends BaseController
      */
     public function edit($id = 0){
         if(IS_POST){
+            $sp  = M('Sports')->field('cp_name')->find($_POST['pid']);
+            $_POST['cp_name'] = $sp['cp_name'].'/'.$_POST['name'];
             $Menu = D('Sports');
             $data = $Menu->create();
             if($data){
@@ -156,10 +159,22 @@ class SportsController extends BaseController
     }
 
     private function save_sports($name,$pid,$level){
-        $data['name'] = $name;
+        $ay = str2arr($name,'|');
+        $data['name'] = trim($ay[0]);
+        if(isset($ay[1])){
+            $data['code'] = trim($ay[1]);
+        }else{
+            $data['code']='-1';
+        }
         $data['pid'] = $pid;
         $data['level'] = $level;
         $data['status'] = 1;
+        if($pid==0){
+            $data['cp_name'] = $data['name'];
+        }else{
+            $sp  = M('Sports')->field('cp_name')->find($pid);
+            $data['cp_name'] = $sp['cp_name'].'/'.$data['name'];
+        }
         return M('Sports')->add($data);
     }
 
@@ -211,7 +226,6 @@ class SportsController extends BaseController
         if(IS_GET){
             $ids = I('get.ids');
             $pid = I('get.pid');
-
             //获取排序的数据
             $map = array('status'=>array('gt',-1));
             if(!empty($ids)){
@@ -222,7 +236,6 @@ class SportsController extends BaseController
                 }
             }
             $list = M('Sport')->where($map)->field('id,name')->order('sort asc,id asc')->select();
-
             $this->assign('list', $list);
             $this->meta_title = '项目排序';
             $this->display();

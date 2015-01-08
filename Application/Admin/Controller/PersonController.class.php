@@ -47,6 +47,7 @@ class PersonController extends BaseController {
     public function printData($id){
         if(!is_array($id)){
             $id = str2arr($id);
+
         }
         $id = array_unique($id);
         if ( empty($id)) {
@@ -54,7 +55,7 @@ class PersonController extends BaseController {
         }
         $user = M('Member')->find($id[0]);
         $type = $user['type'];
-        $title = ($type==1?"运动员资料":$type==2?"教练员资料":"裁判员资料");
+        $title = ($type==1?"运动员资料":($type==2?"教练员资料":"裁判员资料"));
         parent::print_data(CC('BASE_INFO_MODEL',$type), array('uid' => array('in', arr2str($id))),'name',$title);
     }
 

@@ -31,14 +31,11 @@
                         </ul>
                     </div>
                     <hr/>
-                    <section>{$info.content}</section>
+                    <section>{$info.content|htmlspecialchars_decode}</section>
                 </div>
             </div>
-            <!-- End Content -->
-
-
             <div class="col-md-3">
-                <include file="block/content_right"/>
+                <include file="block/index_left"/>
             </div>
         </div>
     </div>

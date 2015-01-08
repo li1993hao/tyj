@@ -79,12 +79,16 @@
         .table thead>tr>th, .table tbody>tr>th, .table tfoot>tr>th, .table thead>tr>td, .table tbody>tr>td, .table tfoot>tr>td{
             line-height: 2;
         }
+        a:hover{
+            text-decoration: none;
+        }
     </style>
     
 
     
 </head>
 <body class="navbar-fixed">
+<div class="shade" style="display:none"></div>
 <!-- 头部 -->
 <div class="navbar navbar-default navbar-fixed-top" id="navbar">
 <script type="text/javascript">
@@ -404,12 +408,13 @@
     (function(){
         var ThinkPHP = window.Think = {
             "ROOT"   : "/tyj", //当前网站地址
-            "APP"    : "/tyj", //当前项目地址
+            "APP"    : "/tyj/index.php?s=", //当前项目地址
             "PUBLIC" : "/tyj/Public", //项目公共目录地址
             "DEEP"   : "<?php echo C('URL_PATHINFO_DEPR');?>", //PATHINFO分割符
             "MODEL"  : ["<?php echo C('URL_MODEL');?>", "<?php echo C('URL_CASE_INSENSITIVE');?>", "<?php echo C('URL_HTML_SUFFIX');?>"],
             "VAR"    : ["<?php echo C('VAR_MODULE');?>", "<?php echo C('VAR_CONTROLLER');?>", "<?php echo C('VAR_ACTION');?>"]
         }
+        $('[data-rel=tooltip]').tooltip();
     })();
 </script>
 <script type="text/javascript" src="/tyj/Public/static/think.js"></script>

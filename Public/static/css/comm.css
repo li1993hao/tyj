@@ -68,3 +68,15 @@
 .form_field_sort{
     min-height: 200px;
 }
+
+.shade{
+    background-color: #000000;
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+    z-index: 1999;
+    position: absolute;
+    top: 0;
+    width: 2000px;
+    height: 2000px;
+    display: none;
+}

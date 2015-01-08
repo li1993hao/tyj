@@ -85,6 +85,7 @@
     
 </head>
 <body class="navbar-fixed">
+<div class="shade" style="display:none"></div>
 <!-- 头部 -->
 <div class="navbar navbar-default navbar-fixed-top" id="navbar">
 <script type="text/javascript">
@@ -423,9 +424,9 @@
             //回车搜索
             $("#search").keyup(function(e) {
                 if (e.keyCode === 13) {
-                    var url =  '<?php echo U(CONTROLLER_NAME.'/'.ACTION_NAME);?>';
+                    var url =  "<?php echo U(CONTROLLER_NAME.'/'.ACTION_NAME.'?title=PLACEHODLE');?>";
                     var query = $('#search').val();
-                    url+=('?title='+query);
+                    url = url.replace('PLACEHODLE',query);
                     window.location.href = url;
                     return false;
                 }

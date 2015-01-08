@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <include file="Public/head"/>
+</head>
+<body style="background-color: #ffffff">
+    <div class="panel panel-default "  style="width: 100%">
+        <div class="panel-heading" style="position: fixed;width: 100%;z-index: 999">
+            <div>
+                <a onclick="myclose();" class="btn btn-sm btn-primary">确定</a>
+                <a onclick="myclose();" class="btn btn-sm btn-primary">关闭</a>
+            </div>
+        </div>
+        <div class="panel-body" style="margin-top: 40px">
+                <div class="pull-left" style="width:100%">
+                    <div id="tree1" class="tree tree-selectable">
+                    </div>
+                </div>
+
+        </div>
+    </div>
+</div>
+<include file="Public/foot"/>
+<script src="__PUBLIC__/vendor/ace/js/fuelux/fuelux.tree.min.js"></script>
+<script type="text/javascript">
+    var DataSourceTree = function(options) {
+        this._data 	= options.data;
+        this._delay = options.delay;
+    }
+    DataSourceTree.prototype.data = function(options, callback) {
+        var self = this;
+        var $data = null;
+
+        if(!("name" in options) && !("type" in options)){
+            $data = this._data;//the root tree
+            callback({ data: $data });
+            return;
+        }
+        else if("type" in options && options.type == "folder") {
+            if("additionalParameters" in options && "children" in options.additionalParameters)
+                $data = options.additionalParameters.children;
+            else $data = {}//no data
+        }
+        callback({ data: $data });
+    };
+    var tree_data = {$sportsTree};
+    var treeDataSource = new DataSourceTree({data: tree_data});
+    $(function(){
+        $('#tree1').ace_tree({
+            dataSource: treeDataSource ,
+            multiSelect:false,
+            loadingHTML:'<div class="tree-loading"><i class="icon-refresh icon-spin blue"></i></div>',
+            'open-icon' : 'icon-minus',
+            'close-icon' : 'icon-plus',
+            'selectable' : true,
+            'selected-icon' : 'icon-ok',
+            'unselected-icon' : 'icon-remove'
+        });
+        $('#tree1').on('selected', function (evt, data) {
+            var code = data.info[0].code;
+            var name = data.info[0].cp_name;
+            var html = '<input type="hidden" name="sports" value="'+code+'"/><label>'+name+'</label>';
+            $('.add_sport', parent.document).empty().html(html);
+        });
+    })
+</script>
+</body>
+</html>

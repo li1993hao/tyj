@@ -79,12 +79,16 @@
         .table thead>tr>th, .table tbody>tr>th, .table tfoot>tr>th, .table thead>tr>td, .table tbody>tr>td, .table tfoot>tr>td{
             line-height: 2;
         }
+        a:hover{
+            text-decoration: none;
+        }
     </style>
     
 
     
 </head>
 <body class="navbar-fixed">
+<div class="shade" style="display:none"></div>
 <!-- 头部 -->
 <div class="navbar navbar-default navbar-fixed-top" id="navbar">
 <script type="text/javascript">
@@ -209,7 +213,7 @@
                 <div class="page-header">
                     <h1>
                          
-    <?php echo ($meta_title); ?>
+    <?php echo ($meta_title); echo ($_extend); ?>
 
                     </h1>
                 </div>
@@ -229,7 +233,7 @@
     <div class="profile-user-info profile-user-info-striped">
     <?php if(is_array($fields[$key])): $i = 0; $__LIST__ = $fields[$key];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$field): $mod = ($i % 2 );++$i; if($field['is_show'] == 1 || $field['is_show'] == 3): ?><div class="profile-info-row">
         <?php if($field['type'] == 'picture'): ?><div class="profile-info-name">
-                <div style="margin-top:50%"><?php echo ($field['title']); ?></div>
+                <div picture="__title__-<?php echo ($field['name']); ?>"><?php echo ($field['title']); ?></div>
             </div>
         <?php else: ?>
             <div class="profile-info-name">
@@ -243,6 +247,8 @@
 <?php case "textarea": ?><div style="word-wrap: break-word;word-break:break-all;"> <?php echo ($data[$field['name']]); ?></div><?php break;?>
 <?php case "date": echo (date('Y-m-d',$data[$field['name']])); break;?>
 <?php case "datetime": echo (date('Y-m-d H:i',$data[$field['name']])); break;?>
+<?php case "date_view_4": echo (date('Y-m-d',$data[$field['name']])); break;?>
+<?php case "date_3": echo (date('Y-m',$data[$field['name']])); break;?>
 <?php case "bool": $_result=parse_field_attr($field['extra']);if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i; if(($data[$field['name']]) == $key): echo ($vo); endif; endforeach; endif; else: echo "" ;endif; break;?>
 <?php case "select": $_result=parse_field_attr($field['extra']);if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i; if(($data[$field['name']]) == $key): echo ($vo); endif; endforeach; endif; else: echo "" ;endif; break;?>
 <?php case "radio": $_result=parse_field_attr($field['extra']);if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i; if(($data[$field['name']]) == $key): echo ($vo); endif; endforeach; endif; else: echo "" ;endif; break;?>
@@ -251,7 +257,7 @@
             </label><?php endforeach; endif; else: echo "" ;endif; break;?>
 <?php case "editor": ?><section > <?php echo (htmlspecialchars_decode($data[$field['name']])); ?>
          </section><?php break;?>
-<?php case "picture": if(!empty($data[$field['name']])): ?><img style="width:200px;height:200px" src="/tyj<?php echo (get_cover($data[$field['name']],'path')); ?>"/><?php endif; break;?>
+<?php case "picture": if(!empty($data[$field['name']])): ?><img style="max-height:200px;max-width:200px" picture="__picture__-<?php echo ($field['name']); ?>"  src="/tyj<?php echo (get_cover($data[$field['name']],'path')); ?>"/><?php endif; break;?>
 <?php case "file": if(isset($data[$field['name']])): ?><div class="upload-pre-file"><i class="icon-paper-clip"></i><span><?php echo (get_table_field($data[$field['name']],'id','name','File')); ?></span>
             </div><?php endif; break;?>
 <?php case "color": ?><a><span class="btn-colorpicker btn-colorpicker-<?php echo ($field["name"]); ?>" style="background-color:<?php echo ($data[$field['name']]); ?>"></span></a><?php break;?>
@@ -377,12 +383,13 @@
     (function(){
         var ThinkPHP = window.Think = {
             "ROOT"   : "/tyj", //当前网站地址
-            "APP"    : "/tyj", //当前项目地址
+            "APP"    : "/tyj/index.php?s=", //当前项目地址
             "PUBLIC" : "/tyj/Public", //项目公共目录地址
             "DEEP"   : "<?php echo C('URL_PATHINFO_DEPR');?>", //PATHINFO分割符
             "MODEL"  : ["<?php echo C('URL_MODEL');?>", "<?php echo C('URL_CASE_INSENSITIVE');?>", "<?php echo C('URL_HTML_SUFFIX');?>"],
             "VAR"    : ["<?php echo C('VAR_MODULE');?>", "<?php echo C('VAR_CONTROLLER');?>", "<?php echo C('VAR_ACTION');?>"]
         }
+        $('[data-rel=tooltip]').tooltip();
     })();
 </script>
 <script type="text/javascript" src="/tyj/Public/static/think.js"></script>
@@ -391,6 +398,16 @@
 
 
 
+    <script type="text/javascript">
+        window.onload=function(){ //让图片说明文字居中
+            $("[picture^='__title__']").each(function(){
+                var tp = $(this).attr('picture');
+                var pp  = tp.replace('__title__','__picture__');
+                var height = $("[picture="+pp+"]").css('height');
+                $(this).css('line-height',height);
+            });
+        }
+    </script>
 
 </body>
 </html>

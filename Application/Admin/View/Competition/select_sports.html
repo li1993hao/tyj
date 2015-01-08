@@ -1,0 +1,164 @@
+<extend name="Public/base"/>
+<block name="title">
+    {$meta_title}
+</block>
+<block name="content">
+    <div class="btn-group">
+
+        <a class="btn btn-sm btn-primary ajax-post" href="{:U('sports?id='.$id)}" target-form="code">保存</a>
+        <button class="btn btn-sm" onclick="javascript:history.back(-1);return false;">返 回</button>
+    </div>
+     <div class="table-responsive">
+        <table class="table table-striped  ">
+            <thead>
+            <tr>
+                <th class="center">
+                    <label>
+                        <input type="checkbox" class="ace check-all">
+                        <span class="lbl"></span>
+                    </label>
+                </th>
+                <th>项目</th>
+                <th>代码</th>
+            </tr>
+            </thead>
+            <tbody>
+            <notempty name="nodeList">
+                <volist name="nodeList" id="node">
+                    <tr class="level" <neq name="node.level" value="0">style="display:none"</neq> data-level="{$node['level']}" >
+                        <td class="center">
+                            <notpresent name="node.children">
+                                <input type="checkbox" value="{$node.code}" name="code[]" <if condition="in_array($node['code'],$data)">checked</if> class="ace ids code">
+                                <span class="lbl"></span>
+                             <else/>
+                                <input type="checkbox" class="ace ids">
+                                <span class="lbl"></span>
+                            </notpresent>
+                        </td>
+                        <td>
+                            <present name="node.children">
+                                <div style="display: inline-block" class=" node-folder" data-status='close'><i class="icon-plus smaller-100"></i></div>
+                            </present>
+                            <for start="0" end="$node.level">
+                                <if condition="$i eq $node['level']-1">
+                                    <if condition="$node['last']">
+                                        |__
+                                        <else/>
+                                        |--
+                                    </if>
+                                    <else/>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </if>
+                            </for>
+                            {$node.name}</td>
+                        <td>{$node.code}</td>
+                    </tr>
+                </volist>
+                <else/>
+                <td colspan="6" class="text-center"> aOh! 暂时还没有内容! </td>
+            </notempty>
+
+            </tbody>
+        </table>
+    </div>
+</block>
+<block name="js">
+    <script type="text/javascript">
+        $('.node-folder').click(function(){
+            var tr = $(this).parents('.level');
+            var currentLevel = getLevel(tr);
+            var current_status = $(this).data('status');
+            var ob = getNextLevel(tr);
+            //下层检测
+            while(true){
+                if(ob.level == 0||ob.level===undefined){
+                    break;
+                }
+                if(ob.level>currentLevel){
+                    if(current_status=='open'){
+                        $(ob.tr).hide();
+                        $($(ob.tr).find('.node-folder')).empty().html('<i class="icon-plus smaller-100"></i>');
+                    }else{
+                        $(ob.tr).show();
+                        $($(ob.tr).find('.node-folder')).empty().html('<i class="icon-minus smaller-100"></i>');
+                    }
+                }else{
+                    break;
+                }
+                ob = getNextLevel(ob.tr); //指针替换
+            }
+
+            if(current_status=='open'){
+                $(this).data('status','close');
+                $(this).empty().html('<i class="icon-plus smaller-100"></i>');
+            }else{
+                $(this).data('status','open');
+                $(this).empty().html('<i class="icon-minus smaller-100"></i>');
+            }
+
+//            if(currentLevel != 0){ //根节点不做上层检测
+//                ob = getPreLevel(tr);
+//                //上层检测
+//                while(true){
+//                    if(ob.level == 0||ob.level===undefined){
+//                        if(status && ob.level == 0){
+//                            $($(ob.tr).find("input[type='checkbox']")).prop('checked',true);
+//                        }
+//                        break;
+//                    }
+//                    if(ob.level<currentLevel){
+//                        if(status){
+//                            $($(ob.tr).find("input[type='checkbox']")).prop('checked',true);
+//                        }
+//                    }
+//                    ob = getPreLevel(ob.tr); //指针替换
+//                }
+//            }
+        });
+
+
+        $('.ids').change(function(){
+            var tr = $(this).parents('.level');
+            var currentLevel = getLevel(tr);
+            var status = $(this).prop('checked');
+
+            var ob = getNextLevel(tr);
+            //下层检测
+            while(true){
+                if(ob.level == 0||ob.level===undefined){
+                    break;
+                }
+                if(ob.level>currentLevel){
+                    $($(ob.tr).find("input[type='checkbox']")).prop('checked',status);
+                }else{
+                    break;
+                }
+                ob = getNextLevel(ob.tr); //指针替换
+            }
+        });
+
+        /**
+         * 获得下一行层次
+         * @param current
+         */
+        function getNextLevel(tr){
+            var nextTr = $(tr).next('tr');
+            var level = getLevel(nextTr);
+            return {'level':level,'tr':nextTr};
+        }
+
+        /**
+         * 获得上一行的层次
+         * @param current
+         */
+        function getPreLevel(tr){
+            var preTr = $(tr).prev('tr');
+            var level = getLevel(preTr);
+            return {'level':level,'tr':preTr};
+        }
+
+        function getLevel(tr){
+            return $(tr).data('level');
+        }
+    </script>
+</block>

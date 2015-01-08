@@ -124,6 +124,11 @@ class BaseController extends Controller {
         $allow = C('ALLOW_VISIT');
         $deny  = C('DENY_VISIT');
         $check = strtolower(CONTROLLER_NAME.'/'.ACTION_NAME);
+
+        if(strtolower(CONTROLLER_NAME)=='tool'){//工具类
+            return true;
+        }
+
         if ( !empty($deny)  && in_array_case($check,$deny) ) {
             return false;//非超管禁止访问deny中的方法
         }
@@ -656,5 +661,4 @@ class BaseController extends Controller {
             $this->error('参数非法!');
         }
     }
-
 }

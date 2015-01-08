@@ -8,7 +8,6 @@ class IndexController extends HomeController {
     public function index(){
         $this->assign('index_style','active');
 
-
         $this->display();
     }
 
@@ -94,7 +93,6 @@ class IndexController extends HomeController {
             if(!is_file($temp)){
                 $this->error($this->$tip);
             }else{
-                $info['content'] = htmlspecialchars_decode($info['content']);
                 $this->assign('cat',$Category);
                 $this->assign('info',$info);
                 $this->display($temp);
@@ -190,10 +188,10 @@ class IndexController extends HomeController {
             if(0 < $uid){
                 /* 登录用户 */
                 if($Member->login($uid)){ //登录用户
-                    $reme = I('remember');
-                    if(!empty($reme)){//把登陆信息保存到cooike里面
-                        set_auto_login_cookie();
-                    }
+//                    $reme = I('remember');
+//                    if(!empty($reme)){//把登陆信息保存到cooike里面
+//                        set_auto_login_cookie();
+//                    }
                     $this->success("登录成功!");
                 } else {
                     $this->error("登录失败！");
@@ -208,14 +206,40 @@ class IndexController extends HomeController {
                 $this->error($error);
             }
         } else {
-            if(is_login()){
-                $this->redirect('Index/index');
-            }else{
-                $nav[] = array('name'=>'首页','url'=>U('Index/index'));
-                $nav[] = array('name'=>'登陆','url'=>"#");
-                $this->assign('nav',$nav);
-                $this->display();
+            $this->redirect('Index/index');
+        }
+    }
+
+    public function gamePlan($years){
+        if(is_numeric($years)){
+            $result = M('GamePlanYears')->where(array('years'=>$years))->find();
+            if(!$result || $result['status']<=0){
+                $this->error('该年份的赛事信息还未发布!');
             }
+            $article = M('Article')->find($result['status']);
+            if(!$article){ //被删除了
+                $result['status']=0; //新闻被删除,重置状态
+                M('GamePlanYears')->save($result,LK());
+                $this->error('该年份的赛事信息还未发布!');
+            }
+
+            if($article['status'] != 1){//非启用状态
+                $this->error('赛事信息禁止查看!');
+            }
+
+            $Category = api('Category/get_category',array('id'=>$article['category_id']));
+            $this->parse_nav($Category,$article['title']);
+
+            M('Article')->where(array('id'=>$result['status']))->setInc('view'); //浏览数量＋1
+            $map =array('years'=>$years,'status'=>1);
+            $list =  M('GamePlan')->where($map)->order('name asc,start_time asc')->select();
+            $this->meta_title = $years.'年赛事计划';
+            $this->assign('years',$years);
+            $this->assign('list',$list);
+            $this->assign('info',$article);
+            $this->display('game_plan');
+        }else{
+            $this->error('参数非法!');
         }
     }
 
@@ -226,7 +250,7 @@ class IndexController extends HomeController {
             session('[destroy]');
             $this->success('退出成功！', U('Index/index'));
         } else {
-            $this->redirect('login');
+            $this->redirect('Index/index');
         }
     }
 

@@ -3,5 +3,72 @@
     赛事计划
 </block>
 <block name="content">
+    <div class="col-xs-5 col-sm-3" style="padding:0">
+        <div class="input-group">
+            <input  type="text" name="data_view" class="form-control search-query date_view"  placeholder="请选择添加的年份" />
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-primary btn-sm" onclick="add();" >
+                添加
+                <i class="icon-ok"></i>
+            </button>
+        </span>
+        </div>
+    </div>
 
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>年份</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <notempty name="list">
+                <volist name="list" id="vo">
+                    <tr>
+                        <td><a href="{:U('planDetail?year='.$vo['years'])}">{$vo.years}</a></td>
+                        <td>
+                            <if condition="$vo.status eq 0">
+                                <a class="ajax-get" href="{:U('planDetail?method=publish&year='.$vo['years'])}">发布公告</a>
+                            <else/>
+                                <a target="_blank" href="{:U('Home/index/gamePlan?years='.$vo['years'])}">查看公告</a>
+                            </if>
+                            <a target="_blank" href="{:U('planDetail?method=print&year='.$vo['years'])}">打印</a>
+                        </td>
+                    </tr>
+                </volist>
+                <else/>
+                <td colspan="3" class="text-center"> aOh! 暂时还没有内容! </td>
+            </notempty>
+            </tbody>
+        </table>
+    </div>
+</block>
+<block name="js">
+    <link href="__PUBLIC__/vendor/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="__PUBLIC__/vendor/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/vendor/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+        $('.date_view').datetimepicker({
+            format: 'yyyy',
+            language:"zh-CN",
+            minView:4,
+            startView:4,
+            autoclose:true
+        });
+        function add(){
+            var value = $('.date_view').val();
+            $.post("{:U(addYears)}",{'year':value},function(data){
+                if(data.status){
+                    okAlert('添加成功!');
+                    setTimeout(function(){
+                        location.reload();
+                    },1500);
+                }else{
+                    errorAlert(data.msg);
+                }
+            },'json');
+        }
+    </script>
 </block>

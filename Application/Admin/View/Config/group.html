@@ -17,7 +17,7 @@
 	<form action="{:U('save')}" method="post" class="form-horizontal normal-form">
 	<volist name="list" id="config">
 		<div class="form-group">
-			<label class="item-label">{$config.title}<span class="check-tips">（{$config.remark}）</span> </label>
+			<label class="item-label">{$config.title}:<span class="check-tips"><notempty name="config.remark">（{$config.remark}）</notempty></span> </label>
 			<div class="controls">
 			<switch name="config.type">
 			<case value="0">

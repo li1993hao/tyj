@@ -57,6 +57,9 @@ function ajax_post(that){
         $(that).addClass('disabled');
         form = $('.'+target_form); //得到表单
         if (form.get(0)==undefined){
+            removeLoading();
+            $(that).removeClass('disabled');
+            errorAlert("请选择要操作的数据！");
             return false;
         }else if ( form.get(0).nodeName=='FORM' ){ //form表单
             if($(that).attr('url') !== undefined){
@@ -70,6 +73,8 @@ function ajax_post(that){
         }else{
             query = form.find('input,select,textarea').serialize();
         }
+
+        console.info(query);
 
         var editDiv = $('div[contenteditable=true]'); //自定义编辑器
         for(var i=0; i<editDiv.length;i++){
@@ -98,6 +103,7 @@ function ajax_post(that){
             }
             query += ("&"+name+"="+valueArray.join(','));
         }
+
 
         $.post(target,query).success(function(data){
             removeLoading();
@@ -252,86 +258,61 @@ function cf(tip,func){
     bootbox.confirm(tip===undefined?'确定执行此操作么?':tip,func);
 }
 
-/**
- * 实例化模板
- * 第一个参数是模板id,
- * 其他参数是模板数据
- */
-function InstanceTpl() {
-    var tpl = $("#" + arguments[0]).clone(true);
-
-    var dataKeys = $(tpl).find("*[data-key]");
-
-    if ($(tpl).attr("data-key") !== undefined) {
-        dataKeys.splice(0, 0, tpl);
-    }
-
-    for (var i = 1; i < arguments.length; i++) {
-        var dataValueObj = arguments[i];
-        for (var item in dataValueObj) {
-            var parts = item.split("_");
-            var itemValue = dataValueObj[item];
-            var dataType = parts[0];
-
-            if (dataType == "style") {
-
-                $(dataKeys[i - 1]).css(parts[1], itemValue);
-
-            } else if (dataType == "src") {
-
-                $(dataKeys[i - 1]).attr("src", itemValue);
-
-            } else if (dataType == "html") {
-
-                if (itemValue instanceof Object) {
-
-                    $(dataKeys[i - 1]).empty().append(itemValue);
-
-                } else {
-
-                    $(dataKeys[i - 1]).html(itemValue);
-
-                }
-            } else if (dataType == "text") {
-
-                $(dataKeys[i - 1]).text(itemValue);
-
-            } else if (dataType == "data") {
-                dataKeys[i - 1][parts[1]] = itemValue;
-
-            } else if (dataType == "id") {
-
-                $(dataKeys[i - 1]).attr("id", itemValue);
-
-            } else if (dataType == "name") {
-
-                $(dataKeys[i - 1]).attr("name", itemValue);
-
-            } else if (dataType == "append") {
-
-                $(dataKeys[i - 1]).append(itemValue);
-
-            } else if (dataType == "addClass") {
-
-                $(dataKeys[i - 1]).addClass(itemValue);
-
-            } else if (dataType == "removeClass") {
-
-                $(dataKeys[i - 1]).removeClass(itemValue);
-
-            }
-        }
-
-        $(dataKeys[i - 1]).removeAttr("data-key");
-    }
-
-    $(tpl).removeAttr("id");
-    return tpl;
-}
 
 function shake(ele) {
     $(ele).addClass("shake");
     setTimeout(function() {
         $(ele).removeClass("shake");
     }, 1000);
+}
+
+
+/*打开弹出窗口*/
+function winopen(url, w, h) {
+    $("html,body").css("overflow", "hidden");
+    $("div.shade").show();
+    var _body = $("body").eq(0);
+    if ($("#dialog").length == 0) {
+        if (!is_mobile()) {
+            _body.append("<div id=\"dialog\"><iframe src='" + url + "' style='width:" + w + "px;height:100%' scrolling='auto' ></iframe></div>");
+            $("#dialog").css({
+                width : w,
+                height : h,
+                position : "fixed",
+                "z-index" : "2000",
+                top : ($(window).height() / 2 - h / 2),
+                left : (_body.width() / 2 - w / 2),
+                "background-color" : "#ffffff"
+            });
+        } else {
+            $("div.shade").css("width", _body.width());
+            _body.append("<div id=\"dialog\"><iframe src='" + url + "' style='width:100%;height:100%' scrolling='auto' ></iframe></div>");
+            $("#dialog").css({
+                width : _body.width(),
+                height : h,
+                position : "fixed",
+                "z-index" : "2000",
+                top : 0,
+                left : 0,
+                "background-color" : "#ffffff"
+            });
+        }
+    } else {
+        $("#dialog").show();
+    }
+}
+/* 关闭弹出窗口*/
+function myclose() {
+    parent.winclose();
+}
+
+function winclose() {
+    $("html,body").css("overflow", "auto");
+    $("div.shade").hide();
+    $("#dialog").html("");
+    $("#dialog").remove();
+}
+
+function is_mobile(){
+    return false;
 }

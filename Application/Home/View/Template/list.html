@@ -33,12 +33,7 @@
                                     </ul>
                                 </div>
                                 <div class="col-md-8">
-                                    <if condition="info.list_color eq '#555' ">
-                                        <h4><a href="{$info.url}">{$info.title}</a></h4>
-                                    <else/>
-                                        <h4><a href="{$info.url}" style="color:{$info.list_color}}">{$info.title}</a></h4>
-                                    </if>
-
+                                    <h4><a href="{$info.url}" data-color="$ino.list_color">{$info.title}</a></h4>
                                     <p>{$info.description|msubstr=0,120}</p>
                                     <p><a class="btn-u btn-u-small" href="{$info.url}">查看全文</a></p>
                                 </div>
@@ -46,11 +41,7 @@
 
                             <else/>
                             <div class="row <eq name='info.is_up' value='1'>search-blocks search-blocks-left-orange<else/>search-blocks search-blocks-left-green</eq> ">
-                                <if condition="info.list_color eq '#555' ">
-                                    <h4><a href="{$info.url}">{$info.title}</a></h4>
-                                    <else/>
-                                    <h4><a href="{$info.url}" style="color:{$info.list_color}}">{$info.title}</a></h4>
-                                </if>
+                                <h4><a href="{$info.url}" data-color="$ino.list_color">{$info.title}</a></h4>
                                 <div>
                                     <ul class="list-unstyled list-inline">
                                         <li><i class="icon-calendar"></i>{$info.create_time|date='Y-m-d H:i',###}</li>
@@ -80,7 +71,7 @@
             <!-- End Content -->
 
             <div class="col-md-3">
-                <include file="block/list_right"/>
+                <include file="block/index_left"/>
             </div>
         </div>
     </div>

@@ -15,7 +15,7 @@
     <div class="profile-info-row">
         <if condition="$field['type'] eq 'picture'">
             <div class="profile-info-name">
-                <div style="margin-top:50%">{$field['title']}</div>
+                <div picture="__title__-{$field['name']}">{$field['title']}</div>
             </div>
         <else/>
             <div class="profile-info-name">
@@ -40,6 +40,12 @@
 </case>
 <case value="datetime">
         {$data[$field['name']]|date='Y-m-d H:i',###}
+</case>
+<case value="date_view_4">
+    {$data[$field['name']]|date='Y-m-d',###}
+</case>
+<case value="date_3">
+    {$data[$field['name']]|date='Y-m',###}
 </case>
 <case value="bool">
         <volist name=":parse_field_attr($field['extra'])" id="vo">
@@ -69,7 +75,7 @@
 </case>
 <case value="picture">
         <notempty name="data[$field['name']]">
-                    <img style="width:200px;height:200px" src="__ROOT__{$data[$field['name']]|get_cover='path'}"/>
+                    <img style="max-height:200px;max-width:200px" picture="__picture__-{$field['name']}"  src="__ROOT__{$data[$field['name']]|get_cover='path'}"/>
         </notempty>
 </case>
 <case value="file">

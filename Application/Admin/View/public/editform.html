@@ -7,7 +7,6 @@
     </ul>
     <div class="tab-content no-border padding-24">
         <!-- 表单 -->
-        <!-- 基础文档模型 -->
         <volist name=":parse_config_attr($model['field_group'])" id="group">
             <div id="tab{$key}" class="tab-pane <eq name="key" value="1">in active</eq> tab{$key}">
             <volist name="fields[$key]" id="field">
@@ -36,6 +35,12 @@
                                     <input type="text" name="{$field.name}" class="text input-mid date"
                                            value="{$data[$field['name']]|date='Y-m-d',###}"
                                            placeholder="请选择日期"/>
+                                </case>
+                                <case value="date_view_4">
+                                    <input type="text" name="{$field.name}" class="text input-mid date_view_4" value="{$data[$field['name']]|date='Y-m-d',###}" placeholder="请选择日期" />
+                                </case>
+                                <case value="date_3">
+                                    <input type="text" name="{$field.name}" class="text input-mid date_3" value="{$data[$field['name']]|date='Y-m',###}" placeholder="请选择日期" />
                                 </case>
                                 <case value="datetime">
                                     <input type="text" name="{$field.name}" class="text input-mid time"
@@ -71,13 +76,10 @@
                                 </case>
                                 <case value="checkbox">
                                     <volist name=":parse_field_attr($field['extra'])" id="vo">
-                                        <label class="checkbox">
                                             <input type="checkbox" value="{$key}" class="ace"
                                                    name="{$field.name}[]"
-                                            <in name="key" value="$data[$field['name']]">checked="checked"</in>
-                                            >
+                                            <in name="key" value="$data[$field['name']]">checked="checked"</in>>
                                             <span class="lbl">{$vo}</span>
-                                        </label>
                                     </volist>
                                 </case>
                                 <case value="editor">
@@ -100,7 +102,7 @@
                                     <div class="controls">
                                         <div class="upload-img-box">
                                             <notempty name="data[$field['name']]">
-                                                <div class="upload-pre-item"><img
+                                                <div class="upload-pre-item"><img style="max-height:200px;max-width:200px"
                                                         src="__ROOT__{$data[$field['name']]|get_cover='path'}"/></div>
                                             </notempty>
                                         </div>
@@ -131,7 +133,7 @@
                                                 $("#cover_id_{$field.name}").val(data.id);
                                                 src = data.url || '__ROOT__' + data.path;
                                                 $("#cover_id_{$field.name}").parent().find('.upload-img-box').html(
-                                                        '<div class="upload-pre-item"><img width="200"  height="200" src="' + src + '"/></div>'
+                                                        '<div class="upload-pre-item"><img style="max-height:200px;max-width:200px" src="' + src + '"/></div>'
                                                 );
                                             } else {
                                                 errorAlert(data.msg);

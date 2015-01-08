@@ -15,6 +15,10 @@ namespace Admin\Controller;
  */
 class ThinkController extends BaseController {
 
+    protected function p_lists ($model,$where=array(),$order='',$base = array('status'=>array('egt',0)),$field=true){
+        return parent::lists($model,$where,$order,$base,$field);
+    }
+
     /**
      * 显示指定模型列表数据
      * @param  String $model 模型标识
@@ -109,12 +113,12 @@ class ThinkController extends BaseController {
         $this->display($model['template_list']?$model['template_list']:'Think/lists');
     }
 
-    public function del($model = null, $ids=null){
+    public function del($model = null){
         $model = M('Model')->find($model);
         $model || $this->error('模型不存在！');
 
         $ids = array_unique((array)I('ids',0));
-
+        $ids = arr2str($ids);
         if ( empty($ids) ) {
             $this->error('请选择要操作的数据!');
         }
@@ -128,14 +132,6 @@ class ThinkController extends BaseController {
         }
     }
 
-    /**
-     * 设置一条或者多条数据的状态
-     * @author huajie <banhuajie@163.com>
-     */
-    public function setStatus($model=''){
-        return parent::setStatus($model);
-    }
-    
     public function edit($model = null, $id = 0,$title=''){
 
         //获取模型信息
@@ -146,7 +142,7 @@ class ThinkController extends BaseController {
             $Model  =   D(parse_name(get_table_name($model['id']),1));
             // 获取模型的字段信息
             $Model  =   $this->checkAttr($Model,$model['id']);
-            if($Model->create() && $Model->save()){
+            if($Model->create() && $Model->save()!==false){
                 $this->success('保存成功!',LK());
             } else {
                 $this->error($Model->getError());
@@ -164,18 +160,31 @@ class ThinkController extends BaseController {
             $this->display($model['template_edit']?$model['template_edit']:'Think/edit');
         }
     }
-    public function add($model = null,$title=''){
+    public function add($model = null,$title='',$fun){
         //获取模型信息
-        $model = M('Model')->where(array('status' => 1))->find($model);
+        if(is_numeric($model)){
+            $model = M('Model')->where(array('status' => 1))->find($model);
+        }else{
+            $model = M('Model')->where(array('status' => 1,'name'=>$model))->find();
+        }
         $model || $this->error('模型不存在或被禁用！');
-        if(IS_POST){
+
+        if(IS_POST || defined(FORCE_POST)){
             $Model  =   D(parse_name(get_table_name($model['id']),1));
             // 获取模型的字段信息
             $Model  =   $this->checkAttr($Model,$model['id']);
-            if($Model->create() && $Model->add()){
-                $this->success('添加成功！',LK());
+            if($Model->create() ){
+                $result = $Model->add();
+                if($result){
+                    if(isset($fun)){
+                        $fun($result);
+                    }
+                    $this->success('操作成功！',LK());
+                }else{
+                    $this->error('操作失败!');
+                }
             } else {
-                $this->error($Model->getError());
+                $this->error('操作失败!');
             }
         } else {
             $fields = get_model_attribute($model['id']);
@@ -202,9 +211,7 @@ class ThinkController extends BaseController {
                 $auto[]  =  array($attr['name'],$attr['auto_rule'],$attr['auto_time'],$attr['auto_type']);
             }elseif('checkbox'==$attr['type']){ // 多选型
                 $auto[] =   array($attr['name'],'arr2str',3,'function');
-            }elseif('date' == $attr['type']){ // 日期型
-                $auto[] =   array($attr['name'],'strtotime',3,'function');
-            }elseif('datetime' == $attr['type']){ // 时间型
+            }elseif(preg_match("/^date.*/",$attr['type'])){ // 日期型
                 $auto[] =   array($attr['name'],'strtotime',3,'function');
             }
         }

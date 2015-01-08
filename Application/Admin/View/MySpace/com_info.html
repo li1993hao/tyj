@@ -1,0 +1,47 @@
+<extend name="Public/base"/>
+<block name="title">
+    {$meta_title}
+</block>
+<block name="content">
+    <div class="btn-group">
+        <a href="{:U('addComInfo')}" class="btn btn-primary btn-sm" >
+            添加
+        </a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>赛事</th>
+                <th>时间</th>
+                <th>参赛项目</th>
+                <th>参赛地点</th>
+                <th>名次</th>
+                <th>奖牌</th>
+                <th>备注</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <notempty name="list">
+                <volist name="list" id="vo">
+                    <tr>
+                        <td>{$vo.com_id|get_com='name'}</td>
+                        <td>{$vo.time|date='Y-m',###}</td>
+                        <td>{$vo.sports|get_sports='cp_name'}</td>
+                        <td>{$vo.place}</td>
+                        <td>{$vo.ranking|CC='COM_MINGCI',###}</td>
+                        <td>{$vo.medal|CC='COM_JIANGPAI',###}</td>
+                        <td>{$vo.remark}</td>
+                        <td><a  href="{:U('addComInfo?id='.$vo['id'])}">编辑</a>
+                            <a class="ajax-get" href="{:U('delComInfo?id='.$vo['id'])}">删除</a>
+                        </td>
+                    </tr>
+                </volist>
+                <else/>
+                <td colspan="8" class="text-center"> aOh! 暂时还没有内容! </td>
+            </notempty>
+            </tbody>
+        </table>
+    </div>
+</block>

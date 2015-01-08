@@ -227,9 +227,9 @@ class ContentController extends ThinkController {
     }
 
     public  function  del(){
-        $category_id = I('category_id');
+        $category_id = I('get.category_id');
         $cat = D('Category')->getById($category_id);
-        parent::del($cat['model_id'],$_POST['ids']);
+        parent::del($cat['model_id']);
     }
 
 }

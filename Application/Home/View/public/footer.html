@@ -1,4 +1,4 @@
-
+<div class="margin-bottom-40"></div>
 <!--=== Copyright ===-->
 <div class="copyright">
     <div class="container">
@@ -52,8 +52,15 @@
             shake($('#search_text').parent());
             $('#search_text').prop('placeholder','写点什么吧..');
         }else{
-            var url = "{:U('Index/search')}";
-            location.href= url+"?search="+text;
+            var url = "{:U('Index/search?search=PLACEHOLDER')}";
+            location.href= url.replace('PLACEHOLDER',text);
+        }
+    });
+
+    $('a').each(function(){
+        var color = $(this).data('color');
+        if(color && color!='#555'){
+            $(this).css('color',color);
         }
     });
 </script>

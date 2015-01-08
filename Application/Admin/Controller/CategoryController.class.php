@@ -72,7 +72,7 @@ class CategoryController extends BaseController {
             if($type < 3){
                 //栏目或者是单页面,得到系统模板,和所有模型
                  $this->assign("temp",get_all_temp());
-                 $this->assign("model",M('Model')->field('id,name')->select());
+                 $this->assign("model",M('Model')->where(array('type'=>0))->field('id,name')->select());
             }
             //所有的可被当做父栏目的栏目集合
             $this->assign('pid',$Category->getCategory($node));

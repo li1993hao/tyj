@@ -16,7 +16,6 @@ namespace Admin\Controller;
 class SportsTeamController extends ThinkController
 {
     public function  index(){
-
         $list = M('SportTeam')->where(array('status'=>array('gt',-1)))->select();
         //得到栏目树形结构
         $tree =list_to_tree($list,'id','pid','children');

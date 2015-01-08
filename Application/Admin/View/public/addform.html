@@ -28,6 +28,12 @@
                                 <case value="date">
                                     <input type="text" name="{$field.name}" class="text input-mid date" value="" placeholder="请选择日期" />
                                 </case>
+                                <case value="date_view_4">
+                                    <input type="text" name="{$field.name}" class="text input-mid date_view_4" value="" placeholder="请选择日期" />
+                                </case>
+                                <case value="date_3">
+                                    <input type="text" name="{$field.name}" class="text input-mid date_3" value="" placeholder="请选择日期" />
+                                </case>
                                 <case value="datetime">
                                     <input type="text" name="{$field.name}" class="text input-mid time" value="" placeholder="请选择时间" />
                                 </case>
@@ -75,7 +81,7 @@
                                     <div class="controls">
                                         <div class="upload-img-box">
                                             <notempty name="data[$field['name']]">
-                                                <div class="upload-pre-item"><img src="{$data[$field['name']]|get_cover='path'}"/></div>
+                                                <div class="upload-pre-item"><img style="max-height:200px;max-width:200px" src="{$data[$field['name']]|get_cover='path'}"/></div>
                                             </notempty>
                                         </div>
                                         <input type="file" id="upload_picture_{$field.name}">
@@ -105,7 +111,7 @@
                                                 $("#cover_id_{$field.name}").val(data.id);
                                                 src = data.url || '__ROOT__' + data.path;
                                                 $("#cover_id_{$field.name}").parent().find('.upload-img-box').html(
-                                                        '<div class="upload-pre-item"><img width="200"  height="200" src="' + src + '"/></div>'
+                                                        '<div class="upload-pre-item"><img style="max-height:200px;max-width:200px" src="' + src + '"/></div>'
                                                 );
                                             } else {
                                                 errorAlert(data.msg);

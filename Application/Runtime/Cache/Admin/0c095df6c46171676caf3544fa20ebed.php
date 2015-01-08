@@ -79,12 +79,16 @@
         .table thead>tr>th, .table tbody>tr>th, .table tfoot>tr>th, .table thead>tr>td, .table tbody>tr>td, .table tfoot>tr>td{
             line-height: 2;
         }
+        a:hover{
+            text-decoration: none;
+        }
     </style>
     
 
     
 </head>
 <body class="navbar-fixed">
+<div class="shade" style="display:none"></div>
 <!-- 头部 -->
 <div class="navbar navbar-default navbar-fixed-top" id="navbar">
 <script type="text/javascript">
@@ -218,7 +222,41 @@
                 <div class="row">
                     <div class="col-xs-12">
                         
+    <div class="col-xs-5 col-sm-3" style="padding:0">
+        <div class="input-group">
+            <input  type="text" name="data_view" class="form-control search-query date_view"  placeholder="请选择添加的年份" />
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-primary btn-sm" onclick="add();" >
+                添加
+                <i class="icon-ok"></i>
+            </button>
+        </span>
+        </div>
+    </div>
 
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>年份</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php if(!empty($list)): if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
+                        <td><a href="<?php echo U('planDetail?year='.$vo['years']);?>"><?php echo ($vo["years"]); ?></a></td>
+                        <td>
+                            <?php if($vo["status"] == 0): ?><a class="ajax-get" href="<?php echo U('planDetail?method=publish&year='.$vo['years']);?>">发布公告</a>
+                            <?php else: ?>
+                                <a target="_blank" href="<?php echo U('Home/index/gamePlan?years='.$vo['years']);?>">查看公告</a><?php endif; ?>
+                            <a target="_blank" href="<?php echo U('planDetail?method=print&year='.$vo['years']);?>">打印</a>
+                        </td>
+                    </tr><?php endforeach; endif; else: echo "" ;endif; ?>
+                <?php else: ?>
+                <td colspan="3" class="text-center"> aOh! 暂时还没有内容! </td><?php endif; ?>
+            </tbody>
+        </table>
+    </div>
 
                         <!-- /.col -->
                     </div>
@@ -327,12 +365,13 @@
     (function(){
         var ThinkPHP = window.Think = {
             "ROOT"   : "/tyj", //当前网站地址
-            "APP"    : "/tyj", //当前项目地址
+            "APP"    : "/tyj/index.php?s=", //当前项目地址
             "PUBLIC" : "/tyj/Public", //项目公共目录地址
             "DEEP"   : "<?php echo C('URL_PATHINFO_DEPR');?>", //PATHINFO分割符
             "MODEL"  : ["<?php echo C('URL_MODEL');?>", "<?php echo C('URL_CASE_INSENSITIVE');?>", "<?php echo C('URL_HTML_SUFFIX');?>"],
             "VAR"    : ["<?php echo C('VAR_MODULE');?>", "<?php echo C('VAR_CONTROLLER');?>", "<?php echo C('VAR_ACTION');?>"]
         }
+        $('[data-rel=tooltip]').tooltip();
     })();
 </script>
 <script type="text/javascript" src="/tyj/Public/static/think.js"></script>
@@ -341,6 +380,31 @@
 
 
 
+    <link href="/tyj/Public/vendor/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/tyj/Public/vendor/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="/tyj/Public/vendor/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+        $('.date_view').datetimepicker({
+            format: 'yyyy',
+            language:"zh-CN",
+            minView:4,
+            startView:4,
+            autoclose:true
+        });
+        function add(){
+            var value = $('.date_view').val();
+            $.post("<?php echo U(addYears);?>",{'year':value},function(data){
+                if(data.status){
+                    okAlert('添加成功!');
+                    setTimeout(function(){
+                        location.reload();
+                    },1500);
+                }else{
+                    errorAlert(data.msg);
+                }
+            },'json');
+        }
+    </script>
 
 </body>
 </html>

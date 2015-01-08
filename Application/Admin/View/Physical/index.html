@@ -1,0 +1,141 @@
+<extend name="Public/base"/>
+<block name="title">
+    身体机能管理
+</block>
+<block name="content">
+    <div class="btn-group">
+        <a class="btn btn-sm btn-primary" href="{:U('add?type=1')}">添加</a>
+        <a class="btn btn-sm btn-primary"  href="{:U('import')}">批量添加</a>
+    </div>
+    <div class="able-responsive">
+        <table class="table table-striped  ">
+            <thead>
+            <tr>
+                <th>代码</th>
+                <th>名称</th>
+                <th>单位</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <notempty name="nodeList">
+                <volist name="nodeList" id="node">
+                    <tr class="level" data-level="{$node['level']}" >
+                        <td>{$node.code}</td>
+                        <td>
+                            <present name="node.children">
+                                <div style="display: inline-block" class=" node-folder" data-status='open'><i class="icon-minus smaller-100"></i></div>
+                            </present>
+                            <for start="0" end="$node.level">
+                                <if condition="$i eq $node['level']-1">
+                                    <if condition="$node['last']">
+                                        |__
+                                        <else/>
+                                        |--
+                                    </if>
+                                    <else/>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </if>
+                            </for>
+                            {$node.name}</td>
+
+                        <td>{$node.unit|default=''}</td>
+                        <td>
+                            {$node.status_text}
+                        </td>
+                        <td>
+                            <eq name="node.status" value="1">
+                                <a href="{:U('setStatus?status=0&ids='.$node['id'])}" class="ajax-get">禁用</a>
+                                <else/>
+                                <a href="{:U('setStatus?status=1&ids='.$node['id'])}" class="ajax-get">启用</a>
+                            </eq>
+                            <a href="{:U('add?select_id='.$node['id'])}">添加子项</a>
+                            <a href="{:U('add?id='.$node['id'])}">修改</a>
+                    </tr>
+                </volist>
+                <else/>
+                <td colspan="6" class="text-center"> aOh! 暂时还没有内容! </td>
+            </notempty>
+
+            </tbody>
+        </table>
+    </div>
+</block>
+<block name="js">
+    <script type="text/javascript">
+        $('.node-folder').click(function(){
+            var tr = $(this).parents('.level');
+            var currentLevel = getLevel(tr);
+            var current_status = $(this).data('status');
+            var ob = getNextLevel(tr);
+            //下层检测
+            while(true){
+                if(ob.level == 0||ob.level===undefined){
+                    break;
+                }
+                if(ob.level>currentLevel){
+                    if(current_status=='open'){
+                        $(ob.tr).hide();
+                    }else{
+                        $(ob.tr).show();
+                    }
+                }else{
+                    break;
+                }
+                ob = getNextLevel(ob.tr); //指针替换
+            }
+
+            if(current_status=='open'){
+                $(this).data('status','close');
+                $(this).empty().html('<i class="icon-plus smaller-100"></i>');
+            }else{
+                $(this).data('status','open');
+                $(this).empty().html('<i class="icon-minus smaller-100"></i>');
+            }
+
+//            if(currentLevel != 0){ //根节点不做上层检测
+//                ob = getPreLevel(tr);
+//                //上层检测
+//                while(true){
+//                    if(ob.level == 0||ob.level===undefined){
+//                        if(status && ob.level == 0){
+//                            $($(ob.tr).find("input[type='checkbox']")).prop('checked',true);
+//                        }
+//                        break;
+//                    }
+//                    if(ob.level<currentLevel){
+//                        if(status){
+//                            $($(ob.tr).find("input[type='checkbox']")).prop('checked',true);
+//                        }
+//                    }
+//                    ob = getPreLevel(ob.tr); //指针替换
+//                }
+//            }
+        });
+
+        /**
+         * 获得下一行层次
+         * @param current
+         */
+        function getNextLevel(tr){
+            var nextTr = $(tr).next('tr');
+            var level = getLevel(nextTr);
+            return {'level':level,'tr':nextTr};
+        }
+
+        /**
+         * 获得上一行的层次
+         * @param current
+         */
+        function getPreLevel(tr){
+            var preTr = $(tr).prev('tr');
+            var level = getLevel(preTr);
+            return {'level':level,'tr':preTr};
+        }
+
+        function getLevel(tr){
+            return $(tr).data('level');
+        }
+    </script>
+</block>

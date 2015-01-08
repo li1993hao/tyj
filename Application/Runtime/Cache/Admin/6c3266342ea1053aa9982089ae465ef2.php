@@ -254,7 +254,7 @@
             </label><?php endforeach; endif; else: echo "" ;endif; break;?>
 <?php case "editor": ?><section > <?php echo (htmlspecialchars_decode($data[$field['name']])); ?>
          </section><?php break;?>
-<?php case "picture": if(!empty($data[$field['name']])): ?><img style="width:200px;height:200px" src="/tyj<?php echo (get_cover($data[$field['name']],'path')); ?>"/><?php endif; break;?>
+<?php case "picture": if(!empty($data[$field['name']])): ?><img style="max-height:200px;max-width:200px" src="/tyj<?php echo (get_cover($data[$field['name']],'path')); ?>"/><?php endif; break;?>
 <?php case "file": if(isset($data[$field['name']])): ?><div class="upload-pre-file"><i class="icon-paper-clip"></i><span><?php echo (get_table_field($data[$field['name']],'id','name','File')); ?></span>
             </div><?php endif; break;?>
 <?php case "color": ?><a><span class="btn-colorpicker btn-colorpicker-<?php echo ($field["name"]); ?>" style="background-color:<?php echo ($data[$field['name']]); ?>"></span></a><?php break;?>
@@ -396,7 +396,7 @@
     (function(){
         var ThinkPHP = window.Think = {
             "ROOT"   : "/tyj", //当前网站地址
-            "APP"    : "/tyj", //当前项目地址
+            "APP"    : "/tyj/index.php?s=", //当前项目地址
             "PUBLIC" : "/tyj/Public", //项目公共目录地址
             "DEEP"   : "<?php echo C('URL_PATHINFO_DEPR');?>", //PATHINFO分割符
             "MODEL"  : ["<?php echo C('URL_MODEL');?>", "<?php echo C('URL_CASE_INSENSITIVE');?>", "<?php echo C('URL_HTML_SUFFIX');?>"],

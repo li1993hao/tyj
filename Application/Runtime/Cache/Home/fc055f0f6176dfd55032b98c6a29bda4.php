@@ -58,9 +58,7 @@
                     <li class="topbar-devider"></li>
                     <li><a href="<?php echo U('Admin/Index/index');?>">个人中心</a></li><?php endif; ?>
                 <li class="topbar-devider"></li>
-                <li><a href="<?php echo U('logout');?>">注销</a></li>
-            <?php else: ?>
-                <li><a href="<?php echo U('login');?>">登陆</a></li><?php endif; ?>
+                <li><a href="<?php echo U('logout');?>">注销</a></li><?php endif; ?>
         </ul>
     </div>
 </div><!--/top-->
@@ -148,89 +146,38 @@
                         </ul>
                     </div>
                     <hr/>
-                    <section><?php echo ($info["content"]); ?></section>
+                    <section><?php echo (htmlspecialchars_decode($info["content"])); ?></section>
                 </div>
             </div>
-            <!-- End Content -->
-
-
             <div class="col-md-3">
-                <div class="headline"><h2>快速通道</h2></div>
+                <!--快速通道-->
+<div class="headline"><h2><?php echo CC('LINK_GROUP','p-2');?></h2></div>
 <ul class="list-unstyled blog-photos margin-bottom-30">
-    <li><a href="#"><img class="hover-effect" alt="" src="/tyj/public/vendor/unify/img/sliders/elastislide/5.jpg"></a>
-    </li>
-    <li><a href="#"><img class="hover-effect" alt="" src="/tyj/public/vendor/unify/img/sliders/elastislide/6.jpg"></a>
-    </li>
-    <li><a href="#"><img class="hover-effect" alt="" src="/tyj/public/vendor/unify/img/sliders/elastislide/8.jpg"></a>
-    </li>
-    <li><a href="#"><img class="hover-effect" alt="" src="/tyj/public/vendor/unify/img/sliders/elastislide/10.jpg"></a>
-    </li>
-    <li><a href="#"><img class="hover-effect" alt="" src="/tyj/public/vendor/unify/img/sliders/elastislide/11.jpg"></a>
-    </li>
-    <li><a href="#"><img class="hover-effect" alt="" src="/tyj/public/vendor/unify/img/sliders/elastislide/1.jpg"></a>
-    </li>
-    <li><a href="#"><img class="hover-effect" alt="" src="/tyj/public/vendor/unify/img/sliders/elastislide/2.jpg"></a>
-    </li>
-    <li><a href="#"><img class="hover-effect" alt="" src="/tyj/public/vendor/unify/img/sliders/elastislide/7.jpg"></a>
-    </li>
+    <?php $_result=get_link('p-2');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a target="_blank" href="<?php echo ($info["url"]); ?>"><img  style="height: 50px;width: 102px" class="hover-effect" alt="<?php echo ($info["name"]); ?>" src="<?php echo ($info["picture"]); ?>"></a></li><?php endforeach; endif; else: echo "" ;endif; ?>
 </ul>
-
-<div class="headline"><h2>服务台</h2></div>
+<!--服务台-->
+<div class="headline"><h2><?php echo CC('LINK_GROUP','a-3');?></h2></div>
 <div class="row">
     <ul class="list-unstyled col-xs-6">
-        <li><a href="#">Revolution Slider</a></li>
-        <li><a href="#">Parralax Page</a></li>
-        <li><a href="#">Backgrounds</a></li>
-        <li><a href="#">Parralax Slider</a></li>
-        <li><a href="#">Responsive</a></li>
-        <li><a href="#">Bootstrap 3x</a></li>
+        <?php $_result=get_link('a-3',0,3);if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a target="_blank" href="<?php echo ($info["url"]); ?>"><?php echo ($info["name"]); ?></a></li><?php endforeach; endif; else: echo "" ;endif; ?>
     </ul>
     <ul class="list-unstyled col-xs-6">
-        <li><a href="#">50+ Valid Pages</a></li>
-        <li><a href="#">Layer Slider</a></li>
-        <li><a href="#">Bootstrap 2x</a></li>
-        <li><a href="#">Fixed Header</a></li>
-        <li><a href="#">Best Template</a></li>
-        <li><a href="#">And Many More</a></li>
+        <?php $_result=get_link('a-3',4,7);if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a target="_blank" href="<?php echo ($info["url"]); ?>"><?php echo ($info["name"]); ?></a></li><?php endforeach; endif; else: echo "" ;endif; ?>
     </ul>
 </div>
-<div class="headline"><h2>合作单位</h2></div>
+<!--合作单位-->
+<div class="headline"><h2><?php echo CC('LINK_GROUP','p-3');?></h2></div>
+<ul class="list-unstyled blog-photos margin-bottom-30">
+    <?php $_result=get_link('p-3');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a target="_blank" href="<?php echo ($info["url"]); ?>"><img  style="height: 50px;width: 102px" class="hover-effect" alt="<?php echo ($info["name"]); ?>" src="<?php echo ($info["picture"]); ?>"></a></li><?php endforeach; endif; else: echo "" ;endif; ?>
+</ul>
+<!--外部链接-->
+<div class="headline"><h2><?php echo CC('LINK_GROUP','t-1');?></h2></div>
 <div class="row">
     <ul class="list-unstyled col-xs-6">
-        <li><a href="#">Revolution Slider</a></li>
-        <li><a href="#">Parralax Page</a></li>
-        <li><a href="#">Backgrounds</a></li>
-        <li><a href="#">Parralax Slider</a></li>
-        <li><a href="#">Responsive</a></li>
-        <li><a href="#">Bootstrap 3x</a></li>
+        <?php $_result=get_link('t-1',0,5);if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a target="_blank" href="<?php echo ($info["url"]); ?>"><?php echo ($info["name"]); ?></a></li><?php endforeach; endif; else: echo "" ;endif; ?>
     </ul>
     <ul class="list-unstyled col-xs-6">
-        <li><a href="#">50+ Valid Pages</a></li>
-        <li><a href="#">Layer Slider</a></li>
-        <li><a href="#">Bootstrap 2x</a></li>
-        <li><a href="#">Fixed Header</a></li>
-        <li><a href="#">Best Template</a></li>
-        <li><a href="#">And Many More</a></li>
-    </ul>
-</div>
-
-<div class="headline"><h2>外部链接</h2></div>
-<div class="row">
-    <ul class="list-unstyled col-xs-6">
-        <li><a href="#">Revolution Slider</a></li>
-        <li><a href="#">Parralax Page</a></li>
-        <li><a href="#">Backgrounds</a></li>
-        <li><a href="#">Parralax Slider</a></li>
-        <li><a href="#">Responsive</a></li>
-        <li><a href="#">Bootstrap 3x</a></li>
-    </ul>
-    <ul class="list-unstyled col-xs-6">
-        <li><a href="#">50+ Valid Pages</a></li>
-        <li><a href="#">Layer Slider</a></li>
-        <li><a href="#">Bootstrap 2x</a></li>
-        <li><a href="#">Fixed Header</a></li>
-        <li><a href="#">Best Template</a></li>
-        <li><a href="#">And Many More</a></li>
+        <?php $_result=get_link('t-1',6,5);if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a target="_blank" href="<?php echo ($info["url"]); ?>"><?php echo ($info["name"]); ?></a></li><?php endforeach; endif; else: echo "" ;endif; ?>
     </ul>
 </div>
 
@@ -243,7 +190,7 @@
 <!-- /主体 -->
 
 <!-- 底部 -->
-
+<div class="margin-bottom-40"></div>
 <!--=== Copyright ===-->
 <div class="copyright">
     <div class="container">
@@ -297,8 +244,15 @@
             shake($('#search_text').parent());
             $('#search_text').prop('placeholder','写点什么吧..');
         }else{
-            var url = "<?php echo U('Index/search');?>";
-            location.href= url+"?search="+text;
+            var url = "<?php echo U('Index/search?search=PLACEHOLDER');?>";
+            location.href= url.replace('PLACEHOLDER',text);
+        }
+    });
+
+    $('a').each(function(){
+        var color = $(this).data('color');
+        if(color && color!='#555'){
+            $(this).css('color',color);
         }
     });
 </script>

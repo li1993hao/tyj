@@ -49,10 +49,6 @@ function int_to_string(&$data,$map=array('status'=>array
     return $data;
 }
 
-
-
-
-
 function check_verify($code, $id = 1){
     $verify = new \Think\Verify();
     return $verify->check($code, $id);
@@ -105,6 +101,24 @@ function tree_to_list_first($tree,$child_key,&$list=array(),$level=0){
             $value['level'] = $level;
             $list[]= $value;
             tree_to_list_first($value[$child_key],$child_key,$list,$level+1);
+        }
+    }
+}
+
+
+function sports_tree(&$tree){
+    if(is_array($tree)){
+        $tree = array_column($tree,null,'name');
+        foreach($tree as $key=>$value){
+            if(isset($value['children'])){
+                $children = $value['children'];
+                unset($tree[$key]['children']);
+                $tree[$key]['type'] = 'folder';
+                $tree[$key]['additionalParameters']=array('children'=>$children);
+                sports_tree($tree[$key]['additionalParameters']['children'],'children');
+            }else{
+                $tree[$key]['type'] = 'item';
+            }
         }
     }
 }
@@ -226,6 +240,7 @@ function user_field($field){
     }
 }
 
+
 /**
  * 字符串转换为数组，主要用于把分隔符调整到第二个参数
  * @param  string $str  要分割的字符串
@@ -284,7 +299,7 @@ function msubstr($str, $start=0, $length, $charset="utf-8", $suffix=true) {
         preg_match_all($re[$charset], $str, $match);
         $slice = join("",array_slice($match[0], $start, $length));
     }
-    return $suffix ? $slice.'...' : $slice;
+    return $suffix ? $slice.'' : $slice;
 }
 
 /**
@@ -412,9 +427,9 @@ function hook($hook,$params=array()){
  * @return string 完整的时间显示
  * @author huajie <banhuajie@163.com>
  */
-function time_format($time = NULL,$format='Y-m-d H:i'){
+function time_format($time = NULL,$format='Y-m-d H:i',$default='-'){
     if($time<=0){
-        return '－';
+        return $default;
     }
     $time = $time === NULL ? NOW_TIME : intval($time);
     return date($format, $time);
@@ -780,6 +795,17 @@ function  JDIRedirect($url){
     exit;
 }
 
+
+function CC($config,$index){
+    if(isset($index)){
+        $result = C($config);
+        return $result[$index];
+    }else{
+        return C($config);
+    }
+}
+
+
 /**url组装
  * @param $list  栏目列表
  */
@@ -807,7 +833,13 @@ function content_url($list,$fun){
                 $list[$k]['cover_path'] = get_cover_path($v['cover']);
             }
             if(!empty($v['link'])){ //外链
-                $list[$k]['url'] = $v['link'];
+                if('http://' === substr($v['link'], 0, 7)){
+                    $list[$k]['url'] = ['url'];
+                }else if('www' === substr($v['link'], 0, 3)){
+                    $list[$k]['url'] = ('http://'.$v['link']);
+                }else{
+                    $list[$k]['url'] = U($v['link']);
+                }
             }else{
                 $list[$k]['url'] = U('Home/Index/content?id='.$list[$k]['id'].'&catid='.$list[$k]['category_id']);
             }
@@ -820,7 +852,13 @@ function content_url($list,$fun){
             $list['cover_path'] = get_cover_path($list['cover']);
         }
         if(!empty($list['link'])){ //外链
-            $list['url'] = $list['link'];
+            if('http://' === substr($list['url'], 0, 7)){
+                $list['url'] = $list['link'];
+            }else if('www' === substr($list['link'], 0, 3)){
+                $list['url'] = ('http://'.$list['link']);
+            }else{
+                $list['url'] = U($list['link']);
+            }
         }else{
             $list['url']= U('Home/Index/content?id='.$list['id'].'&catid='.$list['category_id']);
         }
@@ -833,14 +871,20 @@ function content_url($list,$fun){
 function link_url($list){
     if(!isset($list['url'])){
         foreach($list as $k=>$v){
-           if('http://' === substr($v['url'], 0, 7)){
+            if('http://' === substr($v['url'], 0, 7)){
                 $url = $v['url'];
-           }else if('www' === substr($v['url'], 0, 3)){
+            }else if('www' === substr($v['url'], 0, 3)){
                 $url = ('http://'.$v['url']);
-           }else{
+            }else{
                 $url = U($v['url']);
-           }
-           $list[$k]['url'] = $url;
+            }
+            $list[$k]['url'] = $url;
+
+            if($list[$k]['picture_id']>0){
+                $list[$k]['picture'] = get_cover_path($list[$k]['picture_id']);
+            }else{
+                $list[$k]['picture'] = CC('TMPL_PARSE_STRING','__DEFAULT__');
+            }
         }
     }else{
         if('http://' === substr($list['url'], 0, 7)){
@@ -850,11 +894,14 @@ function link_url($list){
         }else{
             $list['url'] = U($list['url']);
         }
-
+        if($list['picture_id]']>0){
+            $list['picture'] = get_cover_path($list['picture_id]']);
+        }else{
+            $list['picture'] = CC('TMPL_PARSE_STRING','__DEFAULT__');
+        }
     }
 
     return $list;
 }
-
 
 

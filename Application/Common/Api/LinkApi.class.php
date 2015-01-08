@@ -44,11 +44,11 @@ class LinkApi {
             }
             S('sys_link_list', $list); //更新缓存
         }
-        if(isset($id)){
-            if($id=='count'){
+        if(isset($what)){
+            if($what=='count'){
                 return count($list[$group]);
             }else{
-                return $list[$group][$id];
+                return $list[$group][$what];
             }
         }else{
             return $list[$group];

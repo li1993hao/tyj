@@ -78,7 +78,6 @@
             });
 
             function backup(tab, status){
-                console.info(tab);
                 //是否进入下个数据表的备份
                 status && changeProgress(rate,'备份'+tables[tab.id]+"(剩于"+(tables.length-tab.id-1)+"张表)");
                 $.get($export_form.attr("action"), tab, function(data){

@@ -85,6 +85,7 @@
     
 </head>
 <body class="navbar-fixed">
+<div class="shade" style="display:none"></div>
 <!-- 头部 -->
 <div class="navbar navbar-default navbar-fixed-top" id="navbar">
 <script type="text/javascript">
@@ -445,7 +446,7 @@
     (function(){
         var ThinkPHP = window.Think = {
             "ROOT"   : "/tyj", //当前网站地址
-            "APP"    : "/tyj", //当前项目地址
+            "APP"    : "/tyj/index.php?s=", //当前项目地址
             "PUBLIC" : "/tyj/Public", //项目公共目录地址
             "DEEP"   : "<?php echo C('URL_PATHINFO_DEPR');?>", //PATHINFO分割符
             "MODEL"  : ["<?php echo C('URL_MODEL');?>", "<?php echo C('URL_CASE_INSENSITIVE');?>", "<?php echo C('URL_HTML_SUFFIX');?>"],
@@ -515,9 +516,9 @@
         //回车搜索
         $("#search").keyup(function(e) {
             if (e.keyCode === 13) {
-                var url =  '<?php echo U(CONTROLLER_NAME.'/'.ACTION_NAME);?>';
+                var url =  "<?php echo U(CONTROLLER_NAME.'/'.ACTION_NAME.'?query_name=PLACEHODLE');?>";
                 var query = $('#search').val();
-                url+=('?query_name='+query);
+                url = url.replace('PLACEHODLE',query);
                 window.location.href = url;
                 return false;
             }

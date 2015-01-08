@@ -221,4 +221,21 @@ class DocumentApi {
         $result = content_url($result);
         return $result;
     }
+
+    /**获取热点新闻
+     * @param null $cate
+     * @param null $limit
+     * @param string $order
+     * @param bool $field
+     * @return array|mixed|string
+     */
+    public static function hot_list($cate=null,$limit=8,$order='`view` DESC, `is_up` DESC',$field = true){
+        $map = DocumentApi::listMap($cate, 1);
+        $model = M('article');
+        /* 设置列表数量 */
+        is_numeric($limit) && $model->limit($limit);
+        $result =  $model->field($field)->where($map)->order($order)->select();
+        $result = content_url($result);
+        return $result;
+    }
 }

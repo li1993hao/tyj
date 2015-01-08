@@ -1,0 +1,184 @@
+<extend name="Public/base"/>
+<block name="title">
+    身体机能信息
+</block>
+<block name="content">
+    <div class="able-responsive">
+        <table class="table table-striped  ">
+            <thead>
+            <tr>
+                <th>代码</th>
+                <th>名称</th>
+                <th>单位</th>
+                <th class="text-center">值(双击修改)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <notempty name="nodeList">
+                <volist name="nodeList" id="node">
+                    <tr class="level" data-level="{$node['level']}" >
+                        <td>{$node.code}</td>
+                        <td>
+                            <present name="node.children">
+                                <div style="display: inline-block" class=" node-folder" data-status='open'><i class="icon-minus smaller-100"></i></div>
+                            </present>
+                            <for start="0" end="$node.level">
+                                <if condition="$i eq $node['level']-1">
+                                    <if condition="$node['last']">
+                                        |__
+                                        <else/>
+                                        |--
+                                    </if>
+                                    <else/>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </if>
+                            </for>
+                            {$node.name}</td>
+                        <td>{$node.unit|default=''}</td>
+                        <td class="text-center">
+                            <notpresent name="node.children">
+                                <div class="click_edit"  data-name="{$node.code}" data-value="{$data->$node['code']|default='-'}">{$data->$node['code']|default='-'}</div>
+                            </notpresent>
+                        </td>
+
+                    </tr>
+                </volist>
+                <else/>
+                <td colspan="6" class="text-center"> aOh! 暂时还没有内容! </td>
+            </notempty>
+
+            </tbody>
+        </table>
+    </div>
+</block>
+<block name="js">
+    <script type="text/javascript">
+        $('.click_edit').css('cursor','pointer');
+        $('.click_edit').dblclick(function(){
+            <eq name="Think.config.USER_PHY" value="0">
+            errorAlert('抱歉该功能暂时关闭!');
+            return false;
+            </eq>
+
+            if($(this).children('.edit_input').length>0){
+                return;
+            }
+             var name = $(this).data('name');
+             var value = $(this).data('value');
+             if(value == '-'){
+                 value='';
+             }
+             var input = '<input  type="text" onblur="submit(this)" data-value="'+value+'"  name="'+name+'"  value="'+value+'"/>';
+             $(this).empty().html(input);
+            $(this).children('input').focus();
+        });
+
+        function submit(ele){
+            var value = $(ele).val();
+            var preValue = $(ele).data('value');
+            if(value == preValue){ //没编辑
+                var parentDiv = $(ele).parent('.click_edit');
+                if(!value){
+                    value = '-';//默认值
+                }
+                $(parentDiv).data('value',value);
+                $(parentDiv).empty().text(value);
+                return;
+            }
+
+            var code = $(ele).prop('name');
+           if(/^[-+]?\d+\.?\d*$/.test(value)){
+               $.post("{:U('changePhysical')}",{'code':code,'value':value},function(data){
+                   if(data.status){
+                       okAlert(data.msg);
+                       var parentDiv = $(ele).parent('.click_edit');
+                       $(parentDiv).data('value',value);
+                       $(parentDiv).empty().text(value);
+                   }else{
+                       $(ele).focus();
+                       errorAlert(data.msg);
+                   }
+               },'json');
+           }else{
+               $(ele).focus();
+               errorAlert('输入非法');
+           }
+        }
+
+        $('.node-folder').click(function(){
+            var tr = $(this).parents('.level');
+            var currentLevel = getLevel(tr);
+            var current_status = $(this).data('status');
+            var ob = getNextLevel(tr);
+            //下层检测
+            while(true){
+                if(ob.level == 0||ob.level===undefined){
+                    break;
+                }
+                if(ob.level>currentLevel){
+                    if(current_status=='open'){
+                        $(ob.tr).hide();
+                        $($(ob.tr).find('.node-folder')).empty().html('<i class="icon-plus smaller-100"></i>');
+                    }else{
+                        $(ob.tr).show();
+                        $($(ob.tr).find('.node-folder')).empty().html('<i class="icon-minus smaller-100"></i>');
+                    }
+                }else{
+                    break;
+                }
+                ob = getNextLevel(ob.tr); //指针替换
+            }
+
+            if(current_status=='open'){
+                $(this).data('status','close');
+                $(this).empty().html('<i class="icon-plus smaller-100"></i>');
+            }else{
+                $(this).data('status','open');
+                $(this).empty().html('<i class="icon-minus smaller-100"></i>');
+            }
+
+//            if(currentLevel != 0){ //根节点不做上层检测
+//                ob = getPreLevel(tr);
+//                //上层检测
+//                while(true){
+//                    if(ob.level == 0||ob.level===undefined){
+//                        if(status && ob.level == 0){
+//                            $($(ob.tr).find("input[type='checkbox']")).prop('checked',true);
+//                        }
+//                        break;
+//                    }
+//                    if(ob.level<currentLevel){
+//                        if(status){
+//                            $($(ob.tr).find("input[type='checkbox']")).prop('checked',true);
+//                        }
+//                    }
+//                    ob = getPreLevel(ob.tr); //指针替换
+//                }
+//            }
+        });
+
+        /**
+         * 获得下一行层次
+         * @param current
+         */
+        function getNextLevel(tr){
+            var nextTr = $(tr).next('tr');
+            var level = getLevel(nextTr);
+            return {'level':level,'tr':nextTr};
+        }
+
+        /**
+         * 获得上一行的层次
+         * @param current
+         */
+        function getPreLevel(tr){
+            var preTr = $(tr).prev('tr');
+            var level = getLevel(preTr);
+            return {'level':level,'tr':preTr};
+        }
+
+        function getLevel(tr){
+            return $(tr).data('level');
+        }
+    </script>
+</block>

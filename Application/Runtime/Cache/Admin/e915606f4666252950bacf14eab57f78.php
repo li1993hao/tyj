@@ -79,12 +79,16 @@
         .table thead>tr>th, .table tbody>tr>th, .table tfoot>tr>th, .table thead>tr>td, .table tbody>tr>td, .table tfoot>tr>td{
             line-height: 2;
         }
+        a:hover{
+            text-decoration: none;
+        }
     </style>
     
 
     
 </head>
 <body class="navbar-fixed">
+<div class="shade" style="display:none"></div>
 <!-- 头部 -->
 <div class="navbar navbar-default navbar-fixed-top" id="navbar">
 <script type="text/javascript">
@@ -229,7 +233,7 @@
 		<div class="tab-content">
 	<form action="<?php echo U('save');?>" method="post" class="form-horizontal normal-form">
 	<?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$config): $mod = ($i % 2 );++$i;?><div class="form-group">
-			<label class="item-label"><?php echo ($config["title"]); ?><span class="check-tips">（<?php echo ($config["remark"]); ?>）</span> </label>
+			<label class="item-label"><?php echo ($config["title"]); ?>:<span class="check-tips"><?php if(!empty($config["remark"])): ?>（<?php echo ($config["remark"]); ?>）<?php endif; ?></span> </label>
 			<div class="controls">
 			<?php switch($config["type"]): case "0": ?><input type="text" class="text input-small" name="config[<?php echo ($config["name"]); ?>]" value="<?php echo ($config["value"]); ?>"><?php break;?>
 			<?php case "1": ?><input type="text" class="text input-large" name="config[<?php echo ($config["name"]); ?>]" value="<?php echo ($config["value"]); ?>"><?php break;?>
@@ -369,6 +373,7 @@
             "MODEL"  : ["<?php echo C('URL_MODEL');?>", "<?php echo C('URL_CASE_INSENSITIVE');?>", "<?php echo C('URL_HTML_SUFFIX');?>"],
             "VAR"    : ["<?php echo C('VAR_MODULE');?>", "<?php echo C('VAR_CONTROLLER');?>", "<?php echo C('VAR_ACTION');?>"]
         }
+        $('[data-rel=tooltip]').tooltip();
     })();
 </script>
 <script type="text/javascript" src="/tyj/Public/static/think.js"></script>

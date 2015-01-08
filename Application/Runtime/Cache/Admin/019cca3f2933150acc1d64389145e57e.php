@@ -209,7 +209,7 @@
                 <div class="page-header">
                     <h1>
                          
-    分类管理
+    运动队管理
 
                     </h1>
                 </div>
@@ -235,7 +235,7 @@
             <?php if(!empty($nodeList)): if(is_array($nodeList)): $i = 0; $__LIST__ = $nodeList;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$node): $mod = ($i % 2 );++$i;?><tr>
                         <td><?php echo ($node["id"]); ?></td>
                         <td>
-                            <?php $__FOR_START_2051271122__=0;$__FOR_END_2051271122__=$node["level"];for($i=$__FOR_START_2051271122__;$i < $__FOR_END_2051271122__;$i+=1){ if($i == $node['level']-1): if($node['last']): ?>|__
+                            <?php $__FOR_START_1933715083__=0;$__FOR_END_1933715083__=$node["level"];for($i=$__FOR_START_1933715083__;$i < $__FOR_END_1933715083__;$i+=1){ if($i == $node['level']-1): if($node['last']): ?>|__
                                         <?php else: ?>
                                         |--<?php endif; ?>
                                     <?php else: ?>
@@ -359,7 +359,7 @@
     (function(){
         var ThinkPHP = window.Think = {
             "ROOT"   : "/tyj", //当前网站地址
-            "APP"    : "/tyj", //当前项目地址
+            "APP"    : "/tyj/index.php?s=", //当前项目地址
             "PUBLIC" : "/tyj/Public", //项目公共目录地址
             "DEEP"   : "<?php echo C('URL_PATHINFO_DEPR');?>", //PATHINFO分割符
             "MODEL"  : ["<?php echo C('URL_MODEL');?>", "<?php echo C('URL_CASE_INSENSITIVE');?>", "<?php echo C('URL_HTML_SUFFIX');?>"],

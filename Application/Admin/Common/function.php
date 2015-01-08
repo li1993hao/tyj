@@ -172,6 +172,8 @@ function get_attribute_type($type=''){
         'textarea'  =>  array('文本框','text NOT NULL'),
         'date'      =>  array('日期','int(10) NOT NULL'),
         'datetime'  =>  array('时间','int(10) NOT NULL'),
+        'date_view_4'=> array('年份视图日期','int(10) NOT NULL'),
+        'date_3'=> array('年月日期','int(10) NOT NULL'),
         'bool'      =>  array('布尔','tinyint(2) NOT NULL'),
         'select'    =>  array('枚举','char(50) NOT NULL'),
         'radio'     =>  array('单选','char(10) NOT NULL'),
@@ -186,37 +188,41 @@ function get_attribute_type($type=''){
     return $type?$_type[$type][0]:$_type;
 }
 //获得运动项目
-function get_sports($id){
-    $sport = S('sports');
-    if(!$sport){
-        $t =M('Sports')->where(array('status'=>1,'level'=>1))->select();
-        foreach($t as $item){
-            $sport[$item['id']] = $item['name'];
-        }
-        S('sports',$sport);
-    }
-    return (isset($id)?$sport[$id]:$sport);
+function get_sports($code,$filed=false){
+   if(isset($code)){
+       $lists = M('Sports')->where(array('status'=>1,'code'=>$code))->find();
+       return $filed?$lists[$filed]:$lists;
+   }else{
+       $lists = M('Sports')->where(array('status'=>1,'code'=>$code))->select();
+       return $lists;
+   }
 }
+
+function get_sports_top($code){
+    static $lists;
+    if(!$lists){
+        $lists = M('Sports')->where(array('status'=>1,'pid'=>0))->select();
+        $lists= array_column($lists,'name','code');
+    }
+    return isset($code)?$lists[$code]:$lists;
+}
+
+//赛事
+function get_com($id,$filed=false){
+    if(isset($id)){
+        $lists = M('Competition')->where(array('status'=>1,'id'=>$id))->find();
+        return $filed?$lists[$filed]:$lists;
+    }else{
+        $lists = M('Competition')->where(array('status'=>1,'id'=>$id))->select();
+        return $lists;
+    }
+}
+
 //运动员,裁判员和教练员对应的分组
 function get_user_group($type){
     static $map = array(1=>5,2=>6,3=>7);
     return $map[$type];
 }
-
-
-
-
-function CC($config,$index){
-    if(isset($index)){
-        $result = C($config);
-        return $result[$index];
-    }else{
-        return C($config);
-    }
-}
-
-
-
 
 /**系统默认的模型分组
  * @param string $type
@@ -252,15 +258,6 @@ function get_model_by_catid($catid){
     return $model;
 }
 
-
-/**重新定义controller和action
- * @param $controller
- * @param $action
- */
-function redefine_path($controller,$action){
-    define('CONTROLLER_NAME',$controller);
-    define('ACTION_NAME',$action);
-}
 
 /**
  * 获取配置的类型
