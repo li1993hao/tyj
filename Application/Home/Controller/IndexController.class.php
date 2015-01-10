@@ -192,6 +192,7 @@ class IndexController extends HomeController {
 //                    if(!empty($reme)){//把登陆信息保存到cooike里面
 //                        set_auto_login_cookie();
 //                    }
+                    define(UID,$uid);
                     $this->success("登录成功!");
                 } else {
                     $this->error("登录失败！");
@@ -206,7 +207,14 @@ class IndexController extends HomeController {
                 $this->error($error);
             }
         } else {
-            $this->redirect('Index/index');
+            if(is_login()){
+                $this->redirect('Index/index');
+            }else{
+                $nav[] = array('name'=>'首页','url'=>U('Index/index'));
+                $nav[] = array('name'=>'登陆','url'=>"#");
+                $this->assign('nav',$nav);
+                $this->display();
+            }
         }
     }
 

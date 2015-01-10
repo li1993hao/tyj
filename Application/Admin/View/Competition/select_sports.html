@@ -4,9 +4,13 @@
 </block>
 <block name="content">
     <div class="btn-group">
-
         <a class="btn btn-sm btn-primary ajax-post" href="{:U('sports?id='.$id)}" target-form="code">保存</a>
-        <button class="btn btn-sm" onclick="javascript:history.back(-1);return false;">返 回</button>
+        <if condition="$method eq 'checked'">
+            <a class="btn btn-sm btn-primary" href="{:U('sports?id='.$id)}" >显示所有</a>
+        <else/>
+            <a class="btn btn-sm btn-primary" href="{:U('sports?method=checked&id='.$id)}" >只显示已选</a>
+        </if>
+        <a class="btn btn-sm" href="{:U('manager')}">返回</a>
     </div>
      <div class="table-responsive">
         <table class="table table-striped  ">
@@ -95,25 +99,6 @@
                 $(this).data('status','open');
                 $(this).empty().html('<i class="icon-minus smaller-100"></i>');
             }
-
-//            if(currentLevel != 0){ //根节点不做上层检测
-//                ob = getPreLevel(tr);
-//                //上层检测
-//                while(true){
-//                    if(ob.level == 0||ob.level===undefined){
-//                        if(status && ob.level == 0){
-//                            $($(ob.tr).find("input[type='checkbox']")).prop('checked',true);
-//                        }
-//                        break;
-//                    }
-//                    if(ob.level<currentLevel){
-//                        if(status){
-//                            $($(ob.tr).find("input[type='checkbox']")).prop('checked',true);
-//                        }
-//                    }
-//                    ob = getPreLevel(ob.tr); //指针替换
-//                }
-//            }
         });
 
 

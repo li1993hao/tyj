@@ -6,6 +6,7 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="renderer" content="webkit">
 <!-- basic styles -->
 <link href="/tyj/Public/vendor/ace/css/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="/tyj/Public/vendor/ace/css/font-awesome.min.css" />
@@ -113,7 +114,9 @@
             "MODEL"  : ["<?php echo C('URL_MODEL');?>", "<?php echo C('URL_CASE_INSENSITIVE');?>", "<?php echo C('URL_HTML_SUFFIX');?>"],
             "VAR"    : ["<?php echo C('VAR_MODULE');?>", "<?php echo C('VAR_CONTROLLER');?>", "<?php echo C('VAR_ACTION');?>"]
         }
-        $('[data-rel=tooltip]').tooltip();
+        $("#nav_top_main_bt").click(function(){
+            $("#nav_top_main").toggle(200);
+        })
     })();
 </script>
 <script type="text/javascript" src="/tyj/Public/static/think.js"></script>

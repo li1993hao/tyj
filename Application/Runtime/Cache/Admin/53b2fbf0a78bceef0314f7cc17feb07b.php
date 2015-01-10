@@ -6,6 +6,7 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="renderer" content="webkit">
 <!-- basic styles -->
 <link href="/tyj/Public/vendor/ace/css/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="/tyj/Public/vendor/ace/css/font-awesome.min.css" />
@@ -63,7 +64,7 @@
             <div class="profile-user-info profile-user-info-striped">
                 <?php if(is_array($fields)): $i = 0; $__LIST__ = $fields;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$field): $mod = ($i % 2 );++$i; if($field['is_show'] == 1 || $field['is_show'] == 3): ?><div class="profile-info-row">
                             <?php if($field['type'] == 'picture'): ?><div class="profile-info-name">
-                                    <div style="margin-top:50%"><?php echo ($field['title']); ?></div>
+                                    <div picture="__title__-<?php echo ($field['name']); ?>"><?php echo ($field['title']); ?></div>
                                 </div>
                                 <?php else: ?>
                                 <div class="profile-info-name">
@@ -87,7 +88,7 @@
                                             </label><?php endforeach; endif; else: echo "" ;endif; break;?>
                                     <?php case "editor": ?><section> <?php echo (htmlspecialchars_decode($data[$field['name']])); ?>
                                         </section><?php break;?>
-                                    <?php case "picture": if(!empty($data[$field['name']])): ?><img style="width:200px;height:200px" src="/tyj<?php echo (get_cover($data[$field['name']],'path')); ?>"/><?php endif; break;?>
+                                    <?php case "picture": if(!empty($data[$field['name']])): ?><img style="max-width:200px;max-height:200px" picture="__picture__-<?php echo ($field['name']); ?>" src="/tyj<?php echo (get_cover($data[$field['name']],'path')); ?>"/><?php endif; break;?>
                                     <?php case "file": if(isset($data[$field['name']])): ?><div class="upload-pre-file"><i class="icon-paper-clip"></i><span><?php echo (get_table_field($data[$field['name']],'id','name','File')); ?></span>
                                             </div><?php endif; break;?>
                                     <?php case "color": ?><a><span class="btn-colorpicker btn-colorpicker-<?php echo ($field["name"]); ?>"
@@ -150,6 +151,9 @@
             "MODEL"  : ["<?php echo C('URL_MODEL');?>", "<?php echo C('URL_CASE_INSENSITIVE');?>", "<?php echo C('URL_HTML_SUFFIX');?>"],
             "VAR"    : ["<?php echo C('VAR_MODULE');?>", "<?php echo C('VAR_CONTROLLER');?>", "<?php echo C('VAR_ACTION');?>"]
         }
+        $("#nav_top_main_bt").click(function(){
+            $("#nav_top_main").toggle(200);
+        })
     })();
 </script>
 <script type="text/javascript" src="/tyj/Public/static/think.js"></script>
@@ -158,6 +162,14 @@
 
 
 <script type="text/javascript">
+    window.onload=function(){ //让图片说明文字居中
+        $("[picture^='__title__']").each(function(){
+            var tp = $(this).attr('picture');
+            var pp  = tp.replace('__title__','__picture__');
+            var height = $("[picture="+pp+"]").css('height');
+            $(this).css('line-height',height);
+        });
+    }
     window.print();
 </script>
 </body>

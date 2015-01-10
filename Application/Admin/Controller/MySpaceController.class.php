@@ -98,7 +98,6 @@ class MySpaceController extends ThinkController {
             $this->error('您还未完善个人资料,请尽快完善',U('baseInfo'));
         }
 
-
         $model = D('ComInfo');
         if(IS_POST){
             $_POST['uid'] = UID;
@@ -230,8 +229,10 @@ class MySpaceController extends ThinkController {
         if(preg_match('/^[-+]?\d+\.?\d*$/',$value)){
             if($res['physical']){ //编辑过
                 $data = json_decode($res['physical']);
+                $data->$code = $value;
+            }else{//没编辑过
+                $data[$code] = $value;
             }
-            $data[$code] = $value;
             $res['physical'] = json_encode($data);
             if(M($model_name)->save($res)!==false){
                 $this->success('编辑成功!');
@@ -286,5 +287,7 @@ class MySpaceController extends ThinkController {
         $this->display();
     }
 
-
+    public  function  printComInfo(){
+        parent::printComInfo(UID);
+    }
 }

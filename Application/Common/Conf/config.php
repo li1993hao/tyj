@@ -7,7 +7,7 @@ return array(
     'COOKIE_EXPIRE'=>3600*24*30, //cooike 保存时间1个月
     /* 系统数据加密设置 */
     'DATA_AUTH_KEY' => 'xr%3Ci>[L?u2b}7;p~ED1hmWN"sXzoR0&AM^UjJe', //默认数据加密KEY
-
+    'URL_MODEL'=>'3',
     /* 用户相关设置 */
     'USER_MAX_CACHE'     => 1000, //最大缓存用户数
     'USER_ADMINISTRATOR' => 1, //管理员用户ID

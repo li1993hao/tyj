@@ -1,0 +1,508 @@
+[ 2015-01-10T09:11:16+08:00 ] ::1 /tyj/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000029s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000823s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000960s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001062s ]
+
+[ 2015-01-10T09:11:58+08:00 ] ::1 /tyj/index.php?s=/Home/Index/login.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000025s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000494s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000536s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000614s ]
+
+[ 2015-01-10T09:11:58+08:00 ] ::1 /tyj/index.php?s=/Home/Index/verify.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000016s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000330s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000529s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000596s ]
+
+[ 2015-01-10T09:12:07+08:00 ] ::1 /tyj/index.php?s=/Home/Index/login.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000023s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000416s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000447s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000502s ]
+NOTIC: [8] Use of undefined constant UC_AUTH_KEY - assumed 'UC_AUTH_KEY' /Users/haoli/Desktop/www/tyj/ThinkPHP/Common/functions.php 第 529 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/haoli/Desktop/www/tyj/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `xj_member` [ RunTime:0.002115s ]
+SQL: SELECT * FROM `xj_member` WHERE `username` = 'admin' LIMIT 1   [ RunTime:0.000612s ]
+SQL: SELECT * FROM `xj_member` WHERE `username` = 'admin' LIMIT 1   [ RunTime:0.000346s ]
+SQL: UPDATE `xj_member` SET `login_times`=`login_times`+1,`last_login_time`=1420852327,`last_login_ip`=0 WHERE `id` = 1 [ RunTime:0.000489s ]
+SQL: SELECT `id`,`username`,`password`,`mobile`,`reg_time`,`reg_ip`,`last_login_time`,`last_login_ip`,`update_time`,`status`,`login_times`,`nickname`,`type` FROM `xj_member` WHERE `id` = 1 LIMIT 1   [ RunTime:0.000300s ]
+SQL: SHOW COLUMNS FROM `xj_action` [ RunTime:0.002764s ]
+SQL: SELECT * FROM `xj_action` WHERE `name` = 'user_login' LIMIT 1   [ RunTime:0.000486s ]
+SQL: SHOW COLUMNS FROM `xj_action_log` [ RunTime:0.001471s ]
+SQL: INSERT INTO `xj_action_log` (`action_id`,`user_id`,`action_ip`,`model`,`record_id`,`create_time`,`remark`) VALUES (1,1,0,'member',1,1420852327,'李浩在2015-01-10 09:12登录了后台') [ RunTime:0.002128s ]
+SQL: SELECT * FROM `xj_action` WHERE `name` = 'user_login' LIMIT 1   [ RunTime:0.000588s ]
+NOTIC: [8] Undefined offset: 1 /Users/haoli/Desktop/www/tyj/Application/Common/Common/function.php 第 556 行.
+NOTIC: [2] array_key_exists() expects parameter 2 to be array, null given /Users/haoli/Desktop/www/tyj/Application/Common/Common/function.php 第 556 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `xj_action_log` WHERE `action_id` = 1 AND `user_id` = 1 AND `create_time` > 1420765927 LIMIT 1   [ RunTime:0.004379s ]
+SQL: UPDATE `xj_member` SET `login_times`=`login_times`+1,`last_login_time`=1420852327,`last_login_ip`=0 WHERE `id` = 1 [ RunTime:0.000407s ]
+NOTIC: [8] Use of undefined constant UID - assumed 'UID' /Users/haoli/Desktop/www/tyj/Application/Home/Controller/IndexController.class.php 第 195 行.
+
+[ 2015-01-10T09:12:08+08:00 ] ::1 /tyj/index.php?s=/Home/Index/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000016s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000326s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000415s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000472s ]
+
+[ 2015-01-10T09:12:15+08:00 ] ::1 /tyj/index.php?s=/Home/Index/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000018s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000357s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000421s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000477s ]
+
+[ 2015-01-10T09:30:38+08:00 ] ::1 /tyj/index.php?s=/Home/Index/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000013s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000299s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000643s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000723s ]
+
+[ 2015-01-10T09:30:47+08:00 ] ::1 /tyj/index.php?s=/Home/Index/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000017s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000372s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001194s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001362s ]
+
+[ 2015-01-10T09:30:52+08:00 ] ::1 /tyj/index.php?s=/Home/Index/category/id/55/p/1.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000025s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000500s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001214s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001449s ]
+
+[ 2015-01-10T09:31:00+08:00 ] ::1 /tyj/index.php?s=/Home/Index/category/id/58/p/1.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000029s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000650s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000458s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000533s ]
+
+[ 2015-01-10T09:31:03+08:00 ] ::1 /tyj/index.php?s=/Home/index/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000014s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000297s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000378s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000432s ]
+
+[ 2015-01-10T09:35:06+08:00 ] ::1 /tyj/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000023s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000476s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001301s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001519s ]
+
+[ 2015-01-10T09:36:20+08:00 ] ::1 /tyj/index.php?s=/Home/index/gamePlan/years/2015.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000039s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000516s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000743s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000859s ]
+
+[ 2015-01-10T09:36:25+08:00 ] ::1 /tyj/index.php?s=/Home/index/gamePlan/years/2015.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000016s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000348s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000764s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000907s ]
+
+[ 2015-01-10T10:22:39+08:00 ] ::1 /tyj/index.php?s=/Home/Index/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000014s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000306s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000392s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000446s ]
+
+[ 2015-01-10T10:23:08+08:00 ] ::1 /tyj/index.php?s=/Home/Index/content/id/51/catid/52.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000014s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000309s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000620s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000729s ]
+
+[ 2015-01-10T10:23:11+08:00 ] ::1 /tyj/index.php?s=/Home/Index/category/id/50/p/1.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000014s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000297s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000373s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000425s ]
+
+[ 2015-01-10T10:23:12+08:00 ] ::1 /tyj/index.php?s=/Home/Index/content/id/43/catid/50.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000016s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000328s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000387s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000439s ]
+
+[ 2015-01-10T10:23:15+08:00 ] ::1 /tyj/index.php?s=/Home/Index/logout.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000015s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000321s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000388s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000442s ]
+
+[ 2015-01-10T10:23:16+08:00 ] ::1 /tyj/index.php?s=/Home/Index/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000041s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000711s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000643s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000752s ]
+
+[ 2015-01-10T10:23:18+08:00 ] ::1 /tyj/index.php?s=/Home/Index/login.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000019s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000496s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000398s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000455s ]
+
+[ 2015-01-10T10:23:18+08:00 ] ::1 /tyj/index.php?s=/Home/Index/verify.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000015s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000318s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000420s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000485s ]
+
+[ 2015-01-10T10:23:19+08:00 ] ::1 /tyj/index.php?s=/Home/Index/login.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000015s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000307s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000485s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000539s ]
+
+[ 2015-01-10T10:23:19+08:00 ] ::1 /tyj/index.php?s=/Home/Index/verify.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000022s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000457s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000531s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000617s ]
+
+[ 2015-01-10T10:23:28+08:00 ] ::1 /tyj/index.php?s=/Home/Index/login.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000013s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000298s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000371s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000419s ]
+NOTIC: [8] Use of undefined constant UC_AUTH_KEY - assumed 'UC_AUTH_KEY' /Users/haoli/Desktop/www/tyj/ThinkPHP/Common/functions.php 第 529 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/haoli/Desktop/www/tyj/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `xj_member` [ RunTime:0.001739s ]
+SQL: SELECT * FROM `xj_member` WHERE `username` = 'admin' LIMIT 1   [ RunTime:0.000193s ]
+SQL: SELECT * FROM `xj_member` WHERE `username` = 'admin' LIMIT 1   [ RunTime:0.000135s ]
+SQL: UPDATE `xj_member` SET `login_times`=`login_times`+1,`last_login_time`=1420856608,`last_login_ip`=0 WHERE `id` = 1 [ RunTime:0.000116s ]
+SQL: SELECT `id`,`username`,`password`,`mobile`,`reg_time`,`reg_ip`,`last_login_time`,`last_login_ip`,`update_time`,`status`,`login_times`,`nickname`,`type` FROM `xj_member` WHERE `id` = 1 LIMIT 1   [ RunTime:0.000096s ]
+SQL: SHOW COLUMNS FROM `xj_action` [ RunTime:0.000980s ]
+SQL: SELECT * FROM `xj_action` WHERE `name` = 'user_login' LIMIT 1   [ RunTime:0.000133s ]
+SQL: SHOW COLUMNS FROM `xj_action_log` [ RunTime:0.000891s ]
+SQL: INSERT INTO `xj_action_log` (`action_id`,`user_id`,`action_ip`,`model`,`record_id`,`create_time`,`remark`) VALUES (1,1,0,'member',1,1420856608,'李浩在2015-01-10 10:23登录了后台') [ RunTime:0.000144s ]
+SQL: SELECT * FROM `xj_action` WHERE `name` = 'user_login' LIMIT 1   [ RunTime:0.000115s ]
+NOTIC: [8] Undefined offset: 1 /Users/haoli/Desktop/www/tyj/Application/Common/Common/function.php 第 556 行.
+NOTIC: [2] array_key_exists() expects parameter 2 to be array, null given /Users/haoli/Desktop/www/tyj/Application/Common/Common/function.php 第 556 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `xj_action_log` WHERE `action_id` = 1 AND `user_id` = 1 AND `create_time` > 1420770208 LIMIT 1   [ RunTime:0.000235s ]
+SQL: UPDATE `xj_member` SET `login_times`=`login_times`+1,`last_login_time`=1420856608,`last_login_ip`=0 WHERE `id` = 1 [ RunTime:0.000093s ]
+NOTIC: [8] Use of undefined constant UID - assumed 'UID' /Users/haoli/Desktop/www/tyj/Application/Home/Controller/IndexController.class.php 第 195 行.
+
+[ 2015-01-10T10:23:28+08:00 ] ::1 /tyj/index.php?s=/Home/Index/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000014s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000299s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000380s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000433s ]
+
+[ 2015-01-10T10:24:33+08:00 ] ::1 /tyj/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000036s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000651s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001411s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001647s ]
+
+[ 2015-01-10T10:27:26+08:00 ] ::1 /tyj/index.php?s=/Home/index/gamePlan/years/2015.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000017s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000345s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000675s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000790s ]
+
+[ 2015-01-10T10:28:00+08:00 ] ::1 /tyj/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000027s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000575s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002827s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003169s ]
+
+[ 2015-01-10T10:41:54+08:00 ] ::1 /tyj/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000014s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000307s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000385s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000438s ]
+
+[ 2015-01-10T10:41:56+08:00 ] ::1 /tyj/index.php?s=/Home/Index/login.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000015s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000330s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000393s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000446s ]
+
+[ 2015-01-10T10:41:56+08:00 ] ::1 /tyj/index.php?s=/Home/Index/verify.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000015s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000361s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000490s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000574s ]
+
+[ 2015-01-10T10:42:05+08:00 ] ::1 /tyj/index.php?s=/Home/Index/login.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000014s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000309s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000382s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000432s ]
+NOTIC: [8] Use of undefined constant UC_AUTH_KEY - assumed 'UC_AUTH_KEY' /Users/haoli/Desktop/www/tyj/ThinkPHP/Common/functions.php 第 529 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/haoli/Desktop/www/tyj/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `xj_member` [ RunTime:0.001594s ]
+SQL: SELECT * FROM `xj_member` WHERE `username` = 'admin' LIMIT 1   [ RunTime:0.000145s ]
+SQL: SELECT * FROM `xj_member` WHERE `username` = 'yundongyuan' LIMIT 1   [ RunTime:0.000117s ]
+SQL: UPDATE `xj_member` SET `login_times`=`login_times`+1,`last_login_time`=1420857725,`last_login_ip`=0 WHERE `id` = 29 [ RunTime:0.000110s ]
+SQL: SELECT `id`,`username`,`password`,`mobile`,`reg_time`,`reg_ip`,`last_login_time`,`last_login_ip`,`update_time`,`status`,`login_times`,`nickname`,`type` FROM `xj_member` WHERE `id` = 29 LIMIT 1   [ RunTime:0.000095s ]
+SQL: SHOW COLUMNS FROM `xj_action` [ RunTime:0.001328s ]
+SQL: SELECT * FROM `xj_action` WHERE `name` = 'user_login' LIMIT 1   [ RunTime:0.000622s ]
+SQL: SHOW COLUMNS FROM `xj_action_log` [ RunTime:0.001304s ]
+SQL: INSERT INTO `xj_action_log` (`action_id`,`user_id`,`action_ip`,`model`,`record_id`,`create_time`,`remark`) VALUES (1,29,0,'member',29,1420857725,'yundongyuan在2015-01-10 10:42登录了后台') [ RunTime:0.000145s ]
+SQL: SELECT * FROM `xj_action` WHERE `name` = 'user_login' LIMIT 1   [ RunTime:0.000128s ]
+NOTIC: [8] Undefined offset: 1 /Users/haoli/Desktop/www/tyj/Application/Common/Common/function.php 第 556 行.
+NOTIC: [2] array_key_exists() expects parameter 2 to be array, null given /Users/haoli/Desktop/www/tyj/Application/Common/Common/function.php 第 556 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `xj_action_log` WHERE `action_id` = 1 AND `user_id` = 29 AND `create_time` > 1420771325 LIMIT 1   [ RunTime:0.000591s ]
+SQL: UPDATE `xj_member` SET `login_times`=`login_times`+1,`last_login_time`=1420857725,`last_login_ip`=0 WHERE `id` = 29 [ RunTime:0.000129s ]
+NOTIC: [8] Use of undefined constant UID - assumed 'UID' /Users/haoli/Desktop/www/tyj/Application/Home/Controller/IndexController.class.php 第 195 行.
+
+[ 2015-01-10T10:42:05+08:00 ] ::1 /tyj/index.php?s=/Home/Index/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000012s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000300s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000385s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000438s ]
+
+[ 2015-01-10T10:43:33+08:00 ] ::1 /tyj/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000016s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000331s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000410s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000466s ]
+
+[ 2015-01-10T10:43:38+08:00 ] ::1 /tyj/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000015s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000326s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000379s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000430s ]
+
+[ 2015-01-10T10:43:41+08:00 ] ::1 /tyj/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000015s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000336s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000399s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000454s ]
+
+[ 2015-01-10T10:43:43+08:00 ] ::1 /tyj/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000040s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000671s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000397s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000451s ]
+
+[ 2015-01-10T11:15:17+08:00 ] ::1 /tyj/index.php?s=/Home/Index/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000020s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000369s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000677s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000772s ]
+
+[ 2015-01-10T11:16:52+08:00 ] ::1 /tyj/index.php?s=/Home/Index/category/id/55/p/1.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000038s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000857s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000587s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000816s ]
+
+[ 2015-01-10T11:24:41+08:00 ] ::1 /tyj/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000015s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000313s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000393s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000449s ]
+
+[ 2015-01-10T11:24:41+08:00 ] ::1 /tyj/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000015s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000352s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000555s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000634s ]
+
+[ 2015-01-10T11:25:04+08:00 ] ::1 /tyj/index.php?s=/Home/Index/login.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000015s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000311s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000399s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000453s ]
+
+[ 2015-01-10T11:25:04+08:00 ] ::1 /tyj/index.php?s=/Home/Index/verify.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000018s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000371s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000510s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000589s ]
+
+[ 2015-01-10T11:25:11+08:00 ] ::1 /tyj/index.php?s=/Home/Index/login.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000014s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000305s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000391s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000440s ]
+NOTIC: [8] Use of undefined constant UC_AUTH_KEY - assumed 'UC_AUTH_KEY' /Users/haoli/Desktop/www/tyj/ThinkPHP/Common/functions.php 第 529 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /Users/haoli/Desktop/www/tyj/ThinkPHP/Library/Think/Db/Driver/Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `xj_member` [ RunTime:0.001771s ]
+SQL: SELECT * FROM `xj_member` WHERE `username` = 'admin' LIMIT 1   [ RunTime:0.000154s ]
+SQL: SELECT * FROM `xj_member` WHERE `username` = 'admin' LIMIT 1   [ RunTime:0.000125s ]
+SQL: UPDATE `xj_member` SET `login_times`=`login_times`+1,`last_login_time`=1420860311,`last_login_ip`=0 WHERE `id` = 1 [ RunTime:0.000115s ]
+SQL: SELECT `id`,`username`,`password`,`mobile`,`reg_time`,`reg_ip`,`last_login_time`,`last_login_ip`,`update_time`,`status`,`login_times`,`nickname`,`type` FROM `xj_member` WHERE `id` = 1 LIMIT 1   [ RunTime:0.000110s ]
+SQL: SHOW COLUMNS FROM `xj_action` [ RunTime:0.000924s ]
+SQL: SELECT * FROM `xj_action` WHERE `name` = 'user_login' LIMIT 1   [ RunTime:0.000119s ]
+SQL: SHOW COLUMNS FROM `xj_action_log` [ RunTime:0.000967s ]
+SQL: INSERT INTO `xj_action_log` (`action_id`,`user_id`,`action_ip`,`model`,`record_id`,`create_time`,`remark`) VALUES (1,1,0,'member',1,1420860311,'李浩在2015-01-10 11:25登录了后台') [ RunTime:0.000523s ]
+SQL: SELECT * FROM `xj_action` WHERE `name` = 'user_login' LIMIT 1   [ RunTime:0.000143s ]
+NOTIC: [8] Undefined offset: 1 /Users/haoli/Desktop/www/tyj/Application/Common/Common/function.php 第 556 行.
+NOTIC: [2] array_key_exists() expects parameter 2 to be array, null given /Users/haoli/Desktop/www/tyj/Application/Common/Common/function.php 第 556 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `xj_action_log` WHERE `action_id` = 1 AND `user_id` = 1 AND `create_time` > 1420773911 LIMIT 1   [ RunTime:0.000991s ]
+SQL: UPDATE `xj_member` SET `login_times`=`login_times`+1,`last_login_time`=1420860311,`last_login_ip`=0 WHERE `id` = 1 [ RunTime:0.000153s ]
+NOTIC: [8] Use of undefined constant UID - assumed 'UID' /Users/haoli/Desktop/www/tyj/Application/Home/Controller/IndexController.class.php 第 195 行.
+
+[ 2015-01-10T11:25:11+08:00 ] ::1 /tyj/index.php?s=/Home/Index/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000014s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000310s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000390s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000444s ]
+
+[ 2015-01-10T11:32:01+08:00 ] ::1 /tyj/index.php?s=/Home/index/gamePlan/years/2014.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000030s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000561s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000679s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000819s ]
+
+[ 2015-01-10T11:47:49+08:00 ] ::1 /tyj/index.php?s=/Home/Index/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000083s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001292s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000648s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000730s ]
+
+[ 2015-01-10T11:47:50+08:00 ] ::1 /tyj/index.php?s=/Home/Index/content/id/52/catid/52.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000017s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000379s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000637s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000755s ]
+
+[ 2015-01-10T11:48:34+08:00 ] ::1 /tyj/index.php?s=/Home/index/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000022s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000449s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000441s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000501s ]
+
+[ 2015-01-10T11:51:24+08:00 ] ::1 /tyj/index.php?s=/Home/Index/category/id/55/p/1.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000021s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000614s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000584s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000693s ]
+
+[ 2015-01-10T11:51:58+08:00 ] ::1 /tyj/index.php?s=/Home/index/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000014s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000310s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000393s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000446s ]
+
+[ 2015-01-10T11:52:01+08:00 ] ::1 /tyj/index.php?s=/Home/Index/category/id/55/p/1.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000013s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000301s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000740s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000854s ]
+
+[ 2015-01-10T11:52:04+08:00 ] ::1 /tyj/index.php?s=/Home/Index/category/id/49/p/1.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000013s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000300s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000380s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000432s ]
+
+[ 2015-01-10T11:52:07+08:00 ] ::1 /tyj/index.php?s=/Home/Index/category/id/69/p/1.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000015s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000320s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001048s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001169s ]
+

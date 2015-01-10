@@ -6,6 +6,7 @@
     <div class="cf">
         <div class="btn-group">
             <button class="btn btn-sm btn-primary ajax-post confirm" url="{:U('del?category_id='.$category_id)}"  target-form="ids">删除</button>
+            <a class="btn btn-sm btn-primary" href="{:U('add?category_id='.$category_id)}"  target-form="ids">新增</a>
         </div>
         <!-- 高级搜索 -->
         <div class="pull-right">
@@ -61,6 +62,7 @@
                             <a class="ajax-get" href="{:U('changeStatus?category_id='.$category_id.'&id='.$data['id'].'&method=forbid')}">禁用</a>
                         </if>
                         <a href="{:U('edit?category_id='.$category_id.'&id='.$data['id'])}">编辑</a>
+                        <a class="ajax-get" href="{:U('del?category_id='.$category_id).'&ids='.$data['id']}">删除</a>
                     </td>
                 </tr>
             </volist>

@@ -88,3 +88,51 @@ function set_auto_login_cookie(){
     cookie(C('AUTO_COOKIE'), think_encrypt($user['username'],C('AUTO_ENCRYPT_KEY')));
     cookie(C('AUTO_COOKIE_SIGN'),session('user_auth_sign'));//数据签名
 }
+
+function get_user_menu(){
+    // 获取主菜单
+    $where['pid']   =   0;
+    $where['hide']  =   0;
+    if(!C('DEVELOP_MODE')){ // 是否开发者模式
+        $where['is_dev']    =   0;
+    }
+    $menus['main']  =   M('Menu')->where($where)->order('sort asc')->select();
+    /**
+     * 动态设置主菜单权限和url
+     */
+    foreach($menus['main'] as $mk=>$main_menu){
+        $where['pid']   =   $main_menu['id'];
+        $where['hide'] = 0;
+        $mmenus = M('Menu')->where($where)->order('sort asc')->select();
+        if($mmenus){
+            $flag = false;
+            foreach($mmenus as $mm){
+                if(checkRule($mm['module'].'/'.$mm['url'],1,'url') ){
+                    $menus['main'][$mk]['url']= $mm['url'];
+                    $flag = true; //有子菜单
+                    break;
+                }
+            }
+            if(!$flag){ //没有子菜单
+                unset($menus['main'][$mk]);
+            }
+        }else if($main_menu['url']=='Public/index'){
+            unset($menus['main'][$mk]);
+        }
+    }
+    return $menus;
+}
+
+function checkRule($rule, $type=1, $mode='url'){
+    if(is_administrator()){
+        return true;//管理员允许访问任何页面
+    }
+    static $Auth    =   null;
+    if (!$Auth) {
+        $Auth       =   new \Think\Auth();
+    }
+    if(!$Auth->check($rule,user_field('uid'),$type,$mode)){
+        return false;
+    }
+    return true;
+}

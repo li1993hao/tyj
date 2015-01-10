@@ -6,6 +6,7 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="renderer" content="webkit">
 <!-- basic styles -->
 <link href="/tyj/Public/vendor/ace/css/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="/tyj/Public/vendor/ace/css/font-awesome.min.css" />
@@ -51,94 +52,83 @@
 <script type="text/javascript" src="/tyj/Public/vendor/ace/js/respond.min.js"></script>
 <![endif]-->
 
-    <style>
-        .main_nav li{
-            float: left;
-        }
-        ul li{
-            list-style: none;
-        }
-        .main_nav a{
-            color: #ffffff;
-            display: block;
-            padding: 10px 10px 0 10px;
-            min-height: 45px;
-            font-size: 16px;
-        }
-        .main_nav a:hover{
-            text-decoration: none;
-        }
-
-        .main_nav a.active{
-            background-color:#93cbf9;
-        }
-        textarea{
-            min-height: 150px;
-            min-width: 300px;
-        }
-        .table thead>tr>th, .table tbody>tr>th, .table tfoot>tr>th, .table thead>tr>td, .table tbody>tr>td, .table tfoot>tr>td{
-            line-height: 2;
-        }
-    </style>
     
 
     
 </head>
 <body class="navbar-fixed">
+<div class="shade" style="display:none"></div>
 <!-- 头部 -->
-<div class="navbar navbar-default navbar-fixed-top" id="navbar">
+<div class="navbar navbar-default navbar-fixed-top">
 <script type="text/javascript">
     try {
         ace.settings.check('navbar', 'fixed')
     } catch (e) {
     }
 </script>
-
-<div class="navbar-container" id="navbar-container">
-<div class="navbar-header pull-left">
-    <ul class="main_nav">
-        <?php if(is_array($__MENU__["main"])): $i = 0; $__LIST__ = $__MENU__["main"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$menu): $mod = ($i % 2 );++$i; if(($menu["hide"]) == "0"): ?><li ><a class="<?php echo ((isset($menu["class"]) && ($menu["class"] !== ""))?($menu["class"]):''); ?>" href="<?php echo U($menu['url']);?>"><?php echo ($menu["title"]); ?></a></li><?php endif; endforeach; endif; else: echo "" ;endif; ?>
-    </ul>
-</div>
-<!-- /.navbar-header -->
-
-<div class="navbar-header pull-right" role="navigation">
-<ul class="nav ace-nav">
-<li class="light-blue">
-    <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-        <i class="icon-user" style="font-size: 23px"></i>
-    </a>
-    <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-        <li>
-            <a href="javascript:;">
-                您好:<?php echo session('user_auth.username');?>
-            </a>
-        </li>
-        <li class="divider"></li>
-        <li>
-            <?php if(user_field('type') == 0): ?><a href="<?php echo U('MySpace/updatePassword');?>">
-                    修改密码
+<div class="container-fluid">
+    <div class="navbar-header">
+        <button class="navbar-toggle collapsed" type="button" id="nav_top_main_bt" data-toggle="collapse" data-target="nav_top_main">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <!--<a class="navbar-brand hidden-sm" href="http://www.bootcss.com">天津市体育局</a>-->
+    </div>
+    <div class="navbar-collapse collapse" id="nav_top_main">
+        <ul class="nav navbar-nav">
+            <li class="menu_hide menu_hide1">
+                <span>您好:<?php echo session('user_auth.username');?></span>
+            </li>
+            <li class="menu_hide menu_hide2">
+                <?php if(user_field('type') == 0): ?><a href="<?php echo U('MySpace/updatePassword');?>">
+                        修改密码
+                    </a>
+                    <?php else: ?>
+                    <a href="<?php echo U('MySpace/baseInfo');?>">
+                        个人中心
+                    </a><?php endif; ?>
+            </li>
+            <li class="menu_hide menu_hide3">
+                <a href="<?php echo U('public/logout');?>">
+                    退出
                 </a>
-            <?php else: ?>
-                <a href="<?php echo U('MySpace/baseInfo');?>">
-                    个人中心
-                </a><?php endif; ?>
-        </li>
-        <li class="divider"></li>
-        <li>
-            <a href="<?php echo U('public/logout');?>">
-                退出
-            </a>
-        </li>
-    </ul>
-</li>
-</ul>
+            </li>
+            <li class="menu_hide" style="background-color: #fff;height:2px"></li>
+            <?php if(is_array($__MENU__["main"])): $i = 0; $__LIST__ = $__MENU__["main"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$menu): $mod = ($i % 2 );++$i; if(($menu["hide"]) == "0"): ?><li ><a  class="<?php echo ((isset($menu["class"]) && ($menu["class"] !== ""))?($menu["class"]):''); ?>" href="<?php echo U($menu['module'].'/'.$menu['url']);?>"><?php echo ($menu["title"]); ?></a></li><?php endif; endforeach; endif; else: echo "" ;endif; ?>
+        </ul>
+        <ul class="user_menu_ul nav navbar-nav navbar-right ">
+            <li >
+                <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                    <i class="icon-user" style="font-size: 23px"></i>
+                </a>
+                <ul class="user-menu  dropdown-menu">
+                    <li>
+                        <span>您好:<?php echo session('user_auth.username');?></span>
+                    </li>
+                    <li>
+                        <?php if(user_field('type') == 0): ?><a href="<?php echo U('MySpace/updatePassword');?>">
+                                修改密码
+                            </a>
+                            <?php else: ?>
+                            <a href="<?php echo U('MySpace/baseInfo');?>">
+                                个人中心
+                            </a><?php endif; ?>
+                    </li>
+                    <li>
+                        <a href="<?php echo U('public/logout');?>">
+                            退出
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
 <!-- /.ace-nav -->
 </div>
-<!-- /.navbar-header -->
-</div>
-<!-- /.container -->
-</div>
+
 
 <!-- /头部 -->
 
@@ -207,8 +197,8 @@
 
             <div class="page-content">
                 <div class="page-header">
-                    <h1>
-                         
+                    <h1 class="page-header-title">
+                        
     <?php echo ($meta_title); ?>
 
                     </h1>
@@ -232,7 +222,7 @@
     <div class="profile-user-info profile-user-info-striped">
     <?php if(is_array($fields[$key])): $i = 0; $__LIST__ = $fields[$key];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$field): $mod = ($i % 2 );++$i; if($field['is_show'] == 1 || $field['is_show'] == 3): ?><div class="profile-info-row">
         <?php if($field['type'] == 'picture'): ?><div class="profile-info-name">
-                <div style="margin-top:50%"><?php echo ($field['title']); ?></div>
+                <div picture="__title__-<?php echo ($field['name']); ?>"><?php echo ($field['title']); ?></div>
             </div>
         <?php else: ?>
             <div class="profile-info-name">
@@ -246,6 +236,8 @@
 <?php case "textarea": ?><div style="word-wrap: break-word;word-break:break-all;"> <?php echo ($data[$field['name']]); ?></div><?php break;?>
 <?php case "date": echo (date('Y-m-d',$data[$field['name']])); break;?>
 <?php case "datetime": echo (date('Y-m-d H:i',$data[$field['name']])); break;?>
+<?php case "date_view_4": echo (date('Y-m-d',$data[$field['name']])); break;?>
+<?php case "date_3": echo (date('Y-m',$data[$field['name']])); break;?>
 <?php case "bool": $_result=parse_field_attr($field['extra']);if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i; if(($data[$field['name']]) == $key): echo ($vo); endif; endforeach; endif; else: echo "" ;endif; break;?>
 <?php case "select": $_result=parse_field_attr($field['extra']);if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i; if(($data[$field['name']]) == $key): echo ($vo); endif; endforeach; endif; else: echo "" ;endif; break;?>
 <?php case "radio": $_result=parse_field_attr($field['extra']);if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i; if(($data[$field['name']]) == $key): echo ($vo); endif; endforeach; endif; else: echo "" ;endif; break;?>
@@ -254,7 +246,7 @@
             </label><?php endforeach; endif; else: echo "" ;endif; break;?>
 <?php case "editor": ?><section > <?php echo (htmlspecialchars_decode($data[$field['name']])); ?>
          </section><?php break;?>
-<?php case "picture": if(!empty($data[$field['name']])): ?><img style="max-height:200px;max-width:200px" src="/tyj<?php echo (get_cover($data[$field['name']],'path')); ?>"/><?php endif; break;?>
+<?php case "picture": if(!empty($data[$field['name']])): ?><img style="max-height:200px;max-width:200px" picture="__picture__-<?php echo ($field['name']); ?>"  src="/tyj<?php echo (get_cover($data[$field['name']],'path')); ?>"/><?php endif; break;?>
 <?php case "file": if(isset($data[$field['name']])): ?><div class="upload-pre-file"><i class="icon-paper-clip"></i><span><?php echo (get_table_field($data[$field['name']],'id','name','File')); ?></span>
             </div><?php endif; break;?>
 <?php case "color": ?><a><span class="btn-colorpicker btn-colorpicker-<?php echo ($field["name"]); ?>" style="background-color:<?php echo ($data[$field['name']]); ?>"></span></a><?php break;?>
@@ -296,62 +288,9 @@
                 <!-- /.page-content -->
             </div>
             <!-- /.main-content -->
-
         </div>
-        <!-- /.main-container-inner -->
-        <!--<div  class="ace-settings-container" id="ace-settings-container">-->
-        <!--<div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">-->
-        <!--<i class="icon-cog bigger-150"></i>-->
-        <!--</div>-->
-
-        <!--<div class="ace-settings-box" id="ace-settings-box">-->
-        <!--<div>-->
-        <!--<div class="pull-left">-->
-        <!--<select id="skin-colorpicker" class="hide">-->
-        <!--<option data-skin="default" value="#438EB9">#438EB9</option>-->
-        <!--<option data-skin="skin-1" value="#222A2D">#222A2D</option>-->
-        <!--<option data-skin="skin-2" value="#C6487E">#C6487E</option>-->
-        <!--<option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>-->
-        <!--</select>-->
-        <!--</div>-->
-        <!--<span>&nbsp; 选择皮肤</span>-->
-        <!--</div>-->
-
-        <!--<div>-->
-        <!--<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-navbar" />-->
-        <!--<label class="lbl" for="ace-settings-navbar"> 固定导航条</label>-->
-        <!--</div>-->
-
-        <!--<div>-->
-        <!--<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-sidebar" />-->
-        <!--<label class="lbl" for="ace-settings-sidebar"> 固定滑动条</label>-->
-        <!--</div>-->
-
-        <!--<div>-->
-        <!--<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-breadcrumbs" />-->
-        <!--<label class="lbl" for="ace-settings-breadcrumbs">固定面包屑</label>-->
-        <!--</div>-->
-
-        <!--<div>-->
-        <!--<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" />-->
-        <!--<label class="lbl" for="ace-settings-rtl">切换到左边</label>-->
-        <!--</div>-->
-
-        <!--<div>-->
-        <!--<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-add-container" />-->
-        <!--<label class="lbl" for="ace-settings-add-container">-->
-        <!--切换窄屏-->
-        <!--<b></b>-->
-        <!--</label>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!-- /#ace-settings-container -->
-
-
     </div>
 </div><!-- /.main-container -->
-
 
 
 
@@ -402,6 +341,9 @@
             "MODEL"  : ["<?php echo C('URL_MODEL');?>", "<?php echo C('URL_CASE_INSENSITIVE');?>", "<?php echo C('URL_HTML_SUFFIX');?>"],
             "VAR"    : ["<?php echo C('VAR_MODULE');?>", "<?php echo C('VAR_CONTROLLER');?>", "<?php echo C('VAR_ACTION');?>"]
         }
+        $("#nav_top_main_bt").click(function(){
+            $("#nav_top_main").toggle(200);
+        })
     })();
 </script>
 <script type="text/javascript" src="/tyj/Public/static/think.js"></script>

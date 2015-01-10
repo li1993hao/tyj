@@ -77,18 +77,24 @@ class CompetitionController extends ThinkController{
         if($method=='print'){
             $this->display('print');
         }else if($method=='publish'){
-            $_POST['title'] = $this->meta_title;
-            $_POST['uid'] = UID;
-            $_POST['category_id'] = C('COM_PUBLISH_CATE');
-            $_POST['description'] = $this->meta_title;
-            $_POST['content'] = $this->meta_title;
-            $_POST['link'] = 'Home/index/gamePlan?years='.$year;
-            define('FORCE_POST',true);
-            parent::add('article','',function($id) use($year){
-                $data = M('GamePlanYears')->where(array('years'=>$year))->find();
-                $data['status'] = $id;
-                M('GamePlanYears')->save($data);
-            });
+            $count = M('GamePlan')->where(array('years'=>$year))->count();
+
+            if($count>0){
+                $_POST['title'] = $this->meta_title;
+                $_POST['uid'] = UID;
+                $_POST['category_id'] = C('COM_PUBLISH_CATE');
+                $_POST['description'] = $this->meta_title;
+                $_POST['content'] = $this->meta_title;
+                $_POST['link'] = 'Home/index/gamePlan?years='.$year;
+                define('FORCE_POST',true);
+                parent::add('article','',function($id) use($year){
+                    $data = M('GamePlanYears')->where(array('years'=>$year))->find();
+                    $data['status'] = $id;
+                    M('GamePlanYears')->save($data);
+                });
+            }else{
+                $this->error('请至少添加一个赛事信息!');
+            }
         }else{
             $this->display('plan_detail');
         }
@@ -172,8 +178,32 @@ class CompetitionController extends ThinkController{
                 $this->error('数据不存在或被禁用!');
             }
 
-            $map = array('status'=>array('eq',1));
-            $list = M('Sports')->where($map)->select();
+            if($method=='checked'){ //只看已选
+                $map = array('status'=>array('eq',1),'code'=>array('in',$res['sports']));
+                $ls = M('Sports')->where($map)->field('id,pid')->select();
+                $ids  = array();
+                foreach ($ls as $v){
+                    $pid = $v['pid'];
+                    $ids[] = $v['id'];
+                    while($pid!=0){
+                        $r = M('Sports')->where(array('status'=>1,'id'=>$pid))->field('id,pid')->find();
+                        if(in_array($pid,$ids)){
+                            break;
+                        }
+                        if($r !== false){
+                            $ids[] = $pid;
+                            $pid = $r['pid'];
+                        }else{
+                            break;
+                        }
+                    }
+                }
+                $list = M('Sports')->where(array('id'=>array('in',arr2str($ids))))->select();
+            }else{
+                $map = array('status'=>array('eq',1));
+                $list = M('Sports')->where($map)->select();
+            }
+
             int_to_string($list);
             $tree =list_to_tree($list,'id','pid','children');
             //得到树形结构的先序遍历集合
@@ -194,6 +224,7 @@ class CompetitionController extends ThinkController{
                     }
                 }
             }
+            $this->assign("method",$method);
             $this->assign("id",$id);
             $this->assign("nodeList",$sortList);
             $this->assign('meta_title',$res['name']."的竞赛项目");

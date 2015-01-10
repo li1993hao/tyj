@@ -169,7 +169,7 @@ class ThinkController extends BaseController {
         }
         $model || $this->error('模型不存在或被禁用！');
 
-        if(IS_POST || defined(FORCE_POST)){
+        if(IS_POST || defined('FORCE_POST')){
             $Model  =   D(parse_name(get_table_name($model['id']),1));
             // 获取模型的字段信息
             $Model  =   $this->checkAttr($Model,$model['id']);

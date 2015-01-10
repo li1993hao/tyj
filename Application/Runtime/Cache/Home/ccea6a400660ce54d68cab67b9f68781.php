@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
-
+<meta name="renderer" content="webkit">
 <!-- CSS Global Compulsory-->
 <link rel="stylesheet" href="/tyj/public/vendor/unify/plugins/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="/tyj/public/vendor/unify/css/style.css">
@@ -47,6 +47,12 @@
         div.tab-blue li.active a{
             border-top: solid 2px #3498db;
         }
+        #menu a:hover{
+            text-decoration:none;
+        }
+        #menu ul a:hover{
+            background-color:#72c02c;
+        }
      </style>
 </head>
 <body>
@@ -55,19 +61,24 @@
 <div class="top">
     <div class="container">
         <ul class="loginbar unstyled pull-right">
-            <?php if(is_login()): if(user_field('type') == 0): ?><li><a href="<?php echo U('Admin/Index/index');?>">您好:<?php echo user_field('nickname');?></a></li>
-                    <li class="topbar-devider"></li>
-                    <li><a href="<?php echo U('Admin/Index/index');?>" target="_blank">后台管理</a></li>
-                <?php else: ?>
-                    <li><a href="<?php echo U('Person/index');?>">您好:<?php echo user_field('nickname');?></a></li>
-                    <li class="topbar-devider"></li>
-                    <li><a href="<?php echo U('Admin/Index/index');?>">个人中心</a></li><?php endif; ?>
+            <?php if(is_login()): $__MENU__ = get_user_menu(); ?>
+                <li>您好:<?php echo user_field('nickname');?></li>
+                <li class="topbar-devider"></li>
+                <li id="menu"  class="dropdown" style="padding-bottom:0px">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">
+                        <span class="glyphicon glyphicon-align-left" style="font-size: 16px; color:#72c02c"></span>
+                    </a>
+                    <ul class="pull-right dropdown-menu dropdown-caret dropdown-yellow" style="margin:0px">
+                        <?php if(is_array($__MENU__["main"])): $i = 0; $__LIST__ = $__MENU__["main"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$menu): $mod = ($i % 2 );++$i;?><li><a href="<?php echo U($menu['module'].'/'.$menu['url']);?>"><?php echo ($menu["title"]); ?></a></li><?php endforeach; endif; else: echo "" ;endif; ?>
+                    </ul>
+                </li>
                 <li class="topbar-devider"></li>
                 <li><a href="<?php echo U('logout');?>">注销</a></li>
             <?php else: ?>
                 <li><a href="<?php echo U('login');?>">登陆</a></li><?php endif; ?>
         </ul>
     </div>
+    <hr style="margin: 0;margin-top:5px;"/>
 </div><!--/top-->
 <!--=== End Top ===-->
 
@@ -157,11 +168,8 @@
                         </span>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
-                            <label class="checkbox"><input name="remember" type="checkbox">记住我</label>
-                        </div>
-                        <div class="col-md-6">
-                            <a class="btn-u pull-right" id="login_btn">登陆</a>
+                        <div class="col-md-12">
+                            <a class="btn-u" style="width: 100%; text-align: center;font-size:16px" id="login_btn">登陆</a>
                         </div>
                     </div>
                     <hr>
@@ -173,7 +181,7 @@
 <!-- /主体 -->
 
 <!-- 底部 -->
-
+<div class="margin-bottom-40"></div>
 <!--=== Copyright ===-->
 <div class="copyright">
     <div class="container">
@@ -227,8 +235,15 @@
             shake($('#search_text').parent());
             $('#search_text').prop('placeholder','写点什么吧..');
         }else{
-            var url = "<?php echo U('Index/search');?>";
-            location.href= url+"?search="+text;
+            var url = "<?php echo U('Index/search?search=PLACEHOLDER');?>";
+            location.href= url.replace('PLACEHOLDER',text);
+        }
+    });
+
+    $('a').each(function(){
+        var color = $(this).data('color');
+        if(color && color!='#555'){
+            $(this).css('color',color);
         }
     });
 </script>

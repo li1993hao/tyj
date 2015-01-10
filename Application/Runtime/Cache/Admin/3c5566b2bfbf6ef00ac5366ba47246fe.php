@@ -6,6 +6,7 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="renderer" content="webkit">
 <!-- basic styles -->
 <link href="/tyj/Public/vendor/ace/css/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="/tyj/Public/vendor/ace/css/font-awesome.min.css" />

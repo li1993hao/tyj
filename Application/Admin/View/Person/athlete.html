@@ -92,6 +92,7 @@
                 <th>运动项目</th>
                 <th>所属运动队</th>
                 <th>运动技术等级</th>
+                <th>操作</th>
             </tr>
             </thead>
             <tbody>
@@ -111,9 +112,11 @@
                             男
                                 </eq>
                         </td>
-                        <td>{$vo.sports|get_sports}</td>
+                        <td>{$vo.sports|get_sports='name'}</td>
                         <td>{$vo.team|get_team}</td>
                         <td>{:CC('TECHNICALGRADE',$vo['technicalGrade'])}</td>
+
+                        <td><a href="javascript:;" class="winopen" data-width="800" data-url="{:U('info?method=comInfo&id='.$vo['uid'])}">参赛信息</a> <a class="winopen" href="javascript:;" data-width="600" data-url="{:U('info?method=physical&id='.$vo['uid'])}" target="_blank">体能信息</a></td>
                     </tr>
                 </volist>
                 <else/>

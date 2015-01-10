@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <include file="Public/head"/>
+</head>
+<body style="background-color: #ffffff">
+<div class="table-responsive">
+    <table class="table table-striped  ">
+        <thead>
+        <tr>
+            <th>代码</th>
+            <th>名称</th>
+            <th>单位</th>
+            <th class="text-center">值</th>
+        </tr>
+        </thead>
+        <tbody>
+        <notempty name="nodeList">
+            <volist name="nodeList" id="node">
+                <tr class="level" data-level="{$node['level']}" >
+                    <td>{$node.code}</td>
+                    <td>
+                        <for start="0" end="$node.level">
+                            <if condition="$i eq $node['level']-1">
+                                <if condition="$node['last']">
+                                    |__
+                                    <else/>
+                                    |--
+                                </if>
+                                <else/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </if>
+                        </for>
+                        {$node.name}</td>
+                    <td>{$node.unit|default=''}</td>
+                    <td class="text-center">
+                        <notpresent name="node.children">
+                            <div class="click_edit"  data-name="{$node.code}" data-value="{$data->$node['code']|default='-'}">{$data->$node['code']|default='-'}</div>
+                        </notpresent>
+                    </td>
+
+                </tr>
+            </volist>
+            <else/>
+            <td colspan="6" class="text-center"> aOh! 暂时还没有内容! </td>
+        </notempty>
+
+        </tbody>
+    </table>
+</div>
+
+<include file="Public/foot"/>
+<script type="text/javascript">
+    window.print();
+</script>
+</body>
+</html>

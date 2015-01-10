@@ -102,6 +102,7 @@ class Auth{
         if (!$this->_config['AUTH_ON'])
             return true;
         $authList = $this->getAuthList($uid,$type); //获取用户需要验证的所有有效规则列表
+
         if (is_string($name)) {
             $name = strtolower($name);
             if (strpos($name, ',') !== false) {
@@ -114,6 +115,7 @@ class Auth{
         if ($mode=='url') {
             $REQUEST = unserialize( strtolower(serialize($_REQUEST)) );
         }
+
         foreach ( $authList as $auth ) {
             $query = preg_replace('/^.+\?/U','',$auth);
             if ($mode=='url' && $query!=$auth ) {
@@ -163,7 +165,8 @@ class Auth{
      * @param integer $type 
      */
     protected function getAuthList($uid,$type) {
-        static $_authList = array(); //保存用户验证通过的权限列表
+
+         static $_authList = array(); //保存用户验证通过的权限列表
         $t = implode(',',(array)$type);
         if (isset($_authList[$uid.$t])) {
             return $_authList[$uid.$t];
@@ -172,8 +175,10 @@ class Auth{
             return $_SESSION['_AUTH_LIST_'.$uid.$t];
         }
 
+
         //读取用户所属用户组
         $groups = $this->getGroups($uid);
+
         $ids = array();//保存用户所属用户组设置的所有权限规则id
         foreach ($groups as $g) {
             $ids = array_merge($ids, explode(',', trim($g['rules'], ',')));
@@ -214,6 +219,7 @@ class Auth{
             //规则列表结果保存到session
             $_SESSION['_AUTH_LIST_'.$uid.$t]=$authList;
         }
+
         return array_unique($authList);
     }
 

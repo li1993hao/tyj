@@ -90,12 +90,67 @@ class PersonController extends BaseController {
     }
 
 
-    public function info($id){
-        if(is_numeric($id)){
-            $user = M('Member')->find($id);
-            parent::info(CC('BASE_INFO_MODEL',$user['type']),array('uid'=>$id),'','public/info');
+    public function info($id,$method=''){
+        if($method=='comInfo'){
+            $res = M('Athlete')->where(array('uid'=>$id))->field('name,physical')->find();
+            if(!$res){
+                $this->error('该运动员信息还未完善');
+            }
+            $list =parent::lists('ComInfo',array('uid'=>$id),'time desc');
+            $this->assign('list',$list);
+            $this->assign('meta_title',$res['name']."的参赛信息");
+            $this->assign('uid',$id);
+            $this->display('com_info');
+        }else if($method=='physical'){
+            $res = M('Athlete')->where(array('uid'=>$id))->field('name,physical')->find();
+            if(!$res){
+                $this->error('该运动员信息还未完善!');
+            }
+            $map = array('status'=>array('eq',1));
+            $list = D('Physical')->where($map)->select();
+            int_to_string($list);
+            //得到栏目树形结构
+            $tree =list_to_tree($list,'id','pid','children');
+
+            //得到树形结构的先序遍历集合
+            $sortList= array();
+            tree_to_list_first($tree,'children',$sortList);
+
+            //判断节点是不是父亲节点的最后一个孩子
+            //用于前台显示判断
+            foreach($sortList as $key => $value){
+                $children = &$sortList[$key]['children'];
+                if(isset($children)){
+                    $count = count($children);
+                    foreach($sortList as $m_key => $m_value){
+                        //当前孩子节点的ID等于父亲节点ID，则是最后一个节点
+                        if($m_value['id'] == $children[$count-1]['id']){
+                            $sortList[$m_key]['last'] = true;
+                        }
+                    }
+                }
+            }
+            $this->assign('meta_title',$res['name']."的体能信息");
+            $this->assign("nodeList",$sortList);
+            $this->assign("data",json_decode($res['physical']));
+            $this->assign('uid',$id);
+            $this->display('physical');
         }else{
-            $this->error('参数不合法!');
+            if(is_numeric($id)){
+                $user = M('Member')->find($id);
+                parent::info(CC('BASE_INFO_MODEL',$user['type']),array('uid'=>$id),'','public/info');
+            }else{
+                $this->error('参数不合法!');
+            }
+        }
+    }
+    public  function  printInfo($method='comInfo',$id){
+        if($method=='comInfo'){
+            parent::printComInfo($id);
+        }else if($method=='physical'){
+            parent::printPhysical($id);
+        }else{
+            $this->error('参数有误!');
         }
     }
 

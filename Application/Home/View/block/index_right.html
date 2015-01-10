@@ -1,27 +1,20 @@
-<!-- Photo Stream -->
-<div class="headline"><h2>登陆</h2></div>
-<form id="login_form" action="post">
-    <h4 class="error_tip text-center" style="color: red"></h4>
-    <div class="input-group margin-bottom-20">
-        <span class="input-group-addon"><i class="icon-user"></i></span>
-        <input type="text" name="username" placeholder="用户名" class="form-control">
-    </div>
-    <div class="input-group margin-bottom-20">
-        <span class="input-group-addon"><i class="icon-lock"></i></span>
-        <input type="password" name="password" placeholder="密码" class="form-control">
-    </div>
-    <div class="input-group margin-bottom-10" >
-        <input type="text" placeholder="验证码" name="verify" maxlength="4" class="form-control">
-                 <span class="input-group-addon" style="padding:0"><img alt="验证码" id="captcha-img" title="点击更新" src="/tyj/Admin/Public/verify.html">
-                </span>
-    </div>
-    <div class="row">
-        <!--<div class="col-md-6">-->
-            <!--<label class="checkbox"><input name="remember" type="checkbox">记住我</label>-->
-        <!--</div>-->
-        <div class="col-md-12">
-            <a style="width: 100%;text-align: center"  class="btn-u pull-right" id="login_btn">登陆</a>
-        </div>
-    </div>
-    <hr>
-</form>
+<!--合作单位-->
+<div class="headline"><h2>{:CC('LINK_GROUP','p-3')}</h2></div>
+<ul class="list-unstyled blog-photos margin-bottom-30">
+    <volist name=":get_link('p-3')" id="info">
+        <li><a target="_blank" href="{$info.url}"><img  style="height: 50px;width: 102px" class="hover-effect" alt="{$info.name}" src="{$info.picture}"></a></li>
+    </volist>
+</ul>
+<!--网上办事-->
+<div class="headline"><h2>{:cat_field(61,'name')}</h2></div>
+<div class="row">
+    <ul class="list-unstyled col-xs-12">
+        <volist name=":lists(61,'0,10')" id="info">
+            <li><a href="{$info['url']}" data-color="{$info.list_color}">{$info['title']|msubstr=0,20}</a>
+            </li>
+        </volist>
+    </ul>
+</div>
+
+
+

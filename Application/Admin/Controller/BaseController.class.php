@@ -251,6 +251,7 @@ class BaseController extends Controller {
      * @author 朱亚杰  <xcoolcc@gmail.com>
      */
     final public function getMenus($controller=CONTROLLER_NAME){
+        $controller = strtolower($controller);
         // $menus  =   session('ADMIN_MENU_LIST'.$controller);
         if(empty($menus)){
             // 获取主菜单
@@ -388,7 +389,7 @@ class BaseController extends Controller {
                     }
                 }
             }
-            // session('ADMIN_MENU_LIST'.$controller,$menus);
+           // session('ADMIN_MENU_LIST'.$controller,$menus);
         }
 
         return $menus;
@@ -660,5 +661,49 @@ class BaseController extends Controller {
         }else{
             $this->error('参数非法!');
         }
+    }
+
+    protected function  printComInfo($uid){
+        $res = M('Athlete')->where(array('uid'=>$uid))->field('name,physical')->find();
+        if(!$res){
+            $this->error('打印资料不完善!');
+        }
+        $list =M('ComInfo')->where(array('uid'=>UID))->order('time desc')->select();
+        $this->assign('list',$list);
+        $this->assign('meta_title',$res['name']."的参赛信息");
+        $this->display('public/print_com_info');
+    }
+
+    protected function  printPhysical($uid){
+        $res = M('Athlete')->where(array('uid'=>$uid))->field('name,physical')->find();
+        if(!$res){
+            $this->error('打印资料不完善!');
+        }
+        $map = array('status'=>array('eq',1));
+        $list = D('Physical')->where($map)->select();
+        int_to_string($list);
+        //得到栏目树形结构
+        $tree =list_to_tree($list,'id','pid','children');
+        //得到树形结构的先序遍历集合
+        $sortList= array();
+        tree_to_list_first($tree,'children',$sortList);
+        //判断节点是不是父亲节点的最后一个孩子
+        //用于前台显示判断
+        foreach($sortList as $key => $value){
+            $children = &$sortList[$key]['children'];
+            if(isset($children)){
+                $count = count($children);
+                foreach($sortList as $m_key => $m_value){
+                    //当前孩子节点的ID等于父亲节点ID，则是最后一个节点
+                    if($m_value['id'] == $children[$count-1]['id']){
+                        $sortList[$m_key]['last'] = true;
+                    }
+                }
+            }
+        }
+        $this->assign('meta_title',$res['name']."的体能信息");
+        $this->assign("nodeList",$sortList);
+        $this->assign("data",json_decode($res['physical']));
+        $this->display('public/print_physical');
     }
 }

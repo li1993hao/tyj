@@ -18,7 +18,7 @@
                         <div class="profile-info-row">
                             <if condition="$field['type'] eq 'picture'">
                                 <div class="profile-info-name">
-                                    <div style="margin-top:50%">{$field['title']}</div>
+                                    <div picture="__title__-{$field['name']}">{$field['title']}</div>
                                 </div>
                                 <else/>
                                 <div class="profile-info-name">
@@ -74,7 +74,7 @@
                                     </case>
                                     <case value="picture">
                                         <notempty name="data[$field['name']]">
-                                            <img style="width:200px;height:200px" src="__ROOT__{$data[$field['name']]|get_cover='path'}"/>
+                                            <img style="max-width:200px;max-height:200px" picture="__picture__-{$field['name']}" src="__ROOT__{$data[$field['name']]|get_cover='path'}"/>
                                         </notempty>
                                     </case>
                                     <case value="file">
@@ -112,6 +112,14 @@
 </volist>
 <include file="Public/foot"/>
 <script type="text/javascript">
+    window.onload=function(){ //让图片说明文字居中
+        $("[picture^='__title__']").each(function(){
+            var tp = $(this).attr('picture');
+            var pp  = tp.replace('__title__','__picture__');
+            var height = $("[picture="+pp+"]").css('height');
+            $(this).css('line-height',height);
+        });
+    }
     window.print();
 </script>
 </body>

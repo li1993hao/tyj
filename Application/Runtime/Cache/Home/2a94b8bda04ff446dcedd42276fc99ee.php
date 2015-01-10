@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
-
+<meta name="renderer" content="webkit">
 <!-- CSS Global Compulsory-->
 <link rel="stylesheet" href="/tyj/public/vendor/unify/plugins/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="/tyj/public/vendor/unify/css/style.css">
@@ -42,6 +42,12 @@
         div.tab-blue li.active a{
             border-top: solid 2px #3498db;
         }
+        #menu a:hover{
+            text-decoration:none;
+        }
+        #menu ul a:hover{
+            background-color:#72c02c;
+        }
      </style>
 </head>
 <body>
@@ -50,17 +56,24 @@
 <div class="top">
     <div class="container">
         <ul class="loginbar unstyled pull-right">
-            <?php if(is_login()): if(user_field('type') == 0): ?><li><a href="<?php echo U('Admin/Index/index');?>">您好:<?php echo user_field('nickname');?></a></li>
-                    <li class="topbar-devider"></li>
-                    <li><a href="<?php echo U('Admin/Index/index');?>" target="_blank">后台管理</a></li>
-                <?php else: ?>
-                    <li><a href="<?php echo U('Person/index');?>">您好:<?php echo user_field('nickname');?></a></li>
-                    <li class="topbar-devider"></li>
-                    <li><a href="<?php echo U('Admin/Index/index');?>">个人中心</a></li><?php endif; ?>
+            <?php if(is_login()): $__MENU__ = get_user_menu(); ?>
+                <li>您好:<?php echo user_field('nickname');?></li>
                 <li class="topbar-devider"></li>
-                <li><a href="<?php echo U('logout');?>">注销</a></li><?php endif; ?>
+                <li id="menu"  class="dropdown" style="padding-bottom:0px">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">
+                        <span class="glyphicon glyphicon-align-left" style="font-size: 16px; color:#72c02c"></span>
+                    </a>
+                    <ul class="pull-right dropdown-menu dropdown-caret dropdown-yellow" style="margin:0px">
+                        <?php if(is_array($__MENU__["main"])): $i = 0; $__LIST__ = $__MENU__["main"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$menu): $mod = ($i % 2 );++$i;?><li><a href="<?php echo U($menu['module'].'/'.$menu['url']);?>"><?php echo ($menu["title"]); ?></a></li><?php endforeach; endif; else: echo "" ;endif; ?>
+                    </ul>
+                </li>
+                <li class="topbar-devider"></li>
+                <li><a href="<?php echo U('logout');?>">注销</a></li>
+            <?php else: ?>
+                <li><a href="<?php echo U('login');?>">登陆</a></li><?php endif; ?>
         </ul>
     </div>
+    <hr style="margin: 0;margin-top:5px;"/>
 </div><!--/top-->
 <!--=== End Top ===-->
 
@@ -159,14 +172,14 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="home">
                         <ul class="list-unstyled">
-                            <?php $_result=lists(50,'0,10');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,20)); ?></a>
+                            <?php $_result=lists(50,'0,6');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,20)); ?></a>
                                    <div class="pull-right"><?php echo (date('Y-m-d',$info["create_time"])); ?></div>
                                </li><?php endforeach; endif; else: echo "" ;endif; ?>
                         </ul>
                 </div>
                 <div class="tab-pane" id="profile">
                     <ul class="list-unstyled">
-                    <?php $_result=lists(54,'0,10');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,20)); ?>
+                    <?php $_result=lists(54,'0,6');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,20)); ?>
                         </a>
                             <div class="pull-right"><?php echo (date('Y-m-d',$info["create_time"])); ?></div>
                         </li><?php endforeach; endif; else: echo "" ;endif; ?>
@@ -201,11 +214,6 @@
         <?php $_result=get_link('a-3',4,7);if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a target="_blank" href="<?php echo ($info["url"]); ?>"><?php echo ($info["name"]); ?></a></li><?php endforeach; endif; else: echo "" ;endif; ?>
     </ul>
 </div>
-<!--合作单位-->
-<div class="headline"><h2><?php echo CC('LINK_GROUP','p-3');?></h2></div>
-<ul class="list-unstyled blog-photos margin-bottom-30">
-    <?php $_result=get_link('p-3');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a target="_blank" href="<?php echo ($info["url"]); ?>"><img  style="height: 50px;width: 102px" class="hover-effect" alt="<?php echo ($info["name"]); ?>" src="<?php echo ($info["picture"]); ?>"></a></li><?php endforeach; endif; else: echo "" ;endif; ?>
-</ul>
 <!--外部链接-->
 <div class="headline"><h2><?php echo CC('LINK_GROUP','t-1');?></h2></div>
 <div class="row">
@@ -233,7 +241,7 @@
         <div class="tab-content">
             <div class="tab-pane active" id="p2">
                 <ul class="list-unstyled">
-                    <?php $_result=lists(52,'0,10');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,30)); ?>
+                    <?php $_result=lists(52,'0,6');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,30)); ?>
                         </a>
                             <div class="pull-right"><?php echo (date('Y-m-d',$info["create_time"])); ?></div>
                         </li><?php endforeach; endif; else: echo "" ;endif; ?>
@@ -241,7 +249,7 @@
             </div>
             <div class="tab-pane " id="p1">
                 <ul class="list-unstyled">
-                    <?php $_result=lists(53,'0,10');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,30)); ?>
+                    <?php $_result=lists(53,'0,6');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,30)); ?>
                         </a>
                             <div class="pull-right"><?php echo (date('Y-m-d',$info["create_time"])); ?></div>
                         </li><?php endforeach; endif; else: echo "" ;endif; ?>
@@ -249,7 +257,7 @@
             </div>
             <div class="tab-pane" id="p3">
                 <ul class="list-unstyled">
-                    <?php $_result=lists(55,'0,10');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,30)); ?>
+                    <?php $_result=lists(55,'0,6');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,30)); ?>
                         </a>
                             <div class="pull-right"><?php echo (date('Y-m-d',$info["create_time"])); ?></div>
                         </li><?php endforeach; endif; else: echo "" ;endif; ?>
@@ -270,7 +278,7 @@
         <div class="tab-content">
             <div class="tab-pane active" id="p8">
                 <ul class="list-unstyled">
-                    <?php $_result=lists(58,'0,10');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,20)); ?>
+                    <?php $_result=lists(58,'0,6');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,20)); ?>
                         </a>
                             <div class="pull-right"><?php echo (date('Y-m-d',$info["create_time"])); ?></div>
                         </li><?php endforeach; endif; else: echo "" ;endif; ?>
@@ -278,7 +286,7 @@
             </div>
             <div class="tab-pane" id="p9">
                 <ul class="list-unstyled">
-                    <?php $_result=lists(60,'0,10');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,20)); ?>
+                    <?php $_result=lists(60,'0,6');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,20)); ?>
                         </a>
                             <div class="pull-right"><?php echo (date('Y-m-d',$info["create_time"])); ?></div>
                         </li><?php endforeach; endif; else: echo "" ;endif; ?>
@@ -286,7 +294,7 @@
             </div>
             <div class="tab-pane" id="p10">
                 <ul class="list-unstyled">
-                    <?php $_result=lists(61,'0,10');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,20)); ?>
+                    <?php $_result=lists(61,'0,6');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,20)); ?>
                         </a>
                             <div class="pull-right"><?php echo (date('Y-m-d',$info["create_time"])); ?></div>
                         </li><?php endforeach; endif; else: echo "" ;endif; ?>
@@ -309,7 +317,7 @@
         <div class="tab-content">
             <div class="tab-pane active" id="p11">
                 <ul class="list-unstyled">
-                    <?php $_result=lists(83,'0,10');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,20)); ?>
+                    <?php $_result=lists(83,'0,6');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,20)); ?>
                         </a>
                             <div class="pull-right"><?php echo (date('Y-m-d',$info["create_time"])); ?></div>
                         </li><?php endforeach; endif; else: echo "" ;endif; ?>
@@ -317,7 +325,7 @@
             </div>
             <div class="tab-pane" id="p12">
                 <ul class="list-unstyled">
-                    <?php $_result=lists(84,'0,10');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,20)); ?>
+                    <?php $_result=lists(84,'0,6');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,20)); ?>
                         </a>
                             <div class="pull-right"><?php echo (date('Y-m-d',$info["create_time"])); ?></div>
                         </li><?php endforeach; endif; else: echo "" ;endif; ?>
@@ -325,7 +333,7 @@
             </div>
             <div class="tab-pane" id="p13">
                 <ul class="list-unstyled">
-                    <?php $_result=lists(69,'0,10');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,20)); ?>
+                    <?php $_result=lists(69,'0,6');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,20)); ?>
                         </a>
                             <div class="pull-right"><?php echo (date('Y-m-d',$info["create_time"])); ?></div>
                         </li><?php endforeach; endif; else: echo "" ;endif; ?>
@@ -333,7 +341,7 @@
             </div>
             <div class="tab-pane" id="p14">
                 <ul class="list-unstyled">
-                    <?php $_result=lists(71,'0,10');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,20)); ?>
+                    <?php $_result=lists(71,'0,6');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,20)); ?>
                         </a>
                             <div class="pull-right"><?php echo (date('Y-m-d',$info["create_time"])); ?></div>
                         </li><?php endforeach; endif; else: echo "" ;endif; ?>
@@ -341,75 +349,29 @@
             </div>
         </div>
     </div>
-    <hr/>
-    <div class="tab-v2 tab-v2-sea">
-        <ul class="nav nav-tabs">
-            <!--党务工作-->
-            <li class="active"><a href="#p15" data-toggle="tab"><?php echo cat_field(63,'name');?></a></li>
-            <!--行政制度-->
-            <li><a href="#p16" data-toggle="tab"><?php echo cat_field(64,'name');?></a></li>
-            <!--训练制度-->
-            <li><a href="#p17" data-toggle="tab"><?php echo cat_field(65,'name');?></a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="p15">
-                <ul class="list-unstyled">
-                    <?php $_result=lists(63,'0,10');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,25)); ?>
-                        </a>
-                            <div class="pull-right"><?php echo (date('Y-m-d',$info["create_time"])); ?></div>
-                        </li><?php endforeach; endif; else: echo "" ;endif; ?>
-                </ul>
-            </div>
-            <div class="tab-pane" id="p16">
-                <ul class="list-unstyled">
-                    <?php $_result=lists(64,'0,10');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,25)); ?>
-                        </a>
-                            <div class="pull-right"><?php echo (date('Y-m-d',$info["create_time"])); ?></div>
-                        </li><?php endforeach; endif; else: echo "" ;endif; ?>
-                </ul>
-            </div>
-            <div class="tab-pane" id="p17">
-                <ul class="list-unstyled">
-                    <?php $_result=lists(65,'0,10');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,25)); ?>
-                        </a>
-                            <div class="pull-right"><?php echo (date('Y-m-d',$info["create_time"])); ?></div>
-                        </li><?php endforeach; endif; else: echo "" ;endif; ?>
-                </ul>
-            </div>
-        </div>
-    </div>
+
 </div>
 <!-- End Content -->
 
 <!-- Begin Sidebar -->
 <div class="col-md-3">
-    <!-- Photo Stream -->
-<div class="headline"><h2>登陆</h2></div>
-<form id="login_form" action="post">
-    <h4 class="error_tip text-center" style="color: red"></h4>
-    <div class="input-group margin-bottom-20">
-        <span class="input-group-addon"><i class="icon-user"></i></span>
-        <input type="text" name="username" placeholder="用户名" class="form-control">
-    </div>
-    <div class="input-group margin-bottom-20">
-        <span class="input-group-addon"><i class="icon-lock"></i></span>
-        <input type="password" name="password" placeholder="密码" class="form-control">
-    </div>
-    <div class="input-group margin-bottom-10" >
-        <input type="text" placeholder="验证码" name="verify" maxlength="4" class="form-control">
-                 <span class="input-group-addon" style="padding:0"><img alt="验证码" id="captcha-img" title="点击更新" src="/tyj/Admin/Public/verify.html">
-                </span>
-    </div>
-    <div class="row">
-        <!--<div class="col-md-6">-->
-            <!--<label class="checkbox"><input name="remember" type="checkbox">记住我</label>-->
-        <!--</div>-->
-        <div class="col-md-12">
-            <a style="width: 100%;text-align: center"  class="btn-u pull-right" id="login_btn">登陆</a>
-        </div>
-    </div>
-    <hr>
-</form>
+    <!--合作单位-->
+<div class="headline"><h2><?php echo CC('LINK_GROUP','p-3');?></h2></div>
+<ul class="list-unstyled blog-photos margin-bottom-30">
+    <?php $_result=get_link('p-3');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a target="_blank" href="<?php echo ($info["url"]); ?>"><img  style="height: 50px;width: 102px" class="hover-effect" alt="<?php echo ($info["name"]); ?>" src="<?php echo ($info["picture"]); ?>"></a></li><?php endforeach; endif; else: echo "" ;endif; ?>
+</ul>
+<!--网上办事-->
+<div class="headline"><h2><?php echo cat_field(61,'name');?></h2></div>
+<div class="row">
+    <ul class="list-unstyled col-xs-12">
+        <?php $_result=lists(61,'0,10');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a href="<?php echo ($info['url']); ?>" data-color="<?php echo ($info["list_color"]); ?>"><?php echo (msubstr($info['title'],0,20)); ?></a>
+            </li><?php endforeach; endif; else: echo "" ;endif; ?>
+    </ul>
+</div>
+
+
+
+
 </div>
 <!-- End Sidebar -->
 </div>

@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
-
+<meta name="renderer" content="webkit">
 <!-- CSS Global Compulsory-->
 <link rel="stylesheet" href="/tyj/public/vendor/unify/plugins/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="/tyj/public/vendor/unify/css/style.css">
@@ -43,6 +43,12 @@
         div.tab-blue li.active a{
             border-top: solid 2px #3498db;
         }
+        #menu a:hover{
+            text-decoration:none;
+        }
+        #menu ul a:hover{
+            background-color:#72c02c;
+        }
      </style>
 </head>
 <body>
@@ -51,17 +57,24 @@
 <div class="top">
     <div class="container">
         <ul class="loginbar unstyled pull-right">
-            <?php if(is_login()): if(user_field('type') == 0): ?><li><a href="<?php echo U('Admin/Index/index');?>">您好:<?php echo user_field('nickname');?></a></li>
-                    <li class="topbar-devider"></li>
-                    <li><a href="<?php echo U('Admin/Index/index');?>" target="_blank">后台管理</a></li>
-                <?php else: ?>
-                    <li><a href="<?php echo U('Person/index');?>">您好:<?php echo user_field('nickname');?></a></li>
-                    <li class="topbar-devider"></li>
-                    <li><a href="<?php echo U('Admin/Index/index');?>">个人中心</a></li><?php endif; ?>
+            <?php if(is_login()): $__MENU__ = get_user_menu(); ?>
+                <li>您好:<?php echo user_field('nickname');?></li>
                 <li class="topbar-devider"></li>
-                <li><a href="<?php echo U('logout');?>">注销</a></li><?php endif; ?>
+                <li id="menu"  class="dropdown" style="padding-bottom:0px">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">
+                        <span class="glyphicon glyphicon-align-left" style="font-size: 16px; color:#72c02c"></span>
+                    </a>
+                    <ul class="pull-right dropdown-menu dropdown-caret dropdown-yellow" style="margin:0px">
+                        <?php if(is_array($__MENU__["main"])): $i = 0; $__LIST__ = $__MENU__["main"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$menu): $mod = ($i % 2 );++$i;?><li><a href="<?php echo U($menu['module'].'/'.$menu['url']);?>"><?php echo ($menu["title"]); ?></a></li><?php endforeach; endif; else: echo "" ;endif; ?>
+                    </ul>
+                </li>
+                <li class="topbar-devider"></li>
+                <li><a href="<?php echo U('logout');?>">注销</a></li>
+            <?php else: ?>
+                <li><a href="<?php echo U('login');?>">登陆</a></li><?php endif; ?>
         </ul>
     </div>
+    <hr style="margin: 0;margin-top:5px;"/>
 </div><!--/top-->
 <!--=== End Top ===-->
 
@@ -195,11 +208,6 @@
         <?php $_result=get_link('a-3',4,7);if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a target="_blank" href="<?php echo ($info["url"]); ?>"><?php echo ($info["name"]); ?></a></li><?php endforeach; endif; else: echo "" ;endif; ?>
     </ul>
 </div>
-<!--合作单位-->
-<div class="headline"><h2><?php echo CC('LINK_GROUP','p-3');?></h2></div>
-<ul class="list-unstyled blog-photos margin-bottom-30">
-    <?php $_result=get_link('p-3');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li><a target="_blank" href="<?php echo ($info["url"]); ?>"><img  style="height: 50px;width: 102px" class="hover-effect" alt="<?php echo ($info["name"]); ?>" src="<?php echo ($info["picture"]); ?>"></a></li><?php endforeach; endif; else: echo "" ;endif; ?>
-</ul>
 <!--外部链接-->
 <div class="headline"><h2><?php echo CC('LINK_GROUP','t-1');?></h2></div>
 <div class="row">

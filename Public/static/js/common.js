@@ -1,5 +1,11 @@
 //dom加载完成后执行的js
 $(function(){
+    $(".winopen").click(function(){
+        var url = $(this).data('url');
+        var height = $(this).data('height');
+        var width = $(this).data('width');
+        winopen(url,width?width:500,height?height:600);
+    });
     //全选的实现
 	$(".check-all").click(function(){
 		$(".ids").prop("checked", this.checked);
