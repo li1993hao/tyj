@@ -834,7 +834,7 @@ function content_url($list,$fun){
             }
             if(!empty($v['link'])){ //外链
                 if('http://' === substr($v['link'], 0, 7)){
-                    $list[$k]['url'] = ['url'];
+                    $list[$k]['url'] = $v['url'];
                 }else if('www' === substr($v['link'], 0, 3)){
                     $list[$k]['url'] = ('http://'.$v['link']);
                 }else{
